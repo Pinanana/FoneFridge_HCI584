@@ -1,25 +1,25 @@
 ﻿title,type,notify (days),expiration (days)
-juice,bewerage,3,60
-beef,meat,3,5
-liver,meat,3,5
-chicken,meat,1,2
-salmon,seafood,1,2
-shrimp,seafood,2,3
-milk,dairy&eggs,5,7
-egg,dairy&eggs,5,30
-yogurt,dairy&eggs,5,30
-strawberry,fruits,1,3
-cucumber,fruits,3,7
-tomato,fruits,3,7
-potato,root vegetables,5,7
-onion,root vegetables,5,7
-lettuce,vegetables,3,7
-chocolate,snacks,2,360
-bread,bakery,2,15
-sardines,canned,2,4
-beans,canned,2,4
-mayonnaise,dressings,10,60
-rice,grains,2,4
-pizza,boxed meal,2,4
-sauerkraut,pickle,5,90
-dried basil,herbs&spices,10,600
+juice,Bewerage,3,60
+beef,Meat,3,5
+liver,Meat,3,5
+chicken,Meat,1,2
+salmon,Seafood,1,2
+shrimp,Seafood,2,3
+milk,Dairy_Eggs,5,7
+egg,Dairy_Eggs,5,30
+yogurt,Dairy_Eggs,5,30
+strawberry,Fruits,1,3
+cucumber,Fruits,3,7
+tomato,Fruits,3,7
+potato,Root_Vegetables,5,7
+onion,Root_Vegetables,5,7
+lettuce,Vegetables,3,7
+chocolate,Snacks,2,360
+bread,Bakery,2,15
+sardines,Canned,2,4
+beans,Canned,2,4
+mayonnaise,Dressings,10,60
+rice,Grains,2,4
+pizza,Boxed_Meal,2,4
+sauerkraut,Pickles,5,90
+dried basil,Herbs_Spices,10,600
