@@ -1,0 +1,58 @@
+<mxfile>
+    <diagram id="or8RY17Jt7biQMSlsx3D" name="types">
+        <mxGraphModel dx="863" dy="658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;FOOD&amp;nbsp;&lt;/font&gt;&lt;/b&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="40" width="185" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Bewerage&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Meat&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Seafood&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Dairy_Eggs&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Fruits&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Root_Vegetables&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Vegetables&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="920" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Snacks&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1070" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Bakery&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1220" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Canned&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1370" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Dressings&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1520" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Grains&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1670" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Boxed_Meal&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1820" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Pickles&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="1970" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Herbs_Spices&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;br&gt;name (string)&lt;br&gt;amount (number)&lt;br&gt;entry date (time?)&lt;br&gt;expiration (number)&lt;br&gt;notification date (time?)" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="2120" y="290" width="140" height="130" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
