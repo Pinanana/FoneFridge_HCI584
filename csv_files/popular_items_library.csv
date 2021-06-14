@@ -1,0 +1,25 @@
+﻿title,type,if cooked,notify (days),expiration (days)
+juice,bewerage,None,3,
+beef,meat,raw,3,5
+liver,meat,raw,3,5
+chicken,meat,cooked,1,2
+salmon,seafood,raw,1,2
+shrimp,seafood,cooked,2,3
+milk,dairy&eggs,pasteurized,5,7
+egg,dairy&eggs,pasteurized,5,30
+yogurt,dairy&eggs,fermented,5,30
+strawberry,fruits,raw,1,3
+cucumber,fruits,raw,3,7
+tomato,fruits,raw,3,7
+potato,root vegetables,raw,5,7
+onion,root vegetables,raw,5,7
+lettuce,vegetables,raw,3,7
+chocolate,snacks,None,2,360
+bread,bakery,cooked,2,15
+sardines,canned,None,2,4
+beans,canned,None,2,4
+mayonnaise,dressings,None,10,60
+rice,grains,cooked,2,4
+pizza,boxed meal,cooked,2,4
+sauerkraut,pickle,fermented,5,90
+dried basil,herbs&spices,None,10,600
