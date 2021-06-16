@@ -1,5 +1,5 @@
 ﻿title,type,notify (days),expiration (days)
-juice,Bewerage,3,60
+juice,Beverage,3,60
 beef,Meat,3,5
 liver,Meat,3,5
 chicken,Meat,1,2
@@ -23,3 +23,4 @@ rice,Grains,2,4
 pizza,Boxed_Meal,2,4
 sauerkraut,Pickles,5,90
 dried basil,Herbs_Spices,10,600
+beef,xxxx,3,5
