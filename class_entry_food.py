@@ -1,6 +1,6 @@
 import pandas as pd 
 import datetime
-import class_food as cf
+from class_food import *
 
 df = pd.read_csv("popular_items_library.csv")
 #name = input("search foods from popular items library:")
@@ -15,7 +15,7 @@ if len(item_info) > 0:
     item_info = item_info.loc[0]
 
 
-class Entry_Food(cf.Food):
+class Entry_Food(Food):
     def __init__(self, name, amount):
 
         self.name = name
