@@ -19,3 +19,4 @@ I also created the DB for the popular items library as a .csv file (in csv_files
 I put out the types in the block_organization.drawio file. 
 I opened the .csv file but couldn't figure out how to grab a specific row. I tried query and loc but didn't work
 The saving problem is still a problem. I made a naming algorithm but getting the data is still a mystery for me.
+
