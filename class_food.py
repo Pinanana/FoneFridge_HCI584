@@ -40,5 +40,5 @@ class Food(object):
         return "Notification is set to {} days before expiration.".format(self.notifyd)
 
 
-#print(Food.display_food(Food(name)))
+#print(Food.display_notify(Food(name)))
 
