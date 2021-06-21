@@ -47,20 +47,31 @@ class Fonefridge(object):
 
 
         #text entry slot
-        self.entry_name = Entry(master, width=50)
+        self.entry_name = Entry(self.frame_bottom_left, width=50)
         self.entry_name.pack(padx=10, pady=5)
-
-        #self.name = StringVar()    #IntVar() & DoubleVar()      self.entry_name.get(command=Store_name)
 
         self.search_button = Button(self.frame_bottom_left, text="Search", command=self.display_item)
         self.search_button.pack(padx=10, pady=5)
 
-        self.result = Label(self.frame_bottom_right, bd=1, relief="sunken", justify="left", bg="#BE796D", font="roboto 11")
-        self.result.pack(padx=10, pady=5, ipadx=5, ipady=5)
+        #printing results:
+        self.result = Label(self.frame_bottom_right, justify="left", bg="#BE796D", font="roboto 15")
+        self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
+
+        self.result2 = Label(self.frame_bottom_right, justify="left", bg="#BE796D", font="roboto 11")
+        self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
+
+        self.result3 = Label(self.frame_bottom_right, justify="left", bg="#BE796D", font="roboto 11")
+        self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
+
+        self.result4 = Label(self.frame_bottom_right, justify="left", bg="#BE796D", font="roboto 11")
+        self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
 
     def display_item(self):
-        name = Food(self.entry_name.get())
-        self.result.config(text="Here is the result for"+self.name.get()+":\n\n"+Food.display_food(name)+"\n"+Food.display_expire(name))+"\n"+Food.display_notify(name)+"\n"
+        self.result.config(text="Here is the result for "+self.entry_name.get()+":")
+        self.result2.config(text=Food.display_food(Food(self.entry_name.get())))
+        self.result3.config(text=Food.display_expire(Food(self.entry_name.get())))
+        self.result4.config(text=Food.display_notify(Food(self.entry_name.get())))
+    
 
 
     #def Store_name(self):
