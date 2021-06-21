@@ -2,7 +2,7 @@ import pandas as pd
 
 df = pd.read_csv("popular_items_library.csv")
 #name = input("search foods from popular items library:")
-name = "strawberry"
+#name = "strawberry"
 
 item_info = df.query("title == @name")
 
@@ -22,7 +22,13 @@ class Food(object):
         self.expired = item_info[3]
     
     def display_food(self):
-        return "The {} is a type of {}. It will expire in {} days after the entry date. The notification will be sent {} days before the expiration date.".format(self.name, self.typef, self.expired, self.notifyd)
+        return "The {} is a type of {}.".format(self.name, self.typef, self.expired)
+    
+    def display_expire(self):
+        return "It will expire in {} days after the entry date.".format(self.expired)
+
+    def display_notify(self):
+        return "The notification will be sent {} days before the expiration date.".format(self.notifyd)
 
 food_i = Food(name)
 #print(Food.display_food(food_i))

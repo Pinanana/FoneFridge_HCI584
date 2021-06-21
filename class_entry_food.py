@@ -4,7 +4,7 @@ from class_food import *
 
 df = pd.read_csv("popular_items_library.csv")
 #name = input("search foods from popular items library:")
-name = "strawberry"
+#name = "strawberry"
 
 item_info = df.query("title == @name")
 
