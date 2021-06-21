@@ -44,6 +44,6 @@ amount = 5
 
 
 food_itemm = Entry_Food(name, amount)
-print(Entry_Food.display_food_entry(food_itemm))
-print(Entry_Food.expiration_date(food_itemm))
-print(Entry_Food.notification_date(food_itemm))
+#print(Entry_Food.display_food_entry(food_itemm))
+#print(Entry_Food.expiration_date(food_itemm))
+#print(Entry_Food.notification_date(food_itemm))

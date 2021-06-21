@@ -25,5 +25,5 @@ class Food(object):
         return "The {} is a type of {}. It will expire in {} days after the entry date. The notification will be sent {} days before the expiration date.".format(self.name, self.typef, self.expired, self.notifyd)
 
 food_i = Food(name)
-print(Food.display_food(food_i))
+#print(Food.display_food(food_i))
 
