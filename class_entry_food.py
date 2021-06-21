@@ -39,13 +39,16 @@ class Entry_Food(Food):
         self.notificationd = self.expirationd - datetime.timedelta(days=int(item_info["notify (days)"]))
 
     def display_food_entry(self):
-        return "{} {} {} {} {} {}".format(self.name, self.typef, self.amount, self.today, self.expirationd, self.notificationd)
+        return "Item name: {}\nType: {}\nServings: {}\nEntry Date: {}\nExpiration Day: {}\nNotification Date: {}".format(self.name, self.typef, self.amount, self.today, self.expirationd, self.notificationd)
 
     def expiration_date(self):
         return "Your item will expire on {}".format(self.expirationd)
 
     def notification_date(self):
         return "You will get a notification on {}".format(self.notificationd)
+
+    def notification_message(self):
+        return "WARNING!\nThe {} will expire soon ({}).\nYou have {} servings left.".format(self.name, self.expirationd, self.amount)
 
 
 #get this value from user
