@@ -22,7 +22,7 @@ class Food(object):
         self.expired = item_info[3]
     
     def display_food(self):
-        return "The {} is a type of {}.".format(self.name, self.typef, self.expired)
+        return "The {} is a type of {}.".format(self.name, self.typef)
     
     def display_expire(self):
         return "It will expire in {} days after the entry date.".format(self.expired)
