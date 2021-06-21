@@ -6,7 +6,7 @@ from tkcalendar import *
 from class_food import *
 from class_entry_food import *
 
-#app
+
 
 master = Tk()
 master.title(FoneFrid)
@@ -30,7 +30,7 @@ class Fonefridge(object):
         self.frame_bottom_left.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.4)
 
         #bottom right frame
-        self.frame_bottom_right = Frame(master, bg= "#BE796D")
+        self.frame_bottom_right = Frame(master, bg="#BE796D")
         self.frame_bottom_right.place(relx=0.42, rely=0.12, relheight=0.87, relwidth=0.57)
 
         #TITLES:
@@ -38,25 +38,26 @@ class Fonefridge(object):
         self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
         self.title.pack(pady=14)
 
-        #food name
+        #food name search title-Search the name of your item:
         self.title = Label(self.frame_bottom_left, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
-        self.title.pack(pady=14)
+        self.title.pack(pady=5)
 
 
 
 
         #text entry slot
         self.entry_name = Entry(master, textvariable=self.name, width=50)
-        self.entry_name.pack(padx=50, pady=20)
+        self.entry_name.pack(padx=10, pady=5)
 
         self.name = StringVar()    #IntVar() & DoubleVar()      self.entry_name.get(command=Store_name)
 
-        self.search_button = Button(self.frame_bottom_left, text="Search", command=self.Display-item)
-        self.search_button.pack(padx=70, pady=20)
+        self.search_button = Button(self.frame_bottom_left, text="Search", command=self.display_item)
+        self.search_button.pack(padx=10, pady=5)
 
-    def Display_item(self):
-        print("results for", self.name, ":")
-        return Food.display_food(Food(self.name))
+        self.result = Label(self.frame_bottom_right, text="Here is the result for"+self.name.get()+":\n\n"+Food.display_food(Food(name))+"\n"+Food.display_expire(Food(name)))+"\n"+Food.display_notify(Food(name)), bd=1, relief="sunken", justify="left", bg="#BE796D", font="roboto 11")
+        self.result.pack(padx=10, pady=5, ipadx=5, ipady=5)
+
+   
 
     #def Store_name(self):
         #name = return self.name
