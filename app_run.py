@@ -18,7 +18,7 @@ class Fonefridge(object):
     def __init__(self, master):
       
         app_frame = Frame(master)
-        app_frame.pack()
+        app_frame.pack() #geometry CHECK GUI LECTURE
 
         #visual part(no function):
         #AREAS:
