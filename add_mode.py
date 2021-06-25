@@ -40,12 +40,6 @@ class Add(Fonefridge):
         self.frame_bottom = Frame(master, bg="#BE796D")
         self.frame_bottom.place(relx=0.01, rely=0.44, relheight=0.43, relwidth=0.98)
 
-        # EDIT MODE DESIGN
-
-        #edit frame
-        self.frame_edit = Frame(master, bg="#C2D7D0")
-        self.frame_edit.place(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
-
 
         #food name search title-Search the name of your item:
         self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
@@ -55,27 +49,46 @@ class Add(Fonefridge):
 
 
         #TYPE SELECT:
-        food_types = df["types"]
+        self.food_type_list = self.df["types"]
 
-        self.food_type = StringVar(frame_bottom_left)
-        self.food_type.set("Please select food type")
+        self.type_entry = StringVar(self.frame_middle)
+        self.type_entry.set("Please select type")
 
-        self.food_type_dropdown = OptionMenu(frame_bottom_left, food_type, food_type_list, command=generate_item_dropdown) 
-        self.food_type_dropdown.pack(padx=5, pady=5, side=TOP)
+        self.food_type_dropdown = OptionMenu(self.frame_middle, self.type_entry, self.food_type_list, command=generate_item_dropdown) 
+        self.food_type_dropdown.pack(padx=5, pady=5, side=LEFT)
+
+        #ITEM SELECT:
         
+        self.entry_name = StringVar(self.frame_middle)
+        self.entry_name.set("Please select type first")
 
-        
+        self.food_names_dropdown = OptionMenu(self.frame_middle, self.entry_name, self.food_items_list) 
+        self.food_names_dropdown.pack(padx=5, pady=5, side=LEFT)
+
+
+        #SERVINGS SELECT:
+        self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        self.servings_entry = StringVar(self.frame_middle)
+        self.servings_entry.set("Please select servings count")
+
+        self.servings_dropdown = OptionMenu(self.frame_middle, self.servings_entry, self.servings_list)
+        self.servings_dropdown.pack(padx=5, pady=5, side=LEFT)
+
+        #selecting servings will trigger this:
+
+        if self.servings_entry != "Please select servings count" and self.entry_name != "Please select name" and 
         #printing results:
-        self.result = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 15")
+        self.result = Label(self.frame_middle, justify="left", bg="#BE796D", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
 
-        self.result2 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
+        self.result2 = Label(self.frame_middle, justify="left", bg="#BE796D", font="roboto 11")
         self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
 
-        self.result3 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
+        self.result3 = Label(self.frame_middle, justify="left", bg="#BE796D", font="roboto 11")
         self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
 
-        self.result4 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
+        self.result4 = Label(self.frame_middle, justify="left", bg="#BE796D", font="roboto 11")
         self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
 
 
@@ -97,14 +110,32 @@ class Add(Fonefridge):
 
     def generate_item_dropdown(self):
 
+        self.items = self.df.query("type == @type_entry")
+        self.food_names_list = self.items["title"]
+        self.entry_name.set("Please select name")
+
+    
+
     def save_item(self):
+        
+t = res["type"]
+a = 3
+today = datetime.datetime.today().date()
+print(today)
+expire = datetime.timedelta(days=int(res["expiration (days)"]))
+notify = datetime.timedelta(days=int(res["notify (days)"]))
+
+new_row = {"title":f, "type":t, "amount":a, "entry date":today, "notify (days)": today + expire - notify, "expiration (days)": today + expire}
+df_user = df_user.append(new_row, ignore_index=True)
+
+display(df_user)
+
 
     def erase_all(self):
 
 
-
-    #def Store_name(self):
-        #name = return self.name
+    #my items display:
+    
 
 #print(name)
 
