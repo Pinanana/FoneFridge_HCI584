@@ -1,4 +1,4 @@
-﻿title,type,notify (days),expiration (days)
+﻿title,types,notify (days),expiration (days)
 orange juice,Beverage,3,60
 iced tea,Beverage,2,10
 beef,Meat,3,5
