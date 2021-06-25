@@ -33,16 +33,35 @@ class Fonefridge(object):
 
         #sides:
         #modes
+        self.add_mode = PhotoImage(file="toggle/add.png")
+        self.edit_mode = PhotoImage(file="toggle/edit.png")
+
+        self.add_button = Button(master, image=self.add_mode)
+        self.add_button.pack(padx=5, pady=5, side=RIGHT, bd=0, command=switch_toggle)
+
+        #button variable:
+        global is_add
+        is_add = true
+
 
         #calendar
-        self.entry_date = DateEntry(self.frame_top, width= 120, height= 120, background= "#FCF0E4", foreground= "#576566", borderwidth= 1, locale= "de_DE")
+        self.entry_date = DateEntry(self.frame_top, width= 50, height= 50, background= "#FCF0E4", foreground= "#576566", locale= "de_DE")
         self.entry_date._top_cal.overrideredirect(False)
         self.entry_date.pack(padx=5, pady=5, side=LEFT)
 
         #changing place:
         self.frame_change = Frame(master)
         self.frame_change.pack(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
+        
 
+        def switch_toggle(self):
+            global is_add
+            if is_add == True:
+                self.add_button.config(image=self.edit_mode)
+                is_add = False
+            else:
+                self.add_button.config(image=self.add_mode)
+                is_add = True
 
 
 
