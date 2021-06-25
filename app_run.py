@@ -16,7 +16,8 @@ canvas.pack()
 
 class Fonefridge(object):
     def __init__(self, master):
-      
+        self.df = pd.read_csv("popular_items_library.csv")
+        
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
 
@@ -46,12 +47,23 @@ class Fonefridge(object):
 
 
 
-        #text entry slot
-        self.entry_name = Entry(self.frame_middle, width=50)
-        self.entry_name.pack(padx=10, pady=5)
+        #TYPE SELECT:
+        food_types = df["types"]
 
-        self.search_button = Button(self.frame_middle, text="Search", command=self.display_item)
-        self.search_button.pack(padx=10, pady=5)
+        self.food_type = StringVar(frame_bottom_left)
+        self.food_type.set("Please select food type")
+
+        self.food_type_dropdown = OptionMenu(frame_bottom_left, food_type, food_type_list, command=generate_item_dropdown) 
+        self.food_type_dropdown.pack(padx=5, pady=5, side=TOP)
+        
+        #SAVE button:
+        self.save_button = Button(self.frame_middle, text="SAVE", command=self.save_item)
+        self.save_button.pack(padx=10, pady=5)
+
+        #DISCARD button:
+        self.discard_button = Button(self.frame_middle, text="DISCARD", command=self.erase_all)
+        self.discard_button.pack(padx=10, pady=5)
+
 
         #printing results:
         self.result = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 15")
@@ -71,7 +83,13 @@ class Fonefridge(object):
         self.result2.config(text=Food.display_food(Food(self.entry_name.get())))
         self.result3.config(text=Food.display_expire(Food(self.entry_name.get())))
         self.result4.config(text=Food.display_notify(Food(self.entry_name.get())))
-    
+
+    def generate_item_dropdown(self):
+
+    def save_item(self):
+
+    def erase_all(self):
+
 
 
     #def Store_name(self):
