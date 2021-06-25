@@ -22,7 +22,7 @@ class Fonefridge(object):
 
         #visual part(no function):
         #AREAS:
-        #top frame
+        #title frame
         self.frame_top = Frame(master, bg="#A9B6BE")
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
 
