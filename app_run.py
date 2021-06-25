@@ -16,17 +16,13 @@ canvas.pack()
 
 class Fonefridge(object):
     def __init__(self, master):
-        self.df = pd.read_csv("popular_items_library.csv")
-        
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
 
         #visual part(no function):
-
         #top title frame
         self.frame_top = Frame(master, bg="#A9B6BE")
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
-
         #main title-FONEFRIDGE
         self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
         self.title.pack(pady=14)
@@ -38,7 +34,10 @@ class Fonefridge(object):
 
         #button variable:
         global is_add
-        is_add = true
+        is_add = True
+
+        self.add_button = Button(self.frame_top, image=self.add_mode)
+        self.add_button.pack(padx=5, pady=5, side=RIGHT, bd=0)
 
         #toggle def
         def switch_toggle(self):
@@ -50,12 +49,7 @@ class Fonefridge(object):
                 self.add_button.config(image=self.add_mode)
                 is_add = True
 
-
-
-        self.add_button = Button(master, image=self.add_mode)
-        self.add_button.pack(padx=5, pady=5, side=RIGHT, bd=0, command=switch_toggle)
-
-        
+        self.add_button.config(command=switch_toggle)
 
 
         # CALENDAR--------
