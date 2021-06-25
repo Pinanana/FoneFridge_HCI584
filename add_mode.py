@@ -1,3 +1,4 @@
+from app_run import Fonefridge
 from os import name
 import pandas as pd 
 import datetime
@@ -14,7 +15,7 @@ master.title("FoneFridge")
 canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
-class Fonefridge(object):
+class Add(Fonefridge):
     def __init__(self, master):
         self.df = pd.read_csv("popular_items_library.csv")
         
@@ -45,10 +46,6 @@ class Fonefridge(object):
         self.frame_edit = Frame(master, bg="#C2D7D0")
         self.frame_edit.place(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
 
-        #TITLES:
-        #main title-FONEFRIDGE
-        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
-        self.title.pack(pady=14)
 
         #food name search title-Search the name of your item:
         self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")

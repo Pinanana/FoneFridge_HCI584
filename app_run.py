@@ -27,8 +27,21 @@ class Fonefridge(object):
         self.frame_top = Frame(master, bg="#A9B6BE")
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
 
+        #main title-FONEFRIDGE
+        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
+        self.title.pack(pady=14)
+
         #sides:
-        #mode
+        #modes
+
+        #calendar
+        self.entry_date = DateEntry(self.frame_top, width= 120, height= 120, background= "#FCF0E4", foreground= "#576566", borderwidth= 1, locale= "de_DE")
+        self.entry_date._top_cal.overrideredirect(False)
+        self.entry_date.pack(padx=5, pady=5, side=LEFT)
+
+        #changing place:
+        self.frame_change = Frame(master)
+        self.frame_change.pack(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
 
 
 
