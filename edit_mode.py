@@ -24,7 +24,7 @@ class Edit(Fonefridge):
 
         #edit frame
         self.frame_edit = Frame(master, bg="#C2D7D0")
-        self.frame_edit.place(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
+        self.frame_edit.place()
 
         #TITLES:
 
@@ -32,8 +32,6 @@ class Edit(Fonefridge):
         #food name search title-Search the name of your item:
         self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
         self.title.pack(pady=5)
-
-
 
 
         #TYPE SELECT:
@@ -46,42 +44,6 @@ class Edit(Fonefridge):
         self.food_type_dropdown.pack(padx=5, pady=5, side=TOP)
         
 
-        
-        #printing results:
-        self.result = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 15")
-        self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
-
-        self.result2 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
-        self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
-
-        self.result3 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
-        self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
-
-        self.result4 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
-        self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
-
-
-        #SAVE button:
-        self.save_button = Button(self.frame_middle, text="SAVE", command=self.save_item)
-        self.save_button.pack(padx=10, pady=5)
-
-        #DISCARD button:
-        self.discard_button = Button(self.frame_middle, text="DISCARD", command=self.erase_all)
-        self.discard_button.pack(padx=10, pady=5)
-
-
-
-    def display_item(self):
-        self.result.config(text="Here is the result for "+self.entry_name.get()+":")
-        self.result2.config(text=Food.display_food(Food(self.entry_name.get())))
-        self.result3.config(text=Food.display_expire(Food(self.entry_name.get())))
-        self.result4.config(text=Food.display_notify(Food(self.entry_name.get())))
-
-    def generate_item_dropdown(self):
-
-    def save_item(self):
-
-    def erase_all(self):
 
 
 
