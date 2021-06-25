@@ -23,17 +23,27 @@ class Fonefridge(object):
 
         #visual part(no function):
         #AREAS:
+
         #top title frame
         self.frame_top = Frame(master, bg="#A9B6BE")
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
 
+
+        # ADD MODE DESIGN
+
         #middle frame 
         self.frame_middle = Frame(master, bg="#E9BFA7")
-        self.frame_middle.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.4)
+        self.frame_middle.place(relx=0.01, rely=0.01, relheight=0.43, relwidth=0.98)
 
         #bottom frame
         self.frame_bottom = Frame(master, bg="#BE796D")
-        self.frame_bottom.place(relx=0.42, rely=0.12, relheight=0.87, relwidth=0.57)
+        self.frame_bottom.place(relx=0.01, rely=0.44, relheight=0.43, relwidth=0.98)
+
+        # EDIT MODE DESIGN
+
+        #edit frame
+        self.frame_edit = Frame(master, bg="#C2D7D0")
+        self.frame_edit.place(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
 
         #TITLES:
         #main title-FONEFRIDGE
@@ -56,15 +66,8 @@ class Fonefridge(object):
         self.food_type_dropdown = OptionMenu(frame_bottom_left, food_type, food_type_list, command=generate_item_dropdown) 
         self.food_type_dropdown.pack(padx=5, pady=5, side=TOP)
         
-        #SAVE button:
-        self.save_button = Button(self.frame_middle, text="SAVE", command=self.save_item)
-        self.save_button.pack(padx=10, pady=5)
 
-        #DISCARD button:
-        self.discard_button = Button(self.frame_middle, text="DISCARD", command=self.erase_all)
-        self.discard_button.pack(padx=10, pady=5)
-
-
+        
         #printing results:
         self.result = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
@@ -77,6 +80,17 @@ class Fonefridge(object):
 
         self.result4 = Label(self.frame_bottom, justify="left", bg="#BE796D", font="roboto 11")
         self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
+
+
+        #SAVE button:
+        self.save_button = Button(self.frame_middle, text="SAVE", command=self.save_item)
+        self.save_button.pack(padx=10, pady=5)
+
+        #DISCARD button:
+        self.discard_button = Button(self.frame_middle, text="DISCARD", command=self.erase_all)
+        self.discard_button.pack(padx=10, pady=5)
+
+
 
     def display_item(self):
         self.result.config(text="Here is the result for "+self.entry_name.get()+":")
