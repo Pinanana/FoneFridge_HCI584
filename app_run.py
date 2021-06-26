@@ -14,7 +14,7 @@ master.title("FoneFridge")
 canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
-class Fonefridge(object):
+class Fonefridge(Frame):
     def __init__(self, master):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
@@ -36,22 +36,10 @@ class Fonefridge(object):
         global is_add
         is_add = True
 
-        self.add_button = Button(self.frame_top, image=self.add_mode)
-        self.add_button.pack(padx=5, pady=5, side=RIGHT, bd=0)
+        self.add_button = Button(self.frame_top, image=self.add_mode, command=switch_toggle)
+        self.add_button.pack(padx=5, pady=5, side=RIGHT)
 
-        #toggle def
-        def switch_toggle(self):
-            global is_add
-            if is_add == True:
-                self.add_button.config(image=self.edit_mode)
-                is_add = False
-            else:
-                self.add_button.config(image=self.add_mode)
-                is_add = True
-
-        self.add_button.config(command=switch_toggle)
-
-
+        
         # CALENDAR--------
         self.entry_date = DateEntry(self.frame_top, width= 50, height= 50, background= "#FCF0E4", foreground= "#576566", locale= "de_DE")
         self.entry_date._top_cal.overrideredirect(False)
@@ -61,7 +49,14 @@ class Fonefridge(object):
         self.frame_change = Frame(master)
         self.frame_change.pack(relx=0.01, rely=0.01, relheight=0.87, relwidth=0.98)
         
-
+    def switch_toggle(self):
+        global is_add
+        if is_add == True:
+            self.add_button.config(image=self.edit_mode)
+            is_add = False
+        else:
+            self.add_button.config(image=self.add_mode)
+            is_add = True
         
 
 e = Fonefridge(master)

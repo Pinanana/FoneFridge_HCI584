@@ -15,30 +15,22 @@ master.title("FoneFridge")
 canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
-class Add(Fonefridge):
+class Add(Frame):
     def __init__(self, master):
         self.df = pd.read_csv("popular_items_library.csv")
+        self.df_user = pd.read_csv("user_items.csv")
         
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
 
-        #visual part(no function):
-        #AREAS:
-
-        #top title frame
-        self.frame_top = Frame(master, bg="#A9B6BE")
-        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
-
-
-        # ADD MODE DESIGN
-
+        # ADD MODE
         #middle frame 
         self.frame_middle = Frame(master, bg="#E9BFA7")
-        self.frame_middle.place(relx=0.01, rely=0.01, relheight=0.43, relwidth=0.98)
+        self.frame_middle.place(relx=0.01, rely=0.01, relheight=0.49, relwidth=0.98)
 
         #bottom frame
         self.frame_bottom = Frame(master, bg="#BE796D")
-        self.frame_bottom.place(relx=0.01, rely=0.44, relheight=0.43, relwidth=0.98)
+        self.frame_bottom.place(relx=0.01, rely=0.5, relheight=0.49, relwidth=0.98)
 
 
         #food name search title-Search the name of your item:
@@ -58,7 +50,6 @@ class Add(Fonefridge):
         self.food_type_dropdown.pack(padx=5, pady=5, side=LEFT)
 
         #ITEM SELECT:
-        
         self.entry_name = StringVar(self.frame_middle)
         self.entry_name.set("Please select type first")
 
@@ -78,6 +69,7 @@ class Add(Fonefridge):
         #selecting servings will trigger this:
 
         if self.servings_entry != "Please select servings count" and self.entry_name != "Please select name" and 
+        
         #printing results:
         self.result = Label(self.frame_middle, justify="left", bg="#BE796D", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
@@ -117,28 +109,22 @@ class Add(Fonefridge):
     
 
     def save_item(self):
-        
-t = res["type"]
-a = 3
-today = datetime.datetime.today().date()
-print(today)
-expire = datetime.timedelta(days=int(res["expiration (days)"]))
-notify = datetime.timedelta(days=int(res["notify (days)"]))
+        self.expire = self.entry_date + datetime.timedelta(days=int(res["expiration (days)"]))
+        self.notify = self.expire - datetime.timedelta(days=int(res["notify (days)"]))
+        self.new_row = {"title":self.entry_name, "type":self.type_entry, "amount":self.servings_entry, "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
 
-new_row = {"title":f, "type":t, "amount":a, "entry date":today, "notify (days)": today + expire - notify, "expiration (days)": today + expire}
-df_user = df_user.append(new_row, ignore_index=True)
+        self.df_user = self.df_user.append(self.new_row, ignore_index=True)
 
-display(df_user)
 
 
     def erase_all(self):
 
 
     #my items display:
+    #sort from the most recent.
     
 
 #print(name)
 
 e = Fonefridge(master)
-
 master.mainloop()
