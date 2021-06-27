@@ -68,13 +68,21 @@ class Fonefridge(object):
         
 
     def calendar_entry(self):
-        pop_up = Toplevel(master)
-        date_label = Label(pop_up, text='Choose date')
-        date_label.pack(padx=10, pady=10)
+        self.pop_up = Toplevel(master)
 
-        entry_date = DateEntry(pop_up, width= 50, height= 50, background= "#A9B6BE", foreground= "#576566", locale= "de_DE")
-        entry_date._top_cal.overrideredirect(False)
-        entry_date.pack(padx=10, pady=10)
+        self.date_label = Label(self.pop_up, text='Choose date')
+        self.date_label.pack(padx=10, pady=10)
+
+        self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
+        self.entry_cal.pack(padx=10, pady=10)
+
+        self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
+        self.ok_button.pack(padx=10, pady=10)
+    
+    def calendar_get(self):
+        self.entry_date = self.entry_cal.get_date()
+        print(self.entry_date)
+        self.pop_up.destroy()
 
     #def notification_trigger(self):
 
@@ -82,3 +90,4 @@ class Fonefridge(object):
 e = Fonefridge(master)
 
 master.mainloop()
+print()
