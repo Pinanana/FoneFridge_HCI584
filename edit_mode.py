@@ -33,12 +33,12 @@ class Edit(Frame):
 
 
         #TYPE SELECT:
-        food_types = df["types"]
+        self.food_types = self.df["types"]
 
-        self.food_type = StringVar(frame_bottom_left)
+        self.food_type = StringVar(self.frame_edit)
         self.food_type.set("Please select food type")
 
-        self.food_type_dropdown = OptionMenu(frame_bottom_left, food_type, food_type_list, command=generate_item_dropdown) 
+        self.food_type_dropdown = OptionMenu(frame_bottom_left, food_type, food_type_list, command=self.generate_item_dropdown) 
         self.food_type_dropdown.pack(padx=5, pady=5, side=TOP)
         
 

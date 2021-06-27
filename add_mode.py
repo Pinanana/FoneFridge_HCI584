@@ -46,7 +46,7 @@ class Add(Frame):
         self.type_entry = StringVar(self.frame_middle)
         self.type_entry.set("Please select type")
 
-        self.food_type_dropdown = OptionMenu(self.frame_middle, self.type_entry, self.food_type_list, command=generate_item_dropdown) 
+        self.food_type_dropdown = OptionMenu(self.frame_middle, self.type_entry, self.food_type_list, command=self.generate_item_dropdown) 
         self.food_type_dropdown.pack(padx=5, pady=5, side=LEFT)
 
         #ITEM SELECT:
