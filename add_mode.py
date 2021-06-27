@@ -17,13 +17,14 @@ canvas.pack()
 
 class Add(Frame):
     def __init__(self, master):
-        self.df = pd.read_csv("popular_items_library.csv")
-        self.df_user = pd.read_csv("user_items.csv")
-        
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
 
-        # ADD MODE
+        #visual part(no function):
+        #top title frame
+        self.frame_top = Frame(master, bg="#A9B6BE")
+        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
+
         #middle frame 
         self.frame_middle = Frame(master, bg="#E9BFA7")
         self.frame_middle.place(relx=0.01, rely=0.01, relheight=0.49, relwidth=0.98)
@@ -31,6 +32,19 @@ class Add(Frame):
         #bottom frame
         self.frame_bottom = Frame(master, bg="#BE796D")
         self.frame_bottom.place(relx=0.01, rely=0.5, relheight=0.49, relwidth=0.98)
+
+
+        #main title-FONEFRIDGE
+        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
+        self.title.pack(pady=14)
+
+
+        #read .csv files here:
+        self.df = pd.read_csv("popular_items_library.csv")
+        self.df_user = pd.read_csv("user_items.csv")
+        
+
+        # ADD MODE
 
 
         #food name search title-Search the name of your item:
@@ -109,8 +123,9 @@ class Add(Frame):
     
 
     def save_item(self):
-        self.expire = self.entry_date + datetime.timedelta(days=int(res["expiration (days)"]))
-        self.notify = self.expire - datetime.timedelta(days=int(res["notify (days)"]))
+        
+        self.expire = self.entry_date + datetime.timedelta(days=int(self.df["expiration (days)"]))
+        self.notify = self.expire - datetime.timedelta(days=int(self.df["notify (days)"]))
         self.new_row = {"title":self.entry_name, "type":self.type_entry, "amount":self.servings_entry, "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
 
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)

@@ -17,14 +17,31 @@ canvas.pack()
 
 class Edit(Frame):
     def __init__(self, master):
+        app_frame = Frame(master)
+        app_frame.pack() #geometry CHECK GUI LECTURE
+
+        #visual part(no function):
+        #top title frame
+        self.frame_top = Frame(master, bg="#A9B6BE")
+        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
+
+        #changing BOTTOM frame:
+        self.frame_edit = Frame(master, bg="#C2D7D0")
+        self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.98)
+
+
+
+        #main title-FONEFRIDGE
+        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
+        self.title.pack(pady=14)
+
+
+        #read .csv files here:
         self.df = pd.read_csv("popular_items_library.csv")
         self.df_user = pd.read_csv("user_items.csv")
+        
 
         # EDIT MODE DESIGN
-
-        #edit frame
-        self.frame_edit = Frame(master, bg="#C2D7D0")
-        self.frame_edit.place()
 
         #TITLES:
         #food name search title-Search the name of your item:
