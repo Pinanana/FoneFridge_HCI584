@@ -123,7 +123,6 @@ class Add(Frame):
     
 
     def save_item(self):
-        
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df["expiration (days)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df["notify (days)"]))
         self.new_row = {"title":self.entry_name, "type":self.type_entry, "amount":self.servings_entry, "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
