@@ -90,6 +90,8 @@ class Fonefridge(object):
         self.expi = self.df_user["expiration (days)"]
         self.noti = self.df_user["notify (days)"]
 
+        self.notify_items = self.df_user.query("notify (days) <= @self.entry_date")
+
 
 
         if self.noti <= self.entry_date <= self.expi:
