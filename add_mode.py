@@ -82,7 +82,7 @@ class Add(Frame):
 
         #selecting servings will trigger this:
 
-        if self.servings_entry != "Please select servings count" and self.entry_name != "Please select name" and 
+        #if self.servings_entry != "Please select servings count" and self.entry_name != "Please select name" and 
         
         #printing results:
         self.result = Label(self.frame_middle, justify="left", bg="#BE796D", font="roboto 15")
@@ -123,8 +123,8 @@ class Add(Frame):
     
 
     def save_item(self):
-        self.expire = self.entry_date + datetime.timedelta(days=int(self.df["expiration (days)"]))
-        self.notify = self.expire - datetime.timedelta(days=int(self.df["notify (days)"]))
+        self.expire = self.entry_date + datetime.timedelta(days=int(self.df["expiration (d)"]))
+        self.notify = self.expire - datetime.timedelta(days=int(self.df["notify (d)"]))
         self.new_row = {"title":self.entry_name, "type":self.type_entry, "amount":self.servings_entry, "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
 
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)

@@ -48,7 +48,7 @@ class Entry_Food(Food):
         return "You will get a notification on {}".format(self.notificationd)
 
     def notification_message(self):
-        return "WARNING!\nThe {} will expire soon ({}).\nYou have {} servings left.".format(self.name, self.expirationd, self.amount)
+        return "The {} will expire soon ({}).\nYou have {} servings left.".format(self.name, self.expirationd, self.amount)
 
 
 #get this value from user
