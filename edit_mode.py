@@ -15,7 +15,7 @@ master.title("FoneFridge")
 canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
-class Edit(Frame):
+class Edit(Fonefridge):
     def __init__(self, master):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE

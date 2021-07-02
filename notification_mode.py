@@ -1,3 +1,4 @@
+from app_run import Fonefridge
 from os import name
 import pandas as pd 
 import datetime
@@ -14,7 +15,7 @@ master.title("FoneFridge")
 canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
-class Fonefridge(object):
+class Notification(Fonefridge):
     def __init__(self, master):
         self.df = pd.read_csv("popular_items_library.csv")
         self.df_user = pd.read_csv("user_items.csv")
