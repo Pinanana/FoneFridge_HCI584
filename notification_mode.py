@@ -58,7 +58,7 @@ class Fonefridge(object):
         if self.is_add == True:  #add mode triggers!!
             self.add_button.config(image=self.edit_mode)
             self.is_add = False
-        else:                   #edit mode triggers!!------------------------------------------------DOESN'T GO BACK WTF!!
+        else:                   #edit mode triggers!!
             self.add_button.config(image=self.add_mode)
             self.is_add = True
         
@@ -80,6 +80,27 @@ class Fonefridge(object):
         print(self.entry_date)
         self.notification_trigger()
         self.pop_up.destroy()
+
+    def notification_trigger(self):
+        self.expi = self.df_user["expiration (days)"] 
+        self.noti = self.df_user["notify (days)"]
+
+        self.notify_items = self.df_user.query("notify (days) <= @self.entry_date")
+
+
+        if self.noti <= self.entry_date <= self.expi:
+            self.frame_warning = Frame(master, bg="#BE796D")
+            self.frame_warning.place(relx=0.05, rely=0.05, relheight=0.95, relwidth=0.95)
+
+            self.noti_title = Label(self.frame_warning, text="WARNING", font="roboto 22")
+            self.noti_title.pack(padx=10, pady=10)
+
+            self.notification_text = Text(self.frame_warning, bg="#BE796D", font="roboto 15", height=200, width=450 bd=0)
+            self.notification_text.pack(padx=10, pady=10)
+            self.notification_text.insert(END, Entry_Food.notification_message(Entry_food(self.NAMEEEEEEEEE)))
+
+
+
 
 e = Fonefridge(master)
 
