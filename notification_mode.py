@@ -32,8 +32,6 @@ class Notification(Fonefridge):
         self.frame_change = Frame(master, bg="#E9BFA7")
         self.frame_change.place(relx=0.01, rely=0.08, relheight=0.91, relwidth=0.98)
 
-
-
         # MODES--------
         self.add_mode = PhotoImage(file="toggle/add.png")
         self.edit_mode = PhotoImage(file="toggle/edit.png")
