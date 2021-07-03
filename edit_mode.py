@@ -1,9 +1,10 @@
-from app_run import Fonefridge
+
 from os import name
 import pandas as pd 
 import datetime
 from tkinter import * 
 from tkcalendar import *
+import tksheet
 
 from class_food import Food
 from class_entry_food import Entry_Food
@@ -15,7 +16,7 @@ master.title("FoneFridge")
 canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
-class Edit(Fonefridge):
+class Edit(object):
     def __init__(self, master):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
@@ -26,15 +27,12 @@ class Edit(Fonefridge):
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
 
         #changing BOTTOM frame:
-        self.frame_edit = Frame(master, bg="#C2D7D0")
+        self.frame_edit = Frame(master, bg="#576566")
         self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.98)
-
-
 
         #main title-FONEFRIDGE
         self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
         self.title.pack(pady=14)
-
 
         #read .csv files here:
         self.df = pd.read_csv("popular_items_library.csv")
@@ -45,19 +43,15 @@ class Edit(Fonefridge):
 
         #TITLES:
         #food name search title-Search the name of your item:
-        self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
-        self.title.pack(pady=5)
+        self.title = Label(self.frame_edit, bg="#576566", text= "INVENTORY", font="roboto 15")
+        self.title.place(relx=0.5, rely=0.01, anchor="n")
 
 
-        #TYPE SELECT:
-        self.food_types = self.df["types"]
+        self.user_inventory = tksheet.Sheet(self.frame_edit, data=self.df_user, height=500, width=700)
+        self.user_inventory.place(relx=0.5, rely=0.1, anchor="n")
+        self.user_inventory.enable_bindings(("single_select", "row_select", "column_width_resize", "arrowkeys", "right_click_popup_menu", "rc_select", "rc_insert_row", "rc_delete_row", "copy", "cut", "paste", "delete", "undo", "edit_cell"))
 
-        self.food_type = StringVar(self.frame_edit)
-        self.food_type.set("Please select food type")
-
-        self.food_type_dropdown = OptionMenu(frame_bottom_left, food_type, food_type_list, command=self.generate_item_dropdown) 
-        self.food_type_dropdown.pack(padx=5, pady=5, side=TOP)
-        
+        self.user_inventory.highlight_rows(rows=[0], bg="#C2D7D0", fg=None, highlight_index=True, redraw=False)
 
 
 
@@ -67,6 +61,6 @@ class Edit(Fonefridge):
 
 #print(name)
 
-e = Fonefridge(master)
+e = Edit(master)
 
 master.mainloop()
