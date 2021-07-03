@@ -1,4 +1,5 @@
 from os import name
+from tkinter.ttk import Treeview
 import pandas as pd 
 import datetime
 from tkinter import * 
@@ -44,11 +45,15 @@ class Display_items(object):
         self.title_inventory.place(relx=0.03)
 
         #showing the table w tksheet:
-        self.user_inventory = tksheet.Sheet(self.frame_bottom, data=self.df_user, height=360, width=730)
-        self.user_inventory.place(relx=0.01, rely=0.1)
-        self.user_inventory.enable_bindings(("single_select", "row_select", "column_width_resize", "arrowkeys", "right_click_popup_menu", "rc_select", "rc_insert_row", "rc_delete_row", "copy", "cut", "paste", "delete", "undo", "edit_cell"))
+        #self.user_inventory = tksheet.Sheet(self.frame_bottom, data=self.df_user, height=360, width=730)
+        #self.user_inventory.place(relx=0.01, rely=0.1)
+        #self.user_inventory.enable_bindings(("single_select", "row_select", "column_width_resize", "arrowkeys", "right_click_popup_menu", "rc_select", "rc_insert_row", "rc_delete_row", "copy", "cut", "paste", "delete", "undo", "edit_cell"))
 
-        self.user_inventory.highlight_rows(rows=[0], bg="#C2D7D0", fg=None, highlight_index=True, redraw=False)
+        #self.user_inventory.highlight_rows(rows=[0], bg="#C2D7D0", fg=None, highlight_index=True, redraw=False)
+
+        
+        #showing the table w treeview:
+        self.user_inventory = Treeview(self.frame_bottom, columns=)
 
 
 
