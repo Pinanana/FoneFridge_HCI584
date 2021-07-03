@@ -4,7 +4,7 @@ import pandas as pd
 import datetime
 from tkinter import * 
 from tkcalendar import *
-import tksheet
+from tksheet import *
 
 from class_food import Food
 from class_entry_food import Entry_Food
@@ -45,19 +45,17 @@ class Display_items(object):
         self.title_inventory.place(relx=0.03)
 
         #showing the table w tksheet:
-        #self.user_inventory = tksheet.Sheet(self.frame_bottom, data=self.df_user, height=360, width=730)
-        #self.user_inventory.place(relx=0.01, rely=0.1)
+        #self.user_inventory = Sheet(self.frame_bottom, data=self.df_user, height=300, width=700, frame_bg="#FCF0E4")#, show_header=True, show_y_scrollbar=True)
+        #self.user_inventory.place(relx=0.5, rely=0.1, anchor="n")
         #self.user_inventory.enable_bindings(("single_select", "row_select", "column_width_resize", "arrowkeys", "right_click_popup_menu", "rc_select", "rc_insert_row", "rc_delete_row", "copy", "cut", "paste", "delete", "undo", "edit_cell"))
 
         #self.user_inventory.highlight_rows(rows=[0], bg="#C2D7D0", fg=None, highlight_index=True, redraw=False)
 
+        #w treeview:
+        self.user_inventory = Treeview(self.frame_bottom, columns=self.df_user.columns, show="headings" )
         
-        #showing the table w treeview:
-        self.user_inventory = Treeview(self.frame_bottom, columns=)
 
-
-
-
+        
 e = Display_items(master)
 
 master.mainloop()
