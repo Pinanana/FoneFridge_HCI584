@@ -53,8 +53,6 @@ class Add(object):
         #food name search title--------Search the name of your item:
         self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
         self.title.place(relx=0.03)
-
-
         #search variables' frame
         self.frame_vars = Frame(self.frame_middle, bg="#FCF0E4")
         self.frame_vars.place(relx=0.01, rely=0.1, relheight=0.2, relwidth=0.98)
@@ -68,14 +66,12 @@ class Add(object):
         self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown) 
         self.food_type_dropdown.place(relx=0.05, rely=0.3)
 
-
         #ITEM SELECT:
         self.entry_name = StringVar(self.frame_vars)
         self.entry_name.set("Please select type first")
         
         self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
         self.food_names_dropdown.place(relx=0.3, rely=0.3)
-
 
         #SERVINGS SELECT:
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -102,7 +98,6 @@ class Add(object):
         self.result4 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
         self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
 
-
         #SAVE button:
         self.save_button = Button(self.frame_middle, text="SAVE", command=self.save_item)
         self.save_button.place(relx=0.35, rely=0.9)
@@ -110,6 +105,16 @@ class Add(object):
         #DISCARD button:
         self.discard_button = Button(self.frame_middle, text="DISCARD", command=self.erase_all)
         self.discard_button.place(relx=0.55, rely=0.9)
+
+        #------------------------------------------------------------------------------------
+        #Display user item inventory:
+        self.title_inventory = Label(self.frame_bottom, bg="#BE796D", text= "Your inventory:", font="roboto 15")
+        self.title_inventory.place(relx=0.03)
+
+        #showing the table w pandas:
+        
+
+
 
 
     def display_item(self):
