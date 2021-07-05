@@ -41,8 +41,8 @@ class Display_items(object):
 
         #------------------------------------------------------------------------------------
         #Display user item inventory:
-        self.title_inventory = Label(self.frame_bottom, bg="#BE796D", text= "Your inventory:", font="roboto 15")
-        self.title_inventory.place(relx=0.03)
+        self.title_inventory = Label(self.frame_bottom, bg="#BE796D", text= "YOUR ITEMS", font="roboto 15")
+        self.title_inventory.place(relx=0.5, anchor="n")
 
         #showing the table w tksheet:
         #self.user_inventory = Sheet(self.frame_bottom, data=self.df_user, height=300, width=700, frame_bg="#FCF0E4")#, show_header=True, show_y_scrollbar=True)
@@ -53,7 +53,8 @@ class Display_items(object):
 
         #w treeview:
         self.user_inventory = Treeview(self.frame_bottom, columns=self.df_user.columns, show="headings" )
-        
+        self.user_inventory.place(rely=)
+        #for column in 
 
         
 e = Display_items(master)
