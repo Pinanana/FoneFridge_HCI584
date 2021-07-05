@@ -58,9 +58,21 @@ class Display_items(object):
         self.user_inventory["column"] = list(self.df_user.columns)
         self.user_inventory["show"] = "headings"
 
-        for column in self.user_inventory["columns"]:
-            self.user_inventory.heading(column, text=column.upper(), anchor="w")
-            self.user_inventory.column(column, width=118)
+        self.user_inventory.column("#0", width=0)
+        self.user_inventory.column("title", width=97)
+        self.user_inventory.column("type", width=97)
+        self.user_inventory.column("amount", width=97)
+        self.user_inventory.column("entry date", width=140)
+        self.user_inventory.column("notify (days)", width=140)
+        self.user_inventory.column("expiration (days)", width=140)
+
+        self.user_inventory.heading("#0", text="")
+        self.user_inventory.heading("title", text="TITLE", anchor="w")
+        self.user_inventory.heading("type", text="TYPE", anchor="w")
+        self.user_inventory.heading("amount", text="SERVINGS", anchor="w")
+        self.user_inventory.heading("entry date", text="ENTRY DATE", anchor="w")
+        self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
+        self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
 
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
