@@ -52,8 +52,25 @@ class Display_items(object):
         #self.user_inventory.highlight_rows(rows=[0], bg="#C2D7D0", fg=None, highlight_index=True, redraw=False)
 
         #w treeview:
-        self.user_inventory = Treeview(self.frame_bottom, columns=self.df_user.columns, show="headings" )
-        self.user_inventory.place(rely=)
+        self.user_inventory = Treeview(self.frame_bottom)
+        self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
+
+        self.user_inventory["column"] = list(self.df_user.columns)
+        self.user_inventory["show"] = "headings"
+
+        for column in self.user_inventory["columns"]:
+            self.user_inventory.heading(column, text=column.upper(), anchor="w")
+            self.user_inventory.column(column, width=118)
+
+        self.df_user_rows = self.df_user.to_numpy().tolist()
+        for row in self.df_user_rows:
+            self.user_inventory.insert("", "end", values=row)
+
+        self.inv_scroll = Scrollbar(self.frame_bottom, orient=VERTICAL, command=self.user_inventory.yview)
+        self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
+        self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
+
+
         #for column in 
 
         
