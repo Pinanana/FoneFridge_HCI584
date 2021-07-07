@@ -47,7 +47,7 @@ class Edit(object):
         self.title.place(relx=0.5, rely=0.01, anchor="n")
 
 
-        self.user_inventory_edit = tksheet.Sheet(self.frame_edit, data=self.df_user, height=500, width=700)
+        self.user_inventory_edit = tksheet.Sheet(self.frame_edit, data=self.df_user, height=570, width=700)
         self.user_inventory_edit.place(relx=0.5, rely=0.1, anchor="n")
         self.user_inventory_edit.enable_bindings(("single_select", "row_select", "column_width_resize", "arrowkeys", "right_click_popup_menu", "rc_select", "rc_insert_row", "rc_delete_row", "copy", "cut", "paste", "delete", "undo", "edit_cell"))
 
