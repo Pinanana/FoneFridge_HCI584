@@ -25,41 +25,28 @@ class Fonefridge(object):
         #visual part(no function):
         #top title frame
         self.frame_top = Frame(master, bg="#A9B6BE")
-        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.06, relwidth=0.98)
-
-        #changing BOTTOM frame:
-        self.frame_change = Frame(master, bg="#E9BFA7")
-        self.frame_change.place(relx=0.01, rely=0.08, relheight=0.91, relwidth=0.98)
-
-
-
-        # MODES--------
-        self.add_mode = PhotoImage(file="toggle/add.png")
-        self.edit_mode = PhotoImage(file="toggle/edit.png")
-        self.date_image = PhotoImage(file="toggle/date.png")
-        
-        #button variable:
-        self.add_button = Button(self.frame_top, image=self.add_mode, bg="#A9B6BE", bd=0,command=self.change_image)
-        self.add_button.grid(column=0, row=0, ipadx=5)
+        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.056, relwidth=0.98)
 
         # MAIN title-FONEFRIDGE------------
         self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
-        self.title.grid(column=1, row=0, ipadx=175)
+        self.title.grid(column=1, row=0, ipadx=151)
 
-        
+        # MODES--------
+        #button variable:
+        self.add_button = Button(self.frame_top, width=10, text="ADD MODE", font="roboto 15", bg="#A9B6BE",command=self.change_label)
+        self.add_button.grid(column=0, row=0, ipadx=5)
+
         # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, image=self.date_image, bg="#A9B6BE", bd=0, command=self.calendar_entry)
+        self.calendar_button = Button(self.frame_top, width=10, text="CALENDAR", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
         self.calendar_button.grid(column=2, row=0, ipadx=5)
         
-        
-    def change_image(self):
+    def change_label(self):
         self.is_add = True
-
         if self.is_add == True:  #add mode triggers!!
-            self.add_button.config(image=self.edit_mode)
+            self.add_button.config(text="EDIT MODE", font="roboto 15")
             self.is_add = False
         else:                   #edit mode triggers!!------------------------------------------------DOESN'T GO BACK WTF!!
-            self.add_button.config(image=self.add_mode)
+            self.add_button.config(text="ADD MODE", font="roboto 15")
             self.is_add = True
         
     # calendar pop-up window def here
