@@ -30,9 +30,6 @@ class Edit(object):
         self.frame_edit = Frame(master, bg="#576566")
         self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.98)
 
-        #main title-FONEFRIDGE
-        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
-        self.title.pack(pady=14)
 
         #read .csv files here:
         self.df = pd.read_csv("popular_items_library.csv")
@@ -84,12 +81,11 @@ class Edit(object):
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
-        self.servings_drop = OptionMenu()
+        #self.servings_drop = OptionMenu()
 
         #serving dropdowns:
-        for serv in self.df_user["amount"]:
-            
-            pass
+        #for serv in self.df_user["amount"]:
+
 
     def delete_button(self):
         self.pop_up_del = Toplevel(master)
@@ -111,6 +107,7 @@ class Edit(object):
         self.pop_up_del.destroy()
 
     def change_amount(self):
+        pass
 
 
 
