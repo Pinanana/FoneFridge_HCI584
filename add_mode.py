@@ -1,5 +1,6 @@
 
 from os import name
+from tkinter.ttk import Combobox, Style, Treeview
 import pandas as pd 
 import datetime
 from tkinter import * 
@@ -48,7 +49,8 @@ class Add(object):
         self.type_entry = StringVar(self.frame_vars)
         self.type_entry.set("Please select type")
 
-        self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown) 
+        #self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown)
+        self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list, )
         self.food_type_dropdown.place(relx=0.2, rely=0.3, relwidth=0.27, anchor="n")
 
         #ITEM SELECT:
@@ -74,13 +76,13 @@ class Add(object):
         self.frame_results = Frame(self.frame_middle, bg="#BE796D")
         self.frame_results.place(relx=0.05, rely=0.35, relheight=0.45, relwidth=0.9)
 
-        self.result = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 15")
+        self.result = Label(self.frame_results, text="Here is the result for "+self.entry_name.get()+":", justify="left", bg="#BE796D", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
-        self.result2 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
+        self.result2 = Label(self.frame_results, text=Food.display_food(Food(self.entry_name.get())), justify="left", bg="#BE796D", font="roboto 11")
         self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
-        self.result3 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
+        self.result3 = Label(self.frame_results, text=Food.display_expire(Food(self.entry_name.get())), justify="left", bg="#BE796D", font="roboto 11")
         self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
-        self.result4 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
+        self.result4 = Label(self.frame_results, text=Food.display_notify(Food(self.entry_name.get())), justify="left", bg="#BE796D", font="roboto 11")
         self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
 
         #SAVE button:
@@ -93,12 +95,6 @@ class Add(object):
 
         #------------------------------------------------------------------------------------
 
-
-    def display_item(self):
-        self.result.config(text="Here is the result for "+self.entry_name.get()+":")
-        self.result2.config(text=Food.display_food(Food(self.entry_name.get())))
-        self.result3.config(text=Food.display_expire(Food(self.entry_name.get())))
-        self.result4.config(text=Food.display_notify(Food(self.entry_name.get())))
 
     def generate_item_dropdown(self, Event):
         #ITEM SELECT:
