@@ -41,11 +41,11 @@ class Add(object):
         self.title.place(relx=0.03)
         #search variables' frame
         self.frame_vars = Frame(self.frame_middle, bg="#FCF0E4")
-        self.frame_vars.place(relx=0.01, rely=0.1, relheight=0.2, relwidth=0.98)
+        self.frame_vars.place(relx=0.01, rely=0.1, relheight=0.28, relwidth=0.98)
 
         #TYPE SELECT:
         self.type_label = Label(self.frame_vars, text="Select type:" ,bg="#FCF0E4", font="roboto 11")
-        self.type_label.place(relx=0.2, rely=0.1, relwidth=0.27, anchor="n")
+        self.type_label.place(relx=0.2, rely=0.05, relwidth=0.27, anchor="n")
 
         #making sure types show 1 time
         self.food_types = list(self.df["types"])
@@ -56,35 +56,36 @@ class Add(object):
 
         #self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown)
         self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list)
-        self.food_type_dropdown.place(relx=0.2, rely=0.4, relwidth=0.27, anchor="n")
+        self.food_type_dropdown.place(relx=0.2, rely=0.3, relwidth=0.27, anchor="n")
 
         #bind:
         self.food_type_dropdown.bind("<<ComboboxSelected>>", self.generate_item_dropdown)
 
         #ITEM SELECT:
         self.item_label = Label(self.frame_vars, text="Select item:" ,bg="#FCF0E4", font="roboto 11")
-        self.item_label.place(relx=0.5, rely=0.1, relwidth=0.27, anchor="n")
+        self.item_label.place(relx=0.5, rely=0.05, relwidth=0.27, anchor="n")
         
         #self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
         self.food_names_dropdown = Combobox(self.frame_vars, value=[" "])
-        self.food_names_dropdown.place(relx=0.5, rely=0.4, relwidth=0.27, anchor="n")
+        self.food_names_dropdown.place(relx=0.5, rely=0.3, relwidth=0.27, anchor="n")
 
         #SERVINGS SELECT:
         self.serv_label = Label(self.frame_vars, text="Servings amount:" ,bg="#FCF0E4", font="roboto 11")
-        self.serv_label.place(relx=0.8, rely=0.1, relwidth=0.27, anchor="n")
+        self.serv_label.place(relx=0.8, rely=0.05, relwidth=0.27, anchor="n")
 
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         #self.servings_dropdown = OptionMenu(self.frame_vars, self.servings_entry, *self.servings_list)
         self.servings_dropdown = Combobox(self.frame_vars, value=self.servings_list)
-        self.servings_dropdown.place(relx=0.8, rely=0.4, relwidth=0.27, anchor="n")
+        self.servings_dropdown.place(relx=0.8, rely=0.3, relwidth=0.27, anchor="n")
 
-        #selecting servings will trigger this:
-        #if self.servings_entry != "Please select servings count" and self.entry_name != "Please select name" and 
+        #preview:
+        self.preview_button = Button(self.frame_vars, text="PREVIEW SELECTED ITEM", command=self.show_the_item)
+        self.preview_button.place(relx=0.5, rely=0.65, anchor="n")
         
         #printing results:
         self.frame_results = Frame(self.frame_middle, bg="#BE796D")
-        self.frame_results.place(relx=0.05, rely=0.35, relheight=0.45, relwidth=0.9)
+        self.frame_results.place(relx=0.01, rely=0.4, relheight=0.45, relwidth=0.98)
 
         self.result = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
