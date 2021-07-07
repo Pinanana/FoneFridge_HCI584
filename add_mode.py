@@ -44,30 +44,40 @@ class Add(object):
         self.frame_vars.place(relx=0.01, rely=0.1, relheight=0.2, relwidth=0.98)
 
         #TYPE SELECT:
-        self.food_type_list = set(self.df["types"])
+        self.type_label = Label(self.frame_vars, text="Select type:" ,bg="#FCF0E4", font="roboto 11")
+        self.type_label.place(relx=0.2, rely=0.1, relwidth=0.27, anchor="n")
 
-        self.type_entry = StringVar(self.frame_vars)
-        self.type_entry.set("Please select type")
+        #making sure types show 1 time
+        self.food_types = list(self.df["types"])
+        self.food_type_list = []
+        for i in self.food_types:
+            if i not in self.food_type_list:
+                self.food_type_list.append(i)
 
         #self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown)
-        self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list, )
-        self.food_type_dropdown.place(relx=0.2, rely=0.3, relwidth=0.27, anchor="n")
+        self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list)
+        self.food_type_dropdown.place(relx=0.2, rely=0.4, relwidth=0.27, anchor="n")
+
+        #bind:
+        self.food_type_dropdown.bind("<<ComboboxSelected>>", self.generate_item_dropdown)
 
         #ITEM SELECT:
-        self.entry_name = StringVar(self.frame_vars)
-        self.entry_name.set("Please select type first")
+        self.item_label = Label(self.frame_vars, text="Select item:" ,bg="#FCF0E4", font="roboto 11")
+        self.item_label.place(relx=0.5, rely=0.1, relwidth=0.27, anchor="n")
         
-        self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
-        self.food_names_dropdown.place(relx=0.5, rely=0.3, relwidth=0.27, anchor="n")
+        #self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
+        self.food_names_dropdown = Combobox(self.frame_vars, value=[" "])
+        self.food_names_dropdown.place(relx=0.5, rely=0.4, relwidth=0.27, anchor="n")
 
         #SERVINGS SELECT:
+        self.serv_label = Label(self.frame_vars, text="Servings amount:" ,bg="#FCF0E4", font="roboto 11")
+        self.serv_label.place(relx=0.8, rely=0.1, relwidth=0.27, anchor="n")
+
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        self.servings_entry = StringVar(self.frame_vars)
-        self.servings_entry.set("Please select servings count")
-
-        self.servings_dropdown = OptionMenu(self.frame_vars, self.servings_entry, *self.servings_list)
-        self.servings_dropdown.place(relx=0.8, rely=0.3, relwidth=0.27, anchor="n")
+        #self.servings_dropdown = OptionMenu(self.frame_vars, self.servings_entry, *self.servings_list)
+        self.servings_dropdown = Combobox(self.frame_vars, value=self.servings_list)
+        self.servings_dropdown.place(relx=0.8, rely=0.4, relwidth=0.27, anchor="n")
 
         #selecting servings will trigger this:
         #if self.servings_entry != "Please select servings count" and self.entry_name != "Please select name" and 
@@ -76,13 +86,13 @@ class Add(object):
         self.frame_results = Frame(self.frame_middle, bg="#BE796D")
         self.frame_results.place(relx=0.05, rely=0.35, relheight=0.45, relwidth=0.9)
 
-        self.result = Label(self.frame_results, text="Here is the result for "+self.entry_name.get()+":", justify="left", bg="#BE796D", font="roboto 15")
+        self.result = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
-        self.result2 = Label(self.frame_results, text=Food.display_food(Food(self.entry_name.get())), justify="left", bg="#BE796D", font="roboto 11")
+        self.result2 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
         self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
-        self.result3 = Label(self.frame_results, text=Food.display_expire(Food(self.entry_name.get())), justify="left", bg="#BE796D", font="roboto 11")
+        self.result3 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
         self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
-        self.result4 = Label(self.frame_results, text=Food.display_notify(Food(self.entry_name.get())), justify="left", bg="#BE796D", font="roboto 11")
+        self.result4 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
         self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
 
         #SAVE button:
@@ -95,13 +105,17 @@ class Add(object):
 
         #------------------------------------------------------------------------------------
 
+    def show_the_item(self):
+        self.result.configure(text="Here is the result for "+self.entry_name.get()+":")
+        self.result2.configure(text=Food.display_food(Food(self.entry_name.get())))
+        self.result3.configure(text=Food.display_expire(Food(self.entry_name.get())))
+        self.result4.configure(text=Food.display_notify(Food(self.entry_name.get())))
 
-    def generate_item_dropdown(self, Event):
-        #ITEM SELECT:
-        self.type_entry_query = self.food_names_list[self.type_entry.get()]
-        self.items = self.df.query("types == @self.type_entry_query")
-        self.food_names_list = set(self.items["title"])
-        self.food_names_dropdown.config(self.frame_vars, self.entry_name, *self.food_items_list) 
+
+    def generate_item_dropdown(self, e):
+        self.items_df = self.df.query("types == @self.food_type_dropdown.get()")
+        self.food_names_list = list(self.items_df["title"])
+        self.food_names_dropdown.config(value=self.food_names_list) 
       
 
     def save_item(self):
