@@ -107,10 +107,10 @@ class Add(object):
         #------------------------------------------------------------------------------------
 
     def show_the_item(self):
-        self.result.configure(text="Here is the result for "+self.entry_name.get()+":")
-        self.result2.configure(text=Food.display_food(Food(self.entry_name.get())))
-        self.result3.configure(text=Food.display_expire(Food(self.entry_name.get())))
-        self.result4.configure(text=Food.display_notify(Food(self.entry_name.get())))
+        self.result.configure(text="Here is the result for "+self.food_names_dropdown.get()+":")
+        self.result2.configure(text=Food.display_food(Food(self.food_names_dropdown.get())))
+        self.result3.configure(text=Food.display_expire(Food(self.food_names_dropdown.get())))
+        self.result4.configure(text=Food.display_notify(Food(self.food_names_dropdown.get())))
 
 
     def generate_item_dropdown(self, e):
@@ -122,7 +122,7 @@ class Add(object):
     def save_item(self):
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df["expiration (d)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df["notify (d)"]))
-        self.new_row = {"title":self.entry_name, "type":self.type_entry, "amount":self.servings_entry, "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
+        self.new_row = {"title":self.food_names_dropdown.get(), "type":self.food_type_dropdown.get(), "amount":self.servings_dropdown.get(), "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
 
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
 
