@@ -23,63 +23,6 @@ class Notification(Fonefridge):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
 
-        #visual part(no function):
-        #top title frame
-        self.frame_top = Frame(master, bg="#A9B6BE")
-        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.06, relwidth=0.98)
-
-        #changing BOTTOM frame:
-        self.frame_change = Frame(master, bg="#E9BFA7")
-        self.frame_change.place(relx=0.01, rely=0.08, relheight=0.91, relwidth=0.98)
-
-        # MODES--------
-        self.add_mode = PhotoImage(file="toggle/add.png")
-        self.edit_mode = PhotoImage(file="toggle/edit.png")
-        self.date_image = PhotoImage(file="toggle/date.png")
-        
-        #button variable:
-        self.add_button = Button(self.frame_top, image=self.add_mode, bg="#A9B6BE", bd=0,command=self.change_image)
-        self.add_button.grid(column=0, row=0, ipadx=5)
-
-        # MAIN title-FONEFRIDGE------------
-        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
-        self.title.grid(column=1, row=0, ipadx=175)
-
-        
-        # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, image=self.date_image, bg="#A9B6BE", bd=0, command=self.calendar_entry)
-        self.calendar_button.grid(column=2, row=0, ipadx=5)
-        
-        
-    def change_image(self):
-        self.is_add = True
-
-        if self.is_add == True:  #add mode triggers!!
-            self.add_button.config(image=self.edit_mode)
-            self.is_add = False
-        else:                   #edit mode triggers!!
-            self.add_button.config(image=self.add_mode)
-            self.is_add = True
-        
-    # calendar pop-up window def here
-    def calendar_entry(self):  
-        self.pop_up = Toplevel(master)
-
-        self.date_label = Label(self.pop_up, text="Choose date", font="roboto 12")
-        self.date_label.pack(padx=10, pady=10)
-
-        self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
-        self.entry_cal.pack(padx=10, pady=10)
-
-        self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
-        self.ok_button.pack(padx=10, pady=10)
-    
-    def calendar_get(self):
-        self.entry_date = self.entry_cal.get_date()   #========================ENTRY DATE VARIABLE self.entry_date
-        print(self.entry_date)
-        self.notification_trigger()
-        self.pop_up.destroy()
-
     def notification_trigger(self):
         self.expi = self.df_user["expiration (days)"] 
         self.noti = self.df_user["notify (days)"]
