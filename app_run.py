@@ -35,17 +35,17 @@ class Fonefridge(object):
         #button variable:
         self.add_button = Button(self.frame_top, width=10, text="ADD MODE", font="roboto 15", bg="#A9B6BE",command=self.change_label)
         self.add_button.grid(column=0, row=0, ipadx=5)
+        self.is_add = True
 
         # CALENDAR--------
         self.calendar_button = Button(self.frame_top, width=10, text="CALENDAR", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
         self.calendar_button.grid(column=2, row=0, ipadx=5)
         
     def change_label(self):
-        self.is_add = True
         if self.is_add == True:  #add mode triggers!!
             self.add_button.config(text="EDIT MODE", font="roboto 15")
             self.is_add = False
-        else:                   #edit mode triggers!!------------------------------------------------DOESN'T GO BACK WTF!!
+        else:                   #edit mode triggers!!
             self.add_button.config(text="ADD MODE", font="roboto 15")
             self.is_add = True
         
@@ -65,7 +65,7 @@ class Fonefridge(object):
     def calendar_get(self):
         self.entry_date = self.entry_cal.get_date()   #========================ENTRY DATE VARIABLE self.entry_date
         print(self.entry_date)
-        self.notification_trigger()
+        #self.notification_trigger() =========================NOTIFICATION TRIGGER THINGY
         self.pop_up.destroy()
 
 e = Fonefridge(master)
