@@ -135,6 +135,7 @@ class Edit(object):
         self.df_user.drop(index=self.selected_index, inplace=True)
 
     def change_amount_incsv(self):
+        #.loc[row_index, "amount"] #gets the cell to change
         pass
 
 
