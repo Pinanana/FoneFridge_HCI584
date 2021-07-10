@@ -22,9 +22,6 @@ class Add(object):
         app_frame.pack() #geometry CHECK GUI LECTURE
 
         #visual part(no function):
-        #top title frame
-        self.frame_top = Frame(master, bg="#A9B6BE")
-        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.06, relwidth=0.98)
 
         #middle frame
         self.frame_middle = Frame(master, bg="#E9BFA7")
@@ -127,9 +124,9 @@ class Add(object):
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
 
     def erase_all(self):
-        self.food_type_dropdown.set()
-        self.food_names_dropdown.set()
-        self.servings_dropdown.set()
+        self.food_type_dropdown.set("")
+        self.food_names_dropdown.set("")
+        self.servings_dropdown.set("")
 
 #print(name)
 
