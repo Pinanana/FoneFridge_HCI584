@@ -1,5 +1,6 @@
 from tkinter.ttk import Style, Treeview
 from os import name
+from numpy import result_type
 import pandas as pd 
 import datetime
 from tkinter import * 
@@ -87,27 +88,64 @@ class Edit(object):
         #for serv in self.df_user["amount"]:
 
 
+        #serving change and delete pop up???
+        self.user_inventory.bind("<Double-1>", self.edit_pop_up)
+
+    def edit_pop_up(self, e):
+        self.pop_up_edit = Toplevel(master)
+        self.pop_up_edit.geometry("300x50")
+
+        self.delete_but = Button (self.pop_up_edit, text="DELETE", command=self.delete_button)
+        self.delete_but.place(relx=0.01, rely=0.5, relwidth=0.4, anchor="w")
+
+        self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        self.serv_drop = OptionMenu(self.pop_up_edit, *self.servings_list)
+        self.serv_drop.place(relx=0.5, rely=0.5, relwidth=0.1, anchor=CENTER)
+
+        self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount)
+        self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.4, anchor="e")
+
+
     def delete_button(self):
         self.pop_up_del = Toplevel(master)
+        self.pop_up_del.geometry("400x50")
 
         self.del_label = Label(self.pop_up_del, text="Are you sure you want to delete this item?", font="roboto 12")
         self.del_label.place(relx=0.5, rely=0.01, anchor="n")
 
-        self.del_button = Button(self.pop_up_del, text="DELETE", bd=0, command=self.delete_item)
-        self.del_button.place(relx=0.4, rely=0.1, anchor="n")
+        self.del_button = Button(self.pop_up_del, text="DELETE", command=self.delete_item)
+        self.del_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_del, text="KEEP", bd=0, command=self.dest_pop)
-        self.keep_button.place(relx=0.6, rely=0.1, anchor="n")
+        self.keep_button = Button(self.pop_up_del, text="KEEP", command=self.dest_pop)
+        self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
+    def change_amount(self):
+        self.pop_up_amount = Toplevel(master)
+        self.pop_up_amount.geometry("400x50")
+
+        self.del_label = Label(self.pop_up_amount, text="Are you sure you want to change servings amount?", font="roboto 12")
+        self.del_label.place(relx=0.5, rely=0.01, anchor="n")
+
+        self.del_button = Button(self.pop_up_amount, text="CHANGE", command=self.change_amount_incsv)
+        self.del_button.place(relx=0.4, rely=0.5, anchor="n")
+
+        self.keep_button = Button(self.pop_up_amount, text="KEEP", command=self.dest_pop2)
+        self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
     def delete_item(self):
+        pass
+
+    def change_amount_incsv(self):
         pass
 
     def dest_pop(self):
         self.pop_up_del.destroy()
 
-    def change_amount(self):
-        pass
+    def dest_pop2(self):
+        self.pop_up_amount.destroy()
+
+
+
 
 
 
