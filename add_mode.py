@@ -20,18 +20,15 @@ class Add(object):
     def __init__(self, master):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
-
-        #visual part(no function):
-
-        #middle frame
-        self.frame_middle = Frame(master, bg="#E9BFA7")
-        self.frame_middle.place(relx=0.01, rely=0.08, relheight=0.49, relwidth=0.98)
-
+        
         #read .csv files here:
         self.df = pd.read_csv("popular_items_library.csv")
         self.df_user = pd.read_csv("user_items.csv")
-        
-        # ADD MODE
+
+        #-----------------------------------------ADD MODE UPPER HALF-------------------------------------------
+        #middle frame
+        self.frame_middle = Frame(master, bg="#E9BFA7")
+        self.frame_middle.place(relx=0.01, rely=0.08, relheight=0.49, relwidth=0.98)
 
         #food name search title--------Search the name of your item:
         self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
@@ -39,6 +36,7 @@ class Add(object):
         #search variables' frame
         self.frame_vars = Frame(self.frame_middle, bg="#FCF0E4")
         self.frame_vars.place(relx=0.01, rely=0.1, relheight=0.28, relwidth=0.98)
+
 
         #TYPE SELECT:
         self.type_label = Label(self.frame_vars, text="Select type:" ,bg="#FCF0E4", font="roboto 11")
@@ -58,6 +56,7 @@ class Add(object):
         #bind:
         self.food_type_dropdown.bind("<<ComboboxSelected>>", self.generate_item_dropdown)
 
+
         #ITEM SELECT:
         self.item_label = Label(self.frame_vars, text="Select item:" ,bg="#FCF0E4", font="roboto 11")
         self.item_label.place(relx=0.5, rely=0.05, relwidth=0.27, anchor="n")
@@ -65,6 +64,7 @@ class Add(object):
         #self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
         self.food_names_dropdown = Combobox(self.frame_vars, value=[" "])
         self.food_names_dropdown.place(relx=0.5, rely=0.3, relwidth=0.27, anchor="n")
+
 
         #SERVINGS SELECT:
         self.serv_label = Label(self.frame_vars, text="Servings amount:" ,bg="#FCF0E4", font="roboto 11")
@@ -76,7 +76,8 @@ class Add(object):
         self.servings_dropdown = Combobox(self.frame_vars, value=self.servings_list)
         self.servings_dropdown.place(relx=0.8, rely=0.3, relwidth=0.27, anchor="n")
 
-        #preview:
+
+        #PREVIEW BUTTON:
         self.preview_button = Button(self.frame_vars, text="PREVIEW SELECTED ITEM", command=self.show_the_item)
         self.preview_button.place(relx=0.5, rely=0.65, anchor="n")
         
@@ -98,11 +99,13 @@ class Add(object):
         self.save_button.place(relx=0.4, rely=0.9, anchor="n")
 
         #DISCARD button:
-        self.discard_button = Button(self.frame_middle, width=10, text="DISCARD", command=self.erase_all)
+        self.discard_button = Button(self.frame_middle, width=10, text="DISCARD", command=self.clear_all)
         self.discard_button.place(relx=0.6, rely=0.9, anchor="n")
 
-        #------------------------------------------------------------------------------------
+        #-----------------------------------------ADD MODE UPPER HALF-------------------------------------------
 
+    #========================ADD MODE TOP FRAME FUNCTIONS===========================
+    
     def show_the_item(self):
         self.result.configure(text="Here is the result for "+self.food_names_dropdown.get()+":")
         self.result2.configure(text=Food.display_food(Food(self.food_names_dropdown.get())))
@@ -123,10 +126,12 @@ class Add(object):
 
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
 
-    def erase_all(self):
+    def clear_all(self):
         self.food_type_dropdown.set("")
         self.food_names_dropdown.set("")
         self.servings_dropdown.set("")
+
+    
 
 #print(name)
 
