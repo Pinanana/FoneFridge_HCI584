@@ -3,7 +3,6 @@ import pandas as pd
 from tkinter.ttk import Combobox, Style, Treeview
 import datetime
 from tkinter import *
-from pandas.core import frame 
 from tkcalendar import *
 
 from class_food import Food
@@ -143,6 +142,63 @@ class Fonefridge(object):
 
         #-----------------------------------------ADD MODE UPPER HALF-------------------------------------------
 
+        #-----------------------------------------------ADD MODE DISPLAY HALF-------------------------------------------------------
+
+        #bottom frame
+        self.frame_bottom = Frame(master, bg="#BE796D")
+        self.frame_bottom.place(relx=0.01, rely=0.58, relheight=0.41, relwidth=0.98)
+
+        #Display user item inventory:
+        self.title_inventory = Label(self.frame_bottom, bg="#BE796D", text= "YOUR ITEMS", font="roboto 15")
+        self.title_inventory.place(relx=0.5, anchor="n")
+
+        #treeview style:
+
+        #self.today_items = self.df_user.query("entry date == @self.entry_date")
+
+        self.style_tw = Style()
+        self.style_tw.theme_use("default")
+        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4")
+        self.style_tw.map("Treeview")
+
+        #treeview item display:
+        self.user_inventory = Treeview(self.frame_bottom)
+        self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
+
+        self.user_inventory["column"] = list(self.df_user.columns)
+        self.user_inventory["show"] = "headings"
+
+        self.user_inventory.column("#0", width=0)
+        self.user_inventory.column("title", width=97)
+        self.user_inventory.column("type", width=97)
+        self.user_inventory.column("amount", width=97)
+        self.user_inventory.column("entry date", width=140)
+        self.user_inventory.column("notify (days)", width=140)
+        self.user_inventory.column("expiration (days)", width=140)
+
+        self.user_inventory.heading("#0", text="")
+        self.user_inventory.heading("title", text="TITLE", anchor="w")
+        self.user_inventory.heading("type", text="TYPE", anchor="w")
+        self.user_inventory.heading("amount", text="SERVINGS", anchor="w")
+        self.user_inventory.heading("entry date", text="ENTRY DATE", anchor="w")
+        self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
+        self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
+
+        self.df_user_rows = self.df_user.to_numpy().tolist()
+        for row in self.df_user_rows:
+            self.user_inventory.insert("", "end", values=row)
+
+        #scrollbar
+        self.inv_scroll = Scrollbar(self.frame_bottom, orient=VERTICAL, command=self.user_inventory.yview)
+        self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
+        self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
+
+        #highlight recent rows:
+        self.user_inventory.tag_configure("recent", background="#BA8E47")
+        self.user_inventory.tag_configure("others", background="#FCF0E4")
+
+        #-----------------------------------------------ADD MODE DISPLAY HALF-------------------------------------------------------
+
     #========================TOP RIBBON FUNCTIONS===========================
 
     def change_label(self):
@@ -169,11 +225,12 @@ class Fonefridge(object):
     def calendar_get(self):
         self.entry_date = self.entry_cal.get_date()   #========================ENTRY DATE VARIABLE self.entry_date
         print(self.entry_date)
+        self.message_label.config(text=" ")
         #self.notification_trigger() =========================NOTIFICATION TRIGGER THINGY
         self.pop_up.destroy()
     
 
-    #========================ADD MODE TOP FRAME FUNCTIONS===========================
+    #========================ADD MODE UPPER HALF FUNCTIONS===========================
     
     def show_the_item(self):
         self.result.configure(text="Here is the result for "+self.food_names_dropdown.get()+":")
@@ -209,7 +266,14 @@ class Fonefridge(object):
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
         self.df_user.to_csv('user_items.csv', mode="w+", index=False)
         #print(self.df_user)
+        self.update_treeview()
 
+    def update_treeview(self):    
+        for i in self.user_inventory.get_children():
+            self.user_inventory.delete(i)
+        self.df_user_rows = self.df_user.to_numpy().tolist()
+        for row in self.df_user_rows:
+            self.user_inventory.insert("", "end", values=row)
 
     def clear_all(self):
         self.food_type_dropdown.set("")
