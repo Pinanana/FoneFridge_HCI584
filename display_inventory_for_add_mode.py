@@ -41,7 +41,7 @@ class Display_items(object):
         self.frame_top = Frame(master, bg="#A9B6BE")
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.06, relwidth=0.98)
         
-        #------------------------------------------------------------------------------------------------------
+        #-----------------------------------------------ADD MODE DISPLAY HALF-------------------------------------------------------
 
         #bottom frame
         self.frame_bottom = Frame(master, bg="#BE796D")

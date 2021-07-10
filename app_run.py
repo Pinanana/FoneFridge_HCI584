@@ -184,6 +184,7 @@ class Fonefridge(object):
         self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
         self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
 
+        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
@@ -266,14 +267,25 @@ class Fonefridge(object):
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
         self.df_user.to_csv('user_items.csv', mode="w+", index=False)
         #print(self.df_user)
+        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.update_treeview()
 
     def update_treeview(self):    
         for i in self.user_inventory.get_children():
             self.user_inventory.delete(i)
+        #self.new_item_to_highlight = self.df_user.query("entry date == @self.entry_date")
+        #self.rest_of_items = self.df_user.query("entry date != @self.entry_date")
+        
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
+        #self.new_item_to_highlight_rows = self.new_item_to_highlight.to_numpy().tolist()
+        #for row in self.new_item_to_highlight_rows:
+            #self.new_item_to_highlight.insert("", "end", values=row, tags=("recent",))
+        #self.rest_of_items = self.rest_of_items.sort_values(by=["entry date", "title"], ascending=False)
+        #self.rest_of_items_rows = self.rest_of_items.to_numpy().tolist()
+        #for item in self.rest_of_items_rows:
+            #self.rest_of_items.insert("", "end", values=item, tags=("others",))
 
     def clear_all(self):
         self.food_type_dropdown.set("")
