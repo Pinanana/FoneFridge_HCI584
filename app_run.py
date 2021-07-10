@@ -169,11 +169,18 @@ class Fonefridge(object):
       
 
     def save_item(self):
-        self.expire = self.entry_date + datetime.timedelta(days=int(self.df["expiration (d)"]))
-        self.notify = self.expire - datetime.timedelta(days=int(self.df["notify (d)"]))
+        self.df_selected = self.df.query("title == @self.food_names_dropdown.get()")
+        self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
+        self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
         self.new_row = {"title":self.food_names_dropdown.get(), "type":self.food_type_dropdown.get(), "amount":self.servings_dropdown.get(), "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
 
+        #print(self.df_selected)
+        #print(self.new_row)
+
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
+        self.df_user.to_csv('user_items.csv', mode="w+", index=False)
+
+        #print(self.df_user)
 
     def clear_all(self):
         self.food_type_dropdown.set("")
