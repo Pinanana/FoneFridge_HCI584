@@ -128,14 +128,16 @@ class Edit(object):
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
 
-
+    # THIS DOESN'T WORK!!!! COME BACK TO THIS SOME TIME
     def delete_item(self):
-        print ([self.user_inventory.item(x) for x in self.user_inventory.selection()])
-        self.selected_item = self.user_inventory.selection()
-        #self.df_user.drop(self.selected_item, inplace=True)
+        for i in self.user_inventory.selection():
+            self.selected_index = self.user_inventory.index(i)
+        self.df_user.drop(index=self.selected_index, inplace=True)
 
     def change_amount_incsv(self):
         pass
+
+
 
     def close_1(self):
         self.pop_up_del.destroy()
