@@ -127,9 +127,9 @@ class Add(object):
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
 
     def erase_all(self):
-        self.type_entry.set("Please select type")
-        self.entry_name.set("Please select type first")
-        self.servings_entry.set("Please select servings count")
+        self.food_type_dropdown.set()
+        self.food_names_dropdown.set()
+        self.servings_dropdown.set()
 
 #print(name)
 
