@@ -2,12 +2,24 @@ from os import name
 import pandas as pd 
 from tkinter.ttk import Combobox, Style, Treeview
 import datetime
-from tkinter import * 
+from tkinter import *
+from pandas.core import frame 
 from tkcalendar import *
 
 from class_food import Food
 from class_entry_food import Entry_Food
 
+#  style things:
+#main title = 22
+#other titles = 15
+#text = 11
+#bg="#FCF0E4"
+#dark pink ="#BE796D" (display box)
+#purple blue ="#A9B6BE" (main title ribbon)
+#light pink="#E9BFA7" (add box)
+#light green blue ="#C2D7D0" 
+#dark yellow ="#BA8E47" 
+#dark gray blue ="#576566" (edit box)
 
 
 master = Tk()
@@ -101,28 +113,36 @@ class Fonefridge(object):
         self.preview_button.place(relx=0.5, rely=0.65, anchor="n")
         
         #printing results:
-        self.frame_results = Frame(self.frame_middle, bg="#BE796D")
-        self.frame_results.place(relx=0.01, rely=0.4, relheight=0.45, relwidth=0.98)
+        self.frame_results = Frame(self.frame_middle, bg="#E9BFA7")
+        self.frame_results.place(relx=0.5, rely=0.4, relheight=0.35, relwidth=0.43, anchor="n")
 
-        self.result = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 15")
+        self.result = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 15")
         self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
-        self.result2 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
+        self.result2 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 11")
         self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
-        self.result3 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
+        self.result3 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 11")
         self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
-        self.result4 = Label(self.frame_results, justify="left", bg="#BE796D", font="roboto 11")
+        self.result4 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 11")
         self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
 
         #SAVE button:
-        self.save_button = Button(self.frame_middle, width=10, text="SAVE", command=self.save_item)
-        self.save_button.place(relx=0.4, rely=0.9, anchor="n")
+        self.save_button = Button(self.frame_middle, width=10, text="SAVE", command=self.fact_check)
+        self.save_button.place(relx=0.4, rely=0.8, anchor="n")
 
         #DISCARD button:
         self.discard_button = Button(self.frame_middle, width=10, text="DISCARD", command=self.clear_all)
-        self.discard_button.place(relx=0.6, rely=0.9, anchor="n")
+        self.discard_button.place(relx=0.6, rely=0.8, anchor="n")
+
+        #message box:
+        self.message_box = Frame(self.frame_middle, bg="#BE796D")
+        self.message_box.place(relx=0.5, rely=0.9, relheight=0.08, relwidth=0.5, anchor="n")
+        
+        #Label to configure
+        self.message_label = Label(self.frame_middle, bg="#BE796D", text="Please select your entry date from the calendar.")
+        self.message_label.place(relx=0.5, rely=0.91, anchor="n")
 
         #-----------------------------------------ADD MODE UPPER HALF-------------------------------------------
-    
+
     #========================TOP RIBBON FUNCTIONS===========================
 
     def change_label(self):
@@ -168,19 +188,28 @@ class Fonefridge(object):
         self.food_names_dropdown.config(value=self.food_names_list) 
       
 
+    def fact_check(self):
+        if self.food_type_dropdown.get() == (""):
+            self.message_label.config(text="Please select type and item to save.")
+        elif self.food_names_dropdown.get() == (""):
+            self.message_label.config(text="Please select an item to save.")
+        elif self.servings_dropdown.get() == (""):
+            self.message_label.config(text="Please select how many servings you have before saving.")
+        else:
+            self.message_label.config(text="Saved!")
+            self.save_item()
+        
     def save_item(self):
         self.df_selected = self.df.query("title == @self.food_names_dropdown.get()")
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
         self.new_row = {"title":self.food_names_dropdown.get(), "type":self.food_type_dropdown.get(), "amount":self.servings_dropdown.get(), "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
-
         #print(self.df_selected)
         #print(self.new_row)
-
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
         self.df_user.to_csv('user_items.csv', mode="w+", index=False)
-
         #print(self.df_user)
+
 
     def clear_all(self):
         self.food_type_dropdown.set("")
