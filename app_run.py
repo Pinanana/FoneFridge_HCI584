@@ -228,8 +228,8 @@ class Fonefridge(object):
         print(self.entry_date)
         self.message_label.config(text=" ")
         self.title.config(text="SEARCH ITEM")
-        #self.notification_trigger() =========================NOTIFICATION TRIGGER THINGY
         self.pop_up.destroy()
+        self.notification_trigger() 
     
 
     #========================ADD MODE UPPER HALF FUNCTIONS===========================
@@ -292,6 +292,37 @@ class Fonefridge(object):
         self.food_type_dropdown.set("")
         self.food_names_dropdown.set("")
         self.servings_dropdown.set("")
+
+    def notification_trigger(self):
+        self.today = self.entry_date.strftime("%Y-%m-%d")
+
+        self.df_notify = self.df_user.loc[self.df_user["notify (days)"] <= self.today] 
+        self.df_expire = self.df_user.loc[self.today <= self.df_user["expiration (days)"]]
+
+        """
+        for i in self.df_expire and self.df_notify:
+            if self.df_notify.loc[i] == self.df_expire.loc[i]:
+                print(i)
+                #didn't work!!
+                """
+
+        #self.df_combo = self.df_notify["entry date"] == self.df_expire["entry date"]
+
+        print(self.df_notify)
+        print(self.df_expire)
+
+        self.df_exp_dead = self.df_user.loc[self.df_user["expiration (days)"] < self.today]
+
+        if len(self.df_exp_dead) != 0:
+            self.result.config(text="There are expired items!")
+            self.names_expired = list(self.df_exp_dead["title"])
+            self.result2.config(text="please check these items:")
+            self.result3.config(text=self.names_expired)
+
+
+
+        #if self.noti <= self.entry_date <= self.expi:
+            #self.result.config(text="There are items that are about to expire")
 
 
 e = Fonefridge(master)
