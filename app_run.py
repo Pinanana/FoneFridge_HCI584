@@ -61,8 +61,8 @@ class Fonefridge(object):
         self.frame_middle.place(relx=0.01, rely=0.08, relheight=0.49, relwidth=0.98)
 
         #food name search title--------Search the name of your item:
-        self.title = Label(self.frame_middle, bg="#E9BFA7", text= "Search the name of your item:", font="roboto 15")
-        self.title.place(relx=0.03)
+        self.title = Label(self.frame_middle, bg="#E9BFA7", text= "-----PLEASE SELECT THE DATE FIRST-----", font="roboto 15")
+        self.title.place(relx=0.5, anchor="n")
         #search variables' frame
         self.frame_vars = Frame(self.frame_middle, bg="#FCF0E4")
         self.frame_vars.place(relx=0.01, rely=0.1, relheight=0.28, relwidth=0.98)
@@ -136,7 +136,7 @@ class Fonefridge(object):
         self.message_box = Frame(self.frame_middle, bg="#BE796D")
         self.message_box.place(relx=0.5, rely=0.9, relheight=0.08, relwidth=0.5, anchor="n")
         
-        #Label to configure
+        #Label to configure messages:
         self.message_label = Label(self.frame_middle, bg="#BE796D", text="Please select your entry date from the calendar.")
         self.message_label.place(relx=0.5, rely=0.91, anchor="n")
 
@@ -227,6 +227,7 @@ class Fonefridge(object):
         self.entry_date = self.entry_cal.get_date()   #========================ENTRY DATE VARIABLE self.entry_date
         print(self.entry_date)
         self.message_label.config(text=" ")
+        self.title.config(text="SEARCH ITEM")
         #self.notification_trigger() =========================NOTIFICATION TRIGGER THINGY
         self.pop_up.destroy()
     
