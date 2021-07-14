@@ -1,4 +1,5 @@
 title,type,amount,entry date,notify (days),expiration (days)
+yogurt,Dairy & Egg,10,2021-08-12,2021-09-06,2021-09-11
 strawberry,Fruit,4,2021-07-24,2021-07-26,2021-07-27
 lettuce,Vegetable,2,2021-07-23,2021-07-27,2021-07-30
 orange juice,Beverage,5,2021-07-21,2021-09-16,2021-09-19
@@ -11,4 +12,4 @@ milk,Dairy & Egg,3,2021-07-10,2021-07-12,2021-07-17
 cucumber,Fruit,3,2021-07-10,2021-07-14,2021-07-17
 sauerkraut,Pickle,5,2021-07-05,2021-09-28,2021-10-03
 beef,Meat,3,2021-06-16,2021-06-18,2021-06-21
-yogurt,Dairy & Egg,10,2021-08-12,2021-09-06,2021-09-11
+egg,Dairy & Egg,4,2021-07-01,2021-07-26,2021-07-31

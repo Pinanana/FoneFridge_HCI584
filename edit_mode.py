@@ -47,7 +47,7 @@ class Edit(object):
         
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4")
+        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", bg="#FCF0E4")
         self.style_tw.map("Treeview")
 
         #treeview item display:
@@ -72,7 +72,8 @@ class Edit(object):
         self.user_inventory.heading("entry date", text="ENTRY DATE", anchor="w")
         self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
         self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
-
+        
+        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
@@ -82,9 +83,9 @@ class Edit(object):
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
+        #----------------------------------edit & delete pop up---------------------------------------------
         #serving change and delete pop up???
         self.user_inventory.bind("<Double-1>", self.edit_pop_up)
-
 
     def edit_pop_up(self, e):
         self.pop_up_edit = Toplevel(master)

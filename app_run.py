@@ -224,8 +224,7 @@ class Fonefridge(object):
         self.ok_button.pack(padx=10, pady=10)
     
     def calendar_get(self):
-        self.entry_date = self.entry_cal.get_date()   #========================ENTRY DATE VARIABLE self.entry_date
-        print(self.entry_date)
+        self.entry_date = self.entry_cal.get_date()
         self.message_label.config(text=" ")
         self.title.config(text="SEARCH ITEM")
         self.pop_up.destroy()
@@ -240,12 +239,10 @@ class Fonefridge(object):
         self.result3.configure(text=Food.display_expire(Food(self.food_names_dropdown.get())))
         self.result4.configure(text=Food.display_notify(Food(self.food_names_dropdown.get())))
 
-
     def generate_item_dropdown(self, e):
         self.items_df = self.df.query("types == @self.food_type_dropdown.get()")
         self.food_names_list = list(self.items_df["title"])
         self.food_names_dropdown.config(value=self.food_names_list) 
-      
 
     def fact_check(self):
         if self.food_type_dropdown.get() == (""):
@@ -257,7 +254,7 @@ class Fonefridge(object):
         else:
             self.message_label.config(text="Saved!")
             self.save_item()
-        
+
     def save_item(self):
         self.df_selected = self.df.query("title == @self.food_names_dropdown.get()")
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
@@ -271,7 +268,7 @@ class Fonefridge(object):
         self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.update_treeview()
 
-    def update_treeview(self):    
+    def update_treeview(self):    #==========HIGHLIGHT DOESN'T WORK YET!!!!!!!1
         for i in self.user_inventory.get_children():
             self.user_inventory.delete(i)
         #self.new_item_to_highlight = self.df_user.query("entry date == @self.entry_date")
