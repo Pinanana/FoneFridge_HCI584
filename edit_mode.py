@@ -102,9 +102,22 @@ class Edit(object):
         self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.4, anchor="e")
 
         self.selected_item = self.user_inventory.selection()
-        #check:
-        for i in self.selected_item:
-            print("you clicked on", self.user_inventory.item(i, "values")[0])
+        self.select_values_list = list(self.user_inventory.item([i for i in self.selected_item], "values"))
+        print(self.select_values_list)
+
+        self.index_list_df = self.df_user.index
+        self.condition_title = self.df_user["title"] == self.select_values_list(0) and self.df_user["entry date"] == self.select_values_list(3)
+        self.selected_name_indexes = self.index_list_df[self.condition_title]
+
+        print(self.selected_name_indexes)
+
+        #self.selected_index = 
+
+        #self.df_user_selected_name = self.df_user.query("title == @self.select_values_list(0)")
+        #self.df_selected_item_for_sure = self.df_user_selected_name.query("entry date == @self.select_values_list(3)")
+
+        print(self.index_list_df)
+
 
     def delete_button(self):
         self.pop_up_del = Toplevel(master)
@@ -135,9 +148,7 @@ class Edit(object):
 
     # THIS DOESN'T WORK!!!! COME BACK TO THIS SOME TIME
     def delete_item(self):
-        for i in self.user_inventory.selection():
-            self.selected_index = self.user_inventory.index(i)
-        self.df_user.drop(index=self.selected_index, inplace=True)
+        self.df_user.drop(self.selected_item, inplace=True)
         self.update_treeview()
 
     def change_amount_incsv(self):
