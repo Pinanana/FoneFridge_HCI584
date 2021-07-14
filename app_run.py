@@ -296,28 +296,25 @@ class Fonefridge(object):
     def notification_trigger(self):
         self.today = self.entry_date.strftime("%Y-%m-%d")
 
+        #NOTIFY TIME 
         self.df_notify = self.df_user.loc[self.df_user["notify (days)"] <= self.today] 
-        self.df_expire = self.df_user.loc[self.today <= self.df_user["expiration (days)"]]
-
-        """
-        for i in self.df_expire and self.df_notify:
-            if self.df_notify.loc[i] == self.df_expire.loc[i]:
-                print(i)
-                #didn't work!!
-                """
-
-        #self.df_combo = self.df_notify["entry date"] == self.df_expire["entry date"]
-
-        print(self.df_notify)
-        print(self.df_expire)
-
+        #self.df_expire = self.df_user.loc[self.today <= self.df_user["expiration (days)"]]
+        self.name_notify = list(self.df_notify["title"])
+        
+        #EXPIRED THINGS
         self.df_exp_dead = self.df_user.loc[self.df_user["expiration (days)"] < self.today]
+        self.names_expired = list(self.df_exp_dead["title"])
 
-        if len(self.df_exp_dead) != 0:
-            self.result.config(text="There are expired items!")
-            self.names_expired = list(self.df_exp_dead["title"])
-            self.result2.config(text="please check these items:")
-            self.result3.config(text=self.names_expired)
+        #self.list_notify_notexpired = [list(set(self.name_notify) - set(self.names_expired))] #didn't work
+        self.list_notify_notexpired = (set(self.names_expired).difference(set(self.names_expired)))
+
+        print(self.name_notify)
+
+        self.result.config(text="EXPIRES SOON:")
+        self.result2.config(text=", ".join(self.list_notify_notexpired))
+
+        self.result3.config(text="EXPIRED ITEMS:")
+        self.result4.config(text=", ".join(self.names_expired))
 
 
 
