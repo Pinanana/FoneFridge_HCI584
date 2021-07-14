@@ -306,7 +306,8 @@ class Fonefridge(object):
         self.names_expired = list(self.df_exp_dead["title"])
 
         #self.list_notify_notexpired = [list(set(self.name_notify) - set(self.names_expired))] #didn't work
-        self.list_notify_notexpired = (set(self.names_expired).difference(set(self.names_expired)))
+        #self.list_notify_notexpired = (set(self.names_expired).difference(set(self.names_expired))) #didn't work
+        self.list_notify_notexpired = [x for x in self.name_notify if x not in self.names_expired] #heck yes!
 
         print(self.name_notify)
 
