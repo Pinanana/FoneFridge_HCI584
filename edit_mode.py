@@ -101,6 +101,10 @@ class Edit(object):
         self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
         self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.4, anchor="e")
 
+        self.selected_item = self.user_inventory.selection()
+        #check:
+        for i in self.selected_item:
+            print("you clicked on", self.user_inventory.item(i, "values")[0])
 
     def delete_button(self):
         self.pop_up_del = Toplevel(master)
@@ -134,9 +138,12 @@ class Edit(object):
         for i in self.user_inventory.selection():
             self.selected_index = self.user_inventory.index(i)
         self.df_user.drop(index=self.selected_index, inplace=True)
+        self.update_treeview()
 
     def change_amount_incsv(self):
+        
         #.loc[row_index, "amount"] #gets the cell to change
+        #self.update_treeview()
         pass
 
 
@@ -147,8 +154,12 @@ class Edit(object):
     def close_2(self):
         self.pop_up_amount.destroy()
 
-
-
+    def update_treeview(self):
+        for i in self.user_inventory.get_children():
+            self.user_inventory.delete(i)
+        self.df_user_rows = self.df_user.to_numpy().tolist()
+        for row in self.df_user_rows:
+            self.user_inventory.insert("", "end", values=row)
 
 
 
