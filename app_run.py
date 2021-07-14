@@ -295,32 +295,18 @@ class Fonefridge(object):
 
     def notification_trigger(self):
         self.today = self.entry_date.strftime("%Y-%m-%d")
-
-        #NOTIFY TIME 
+        #NOTIFY ITEMS
         self.df_notify = self.df_user.loc[self.df_user["notify (days)"] <= self.today] 
-        #self.df_expire = self.df_user.loc[self.today <= self.df_user["expiration (days)"]]
         self.name_notify = list(self.df_notify["title"])
-        
         #EXPIRED THINGS
         self.df_exp_dead = self.df_user.loc[self.df_user["expiration (days)"] < self.today]
         self.names_expired = list(self.df_exp_dead["title"])
-
-        #self.list_notify_notexpired = [list(set(self.name_notify) - set(self.names_expired))] #didn't work
-        #self.list_notify_notexpired = (set(self.names_expired).difference(set(self.names_expired))) #didn't work
-        self.list_notify_notexpired = [x for x in self.name_notify if x not in self.names_expired] #heck yes!
-
-        print(self.name_notify)
+        self.list_notify_notexpired = [x for x in self.name_notify if x not in self.names_expired]
 
         self.result.config(text="EXPIRES SOON:")
         self.result2.config(text=", ".join(self.list_notify_notexpired))
-
         self.result3.config(text="EXPIRED ITEMS:")
         self.result4.config(text=", ".join(self.names_expired))
-
-
-
-        #if self.noti <= self.entry_date <= self.expi:
-            #self.result.config(text="There are items that are about to expire")
 
 
 e = Fonefridge(master)
