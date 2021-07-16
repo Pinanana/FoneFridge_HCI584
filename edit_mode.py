@@ -43,7 +43,7 @@ class Edit(object):
         #---------------------------------------------EDIT BODY-------------------------------------------------
         #changing BOTTOM frame:
         self.frame_edit = Frame(master, bg="#576566")
-        self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.98)
+        self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.77, relwidth=0.98)
 
 
         #read .csv files here:
@@ -101,6 +101,13 @@ class Edit(object):
         self.user_inventory.bind("<Double-1>", self.edit_pop_up)
         #---------------------------------------------EDIT BODY-------------------------------------------------
 
+        #the bottom
+        self.bottom_frame = Frame(master, bg="#576566")
+        self.bottom_frame.place(relx=0.01, rely=0.89, relheight=0.1, relwidth=0.98)
+
+        self.changing_item_label = Label(self.bottom_frame, bg="#576566", text="Please double click on the item you want to edit.", font="roboto 15")
+        self.changing_item_label.place(relx=0.5, rely=0.01, anchor="n")
+
     
     #========================TOP RIBBON FUNCTIONS===========================
 
@@ -135,19 +142,7 @@ class Edit(object):
 
 
     def edit_pop_up(self, e):
-        self.pop_up_edit = Toplevel(master)
-        self.pop_up_edit.geometry("400x50")
-
-        self.delete_but = Button (self.pop_up_edit, text="DELETE", command=self.delete_button)
-        self.delete_but.place(relx=0.01, rely=0.5, relwidth=0.4, anchor="w")
-
-        self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        self.serv_drop = Combobox(self.pop_up_edit, value=self.servings_list)
-        self.serv_drop.place(relx=0.5, rely=0.5, relwidth=0.1, anchor=CENTER)
-
-        self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
-        self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.4, anchor="e")
-
+        
         #GETTING SELECTION
         self.selected_item = self.user_inventory.selection()
         self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
@@ -160,6 +155,42 @@ class Edit(object):
         #GETTING THE INDEX NUMBER OF THE SELECTION IN .CSV FILE
         self.index_select = self.df_the_selected_item.index
         self.index_select_number = self.index_select.tolist()
+
+        #bottom buttons appear:
+        
+        self.changing_item_label.config(text="Now editing "+self.select_name+" that added on "+self.select_entdate+":")
+        
+
+        self.delete_but = Button (self.bottom_frame, text="DELETE", command=self.delete_button)
+        self.delete_but.place(relx=0.1, rely=0.7, relwidth=0.28, anchor="w")
+
+        self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        self.serv_drop = Combobox(self.bottom_frame, value=self.servings_list)
+        self.serv_drop.place(relx=0.5, rely=0.7, relwidth=0.2, anchor=CENTER)
+
+        #CAN ALSO BIND COMBOBOX ENTRY SO NO NEED FOR THE BUTTON
+
+        self.serv_but = Button(self.bottom_frame, text="CHANGE AMOUNT", command=self.change_amount_button)
+        self.serv_but.place(relx=0.9, rely=0.7, relwidth=0.28, anchor="e")
+
+        """
+        self.pop_up_edit = Toplevel(master)
+        self.pop_up_edit.geometry("400x50")
+
+        self.delete_but = Button (self.pop_up_edit, text="DELETE", command=self.delete_button)
+        self.delete_but.place(relx=0.01, rely=0.5, relwidth=0.33, anchor="w")
+
+        self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        self.serv_drop = Combobox(self.pop_up_edit, value=self.servings_list)
+        self.serv_drop.place(relx=0.5, rely=0.5, relwidth=0.3, anchor=CENTER)
+
+        #CAN ALSO BIND COMBOBOX ENTRY SO NO NEED FOR THE BUTTON
+
+        self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
+        self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.33, anchor="e")
+        """
+
+
 
 
     def delete_button(self):
@@ -187,6 +218,7 @@ class Edit(object):
 
         self.keep_button = Button(self.pop_up_amount, text="KEEP", command=self.close_2)
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
+        
 
     def delete_item(self):
         self.df_user.drop(self.index_select_number, inplace=True)
