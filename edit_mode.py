@@ -1,11 +1,9 @@
-from tkinter.ttk import Style, Treeview
 from os import name
-from numpy import result_type
 import pandas as pd 
+from tkinter.ttk import Combobox, Style, Treeview
 import datetime
-from tkinter import * 
+from tkinter import *
 from tkcalendar import *
-import tksheet
 
 from class_food import Food
 from class_entry_food import Entry_Food
@@ -95,7 +93,7 @@ class Edit(object):
         self.delete_but.place(relx=0.01, rely=0.5, relwidth=0.4, anchor="w")
 
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        self.serv_drop = OptionMenu(self.pop_up_edit, *self.servings_list)
+        self.serv_drop = Combobox(self.pop_up_edit, value=self.servings_list)
         self.serv_drop.place(relx=0.5, rely=0.5, relwidth=0.1, anchor=CENTER)
 
         self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
@@ -141,18 +139,18 @@ class Edit(object):
         self.keep_button = Button(self.pop_up_amount, text="KEEP", command=self.close_2)
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
-
-    # THIS DOESN'T WORK!!!! COME BACK TO THIS SOME TIME
     def delete_item(self):
         self.df_user.drop(self.index_select_number, inplace=True)
+        self.df_user.to_csv("user_items.csv", index=False)
         self.update_treeview()
         self.close_1()
 
     def change_amount_incsv(self):
-        
-        #.loc[row_index, "amount"] #gets the cell to change
-        #self.update_treeview()
-        pass
+        self.df_user.loc[self.index_select_number, "amount"] = self.serv_drop.get()
+        self.df_user.to_csv("user_items.csv", index=False)
+        self.update_treeview()
+        self.close_2()
+
 
 
 
