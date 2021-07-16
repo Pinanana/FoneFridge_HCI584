@@ -7,7 +7,7 @@ from tkcalendar import *
 
 from class_food import Food
 from class_entry_food import Entry_Food
-import edit_mode
+import edit_mode 
 
 #  style things:
 #main title = 22
@@ -51,7 +51,7 @@ class Fonefridge(object):
         self.is_add = True
 
         # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, width=10, text="CALENDAR", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
+        self.calendar_button = Button(self.frame_top, width=10, text="SET DATE", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
         self.calendar_button.grid(column=2, row=0, ipadx=5)
 
         #---------------------------------------------TOP RIBBON-------------------------------------------------
@@ -114,16 +114,14 @@ class Fonefridge(object):
         
         #printing results:
         self.frame_results = Frame(self.frame_middle, bg="#E9BFA7")
-        self.frame_results.place(relx=0.5, rely=0.4, relheight=0.35, relwidth=0.43, anchor="n")
+        self.frame_results.place(relx=0.5, rely=0.4, relheight=0.35, relwidth=0.9, anchor="n")
 
         self.result = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 15")
-        self.result.grid(row=0, column=0, padx=2, pady=5, sticky=W)
-        self.result2 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 11")
-        self.result2.grid(row=1, column=0, padx=2, pady=2, sticky=W)
-        self.result3 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 11")
-        self.result3.grid(row=2, column=0, padx=2, pady=2, sticky=W)
-        self.result4 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 11")
-        self.result4.grid(row=3, column=0, padx=2, pady=2, sticky=W)
+        self.result.place(relx=0.5, rely=0.1, anchor="n")
+        self.result3 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 9")
+        self.result3.place(relx=0.5, rely=0.6, anchor="n")
+        self.result4 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 9")
+        self.result4.place(relx=0.5, rely=0.8, anchor="n")
 
         #SAVE button:
         self.save_button = Button(self.frame_middle, width=10, text="SAVE", command=self.fact_check)
@@ -235,10 +233,11 @@ class Fonefridge(object):
     #========================ADD MODE UPPER HALF FUNCTIONS===========================
     
     def show_the_item(self):
-        self.result.configure(text="Here is the result for "+self.food_names_dropdown.get()+":")
-        self.result2.configure(text=Food.display_food(Food(self.food_names_dropdown.get())))
-        self.result3.configure(text=Food.display_expire(Food(self.food_names_dropdown.get())))
-        self.result4.configure(text=Food.display_notify(Food(self.food_names_dropdown.get())))
+        self.item_info = self.df.query("title == @self.food_names_dropdown.get()").values[0]
+        print(self.item_info)
+        self.result.configure(text=self.food_names_dropdown.get().upper()+":")
+        self.result3.configure(text=self.food_names_dropdown.get().capitalize()+" is a type of "+self.food_type_dropdown.get().lower()+". It will expire in "+str(self.item_info[3])+" days.")
+        self.result4.configure(text="You will get a notification message "+str(self.item_info[2])+" days before expiration.")
 
     def generate_item_dropdown(self, e):
         self.items_df = self.df.query("types == @self.food_type_dropdown.get()")
@@ -302,9 +301,8 @@ class Fonefridge(object):
         self.list_notify_notexpired = [x for x in self.name_notify if x not in self.names_expired]
 
         self.result.config(text="EXPIRES SOON:")
-        self.result2.config(text=", ".join(self.list_notify_notexpired))
-        self.result3.config(text="EXPIRED ITEMS:")
-        self.result4.config(text=", ".join(self.names_expired))
+        self.result3.config(text=", ".join(self.list_notify_notexpired))
+        self.result4.config(text="EXPIRED ITEMS: "+", ".join(self.names_expired))
 
 
 e = Fonefridge(master)
