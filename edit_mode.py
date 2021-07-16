@@ -19,12 +19,28 @@ class Edit(object):
     def __init__(self, master):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
-
-        #visual part(no function):
+        #---------------------------------------------TOP RIBBON-------------------------------------------------
         #top title frame
         self.frame_top = Frame(master, bg="#A9B6BE")
-        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.1, relwidth=0.98)
+        self.frame_top.place(relx=0.01, rely=0.01, relheight=0.056, relwidth=0.98)
 
+        # MAIN title-FONEFRIDGE------------
+        self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
+        self.title.grid(column=1, row=0, ipadx=151)
+
+        # MODES--------
+        #button variable:
+        self.add_button = Button(self.frame_top, width=10, text="EDIT MODE", font="roboto 15", bg="#A9B6BE",command=self.change_label)
+        self.add_button.grid(column=0, row=0, ipadx=5)
+        self.is_add = False
+
+        # CALENDAR--------
+        self.calendar_button = Button(self.frame_top, width=10, text="CALENDAR", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
+        self.calendar_button.grid(column=2, row=0, ipadx=5)
+
+        #---------------------------------------------TOP RIBBON-------------------------------------------------
+
+        #---------------------------------------------EDIT BODY-------------------------------------------------
         #changing BOTTOM frame:
         self.frame_edit = Frame(master, bg="#576566")
         self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.87, relwidth=0.98)
@@ -81,9 +97,42 @@ class Edit(object):
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
-        #----------------------------------edit & delete pop up---------------------------------------------
-        #serving change and delete pop up???
+        #edit & delete pop up--------------------
         self.user_inventory.bind("<Double-1>", self.edit_pop_up)
+        #---------------------------------------------EDIT BODY-------------------------------------------------
+
+    
+    #========================TOP RIBBON FUNCTIONS===========================
+
+    def change_label(self):
+        if self.is_add == True:  #add mode triggers!!
+            self.add_button.config(text="EDIT MODE", font="roboto 15")
+            self.is_add = False
+        else:                   #edit mode triggers!!
+            self.add_button.config(text="ADD MODE", font="roboto 15")
+            self.is_add = True
+        
+    # calendar pop-up window def here
+    def calendar_entry(self):  
+        self.pop_up = Toplevel(master)
+
+        self.date_label = Label(self.pop_up, text="Choose date", font="roboto 12")
+        self.date_label.pack(padx=10, pady=10)
+
+        self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
+        self.entry_cal.pack(padx=10, pady=10)
+
+        self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
+        self.ok_button.pack(padx=10, pady=10)
+    
+    def calendar_get(self):
+        self.entry_date = self.entry_cal.get_date()
+        
+        self.title.config(text="SEARCH ITEM")
+        self.pop_up.destroy()
+    
+
+
 
     def edit_pop_up(self, e):
         self.pop_up_edit = Toplevel(master)

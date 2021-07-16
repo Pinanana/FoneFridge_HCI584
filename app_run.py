@@ -7,6 +7,7 @@ from tkcalendar import *
 
 from class_food import Food
 from class_entry_food import Entry_Food
+import edit_mode
 
 #  style things:
 #main title = 22
