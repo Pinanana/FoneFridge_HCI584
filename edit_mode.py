@@ -101,22 +101,18 @@ class Edit(object):
         self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
         self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.4, anchor="e")
 
+        #GETTING SELECTION
         self.selected_item = self.user_inventory.selection()
-        self.select_values_list = list(self.user_inventory.item([i for i in self.selected_item], "values"))
-        print(self.select_values_list)
+        self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
+        self.select_entdate = self.user_inventory.item([i for i in self.selected_item], "values")[3]
 
-        self.index_list_df = self.df_user.index
-        self.condition_title = self.df_user["title"] == self.select_values_list(0) and self.df_user["entry date"] == self.select_values_list(3)
-        self.selected_name_indexes = self.index_list_df[self.condition_title]
+        self.df_same_name = self.df_user.query("title == @self.select_name")
+        #this is the selected one for sure
+        self.df_the_selected_item = self.df_same_name.loc[self.df_same_name["entry date"] == self.select_entdate]
 
-        print(self.selected_name_indexes)
-
-        #self.selected_index = 
-
-        #self.df_user_selected_name = self.df_user.query("title == @self.select_values_list(0)")
-        #self.df_selected_item_for_sure = self.df_user_selected_name.query("entry date == @self.select_values_list(3)")
-
-        print(self.index_list_df)
+        #GETTING THE INDEX NUMBER OF THE SELECTION IN .CSV FILE
+        self.index_select = self.df_the_selected_item.index
+        self.index_select_number = self.index_select.tolist()
 
 
     def delete_button(self):
@@ -148,8 +144,9 @@ class Edit(object):
 
     # THIS DOESN'T WORK!!!! COME BACK TO THIS SOME TIME
     def delete_item(self):
-        self.df_user.drop(self.selected_item, inplace=True)
+        self.df_user.drop(self.index_select_number, inplace=True)
         self.update_treeview()
+        self.close_1()
 
     def change_amount_incsv(self):
         
