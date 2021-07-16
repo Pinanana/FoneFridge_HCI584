@@ -93,7 +93,7 @@ class Edit(object):
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
         #edit & delete pop up--------------------
-        self.user_inventory.bind("<Double-1>", self.edit_pop_up)
+        self.user_inventory.bind("<Double-1>", self.edit_tools)
         #---------------------------------------------EDIT BODY-------------------------------------------------
 
         #the bottom
@@ -111,7 +111,7 @@ class Edit(object):
         os.system("app_run.py")
         
 
-    def edit_pop_up(self, e):
+    def edit_tools(self, e):
         
         #GETTING SELECTION
         self.selected_item = self.user_inventory.selection()
