@@ -35,7 +35,7 @@ class Edit(object):
         self.is_add = False
 
         # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, width=10, text="CALENDAR", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
+        self.calendar_button = Button(self.frame_top, width=10, text="SET DATE", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
         self.calendar_button.grid(column=2, row=0, ipadx=5)
 
         #---------------------------------------------TOP RIBBON-------------------------------------------------
@@ -157,9 +157,7 @@ class Edit(object):
         self.index_select_number = self.index_select.tolist()
 
         #bottom buttons appear:
-        
         self.changing_item_label.config(text="Now editing "+self.select_name+" that added on "+self.select_entdate+":")
-        
 
         self.delete_but = Button (self.bottom_frame, text="DELETE", command=self.delete_button)
         self.delete_but.place(relx=0.1, rely=0.7, relwidth=0.28, anchor="w")
@@ -167,8 +165,6 @@ class Edit(object):
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         self.serv_drop = Combobox(self.bottom_frame, value=self.servings_list)
         self.serv_drop.place(relx=0.5, rely=0.7, relwidth=0.2, anchor=CENTER)
-
-        #CAN ALSO BIND COMBOBOX ENTRY SO NO NEED FOR THE BUTTON
 
         self.serv_but = Button(self.bottom_frame, text="CHANGE AMOUNT", command=self.change_amount_button)
         self.serv_but.place(relx=0.9, rely=0.7, relwidth=0.28, anchor="e")
@@ -184,13 +180,9 @@ class Edit(object):
         self.serv_drop = Combobox(self.pop_up_edit, value=self.servings_list)
         self.serv_drop.place(relx=0.5, rely=0.5, relwidth=0.3, anchor=CENTER)
 
-        #CAN ALSO BIND COMBOBOX ENTRY SO NO NEED FOR THE BUTTON
-
         self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
         self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.33, anchor="e")
         """
-
-
 
 
     def delete_button(self):
@@ -232,9 +224,6 @@ class Edit(object):
         self.update_treeview()
         self.close_2()
 
-
-
-
     def close_1(self):
         self.pop_up_del.destroy()
 
@@ -248,12 +237,6 @@ class Edit(object):
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
 
-
-
-    #def Store_name(self):
-        #name = return self.name
-
-#print(name)
 
 e = Edit(master)
 
