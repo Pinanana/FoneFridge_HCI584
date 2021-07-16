@@ -4,9 +4,8 @@ from tkinter.ttk import Combobox, Style, Treeview
 import datetime
 from tkinter import *
 from tkcalendar import *
-
-from class_food import Food
-from class_entry_food import Entry_Food
+import sys
+import os
 
 
 
@@ -30,13 +29,9 @@ class Edit(object):
 
         # MODES--------
         #button variable:
-        self.add_button = Button(self.frame_top, width=10, text="EDIT MODE", font="roboto 15", bg="#A9B6BE",command=self.change_label)
+        self.add_button = Button(self.frame_top, width=10, text="ADD MODE", font="roboto 15", bg="#A9B6BE",command=self.change_mode)
         self.add_button.grid(column=0, row=0, ipadx=5)
         self.is_add = False
-
-        # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, width=10, text="SET DATE", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
-        self.calendar_button.grid(column=2, row=0, ipadx=5)
 
         #---------------------------------------------TOP RIBBON-------------------------------------------------
 
@@ -111,35 +106,10 @@ class Edit(object):
     
     #========================TOP RIBBON FUNCTIONS===========================
 
-    def change_label(self):
-        if self.is_add == True:  #add mode triggers!!
-            self.add_button.config(text="EDIT MODE", font="roboto 15")
-            self.is_add = False
-        else:                   #edit mode triggers!!
-            self.add_button.config(text="ADD MODE", font="roboto 15")
-            self.is_add = True
+    def change_mode(self):
+        master.destroy()
+        os.system("app_run.py")
         
-    # calendar pop-up window def here
-    def calendar_entry(self):  
-        self.pop_up = Toplevel(master)
-
-        self.date_label = Label(self.pop_up, text="Choose date", font="roboto 12")
-        self.date_label.pack(padx=10, pady=10)
-
-        self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
-        self.entry_cal.pack(padx=10, pady=10)
-
-        self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
-        self.ok_button.pack(padx=10, pady=10)
-    
-    def calendar_get(self):
-        self.entry_date = self.entry_cal.get_date()
-        
-        self.title.config(text="SEARCH ITEM")
-        self.pop_up.destroy()
-    
-
-
 
     def edit_pop_up(self, e):
         

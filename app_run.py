@@ -4,15 +4,14 @@ from tkinter.ttk import Combobox, Style, Treeview
 import datetime
 from tkinter import *
 from tkcalendar import *
+import sys
+import os
 
-from class_food import Food
-from class_entry_food import Entry_Food
-import edit_mode 
 
 #  style things:
 #main title = 22
 #other titles = 15
-#text = 11
+#text = 11 or 9
 #bg="#FCF0E4"
 #dark pink ="#BE796D" (display box)
 #purple blue ="#A9B6BE" (main title ribbon)
@@ -46,7 +45,7 @@ class Fonefridge(object):
 
         # MODES--------
         #button variable:
-        self.add_button = Button(self.frame_top, width=10, text="ADD MODE", font="roboto 15", bg="#A9B6BE",command=self.change_label)
+        self.add_button = Button(self.frame_top, width=10, text="EDIT MODE", font="roboto 15", bg="#A9B6BE",command=self.change_mode)
         self.add_button.grid(column=0, row=0, ipadx=5)
         self.is_add = True
 
@@ -201,13 +200,9 @@ class Fonefridge(object):
 
     #========================TOP RIBBON FUNCTIONS===========================
 
-    def change_label(self):
-        if self.is_add == True:  #add mode triggers!!
-            self.add_button.config(text="EDIT MODE", font="roboto 15")
-            self.is_add = False
-        else:                   #edit mode triggers!!
-            self.add_button.config(text="ADD MODE", font="roboto 15")
-            self.is_add = True
+    def change_mode(self):
+        master.destroy()
+        os.system("edit_mode.py")
         
     # calendar pop-up window def here
     def calendar_entry(self):  
