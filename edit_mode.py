@@ -203,7 +203,7 @@ class Edit(object):
     def update_treeview(self):
         for i in self.user_inventory.get_children():
             self.user_inventory.delete(i)
-        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
+        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=True)
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
