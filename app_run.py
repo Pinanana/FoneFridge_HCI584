@@ -156,8 +156,8 @@ class Fonefridge(object):
 
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", foreground="black", background="#FCF0E4" ,rowheight=25, fieldbackground="#FCF0E4")
-        self.style_tw.map("Treeview")
+        self.style_tw.configure("Treeview", background="#FCF0E4" ,rowheight=25, fieldbackground="#FCF0E4")
+        self.style_tw.map("Treeview", background="background")
 
         #treeview item display:
         self.user_inventory = Treeview(self.frame_bottom)
@@ -192,10 +192,7 @@ class Fonefridge(object):
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
-        #highlight recent rows:
-        self.user_inventory.tag_configure("recent", background="#BA8E47")
-        self.user_inventory.tag_configure("others", background="#FCF0E4")
-
+        self.count = 0
         #-----------------------------------------------ADD MODE DISPLAY HALF-------------------------------------------------------
 
     #========================TOP RIBBON FUNCTIONS===========================
@@ -262,24 +259,25 @@ class Fonefridge(object):
         #print(self.df_user)
         self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.update_treeview()
+        self.clear_all()
 
     def update_treeview(self):    #==========HIGHLIGHT DOESN'T WORK YET!!!!!!!1
-        for i in self.user_inventory.get_children():
-            self.user_inventory.delete(i)
-        #self.new_item_to_highlight = self.df_user.query("entry date == @self.entry_date")
-        #self.rest_of_items = self.df_user.query("entry date != @self.entry_date")
+        self.user_inventory.tag_configure("recent", background="#BA8E47")
+        
+        self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
+        self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
+        self.today = self.entry_date.strftime("%Y-%m-%d")
+        self.user_inventory.insert("", index=0, iid=self.count, text="" ,values=(self.food_names_dropdown.get(), self.food_type_dropdown.get(), self.servings_dropdown.get(), self.today, self.notify, self.expire), tags="recent")
+        self.count += 1
+        
+        #for i in self.user_inventory.get_children():
+            #self.user_inventory.delete(i)
+        #self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
+        #self.df_user_rows = self.df_user.to_numpy().tolist()
+        #for row in self.df_user_rows:
+            #self.user_inventory.insert("", "end", values=row)
+            
 
-        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)        
-        self.df_user_rows = self.df_user.to_numpy().tolist()
-        for row in self.df_user_rows:
-            self.user_inventory.insert("", "end", values=row)
-        #self.new_item_to_highlight_rows = self.new_item_to_highlight.to_numpy().tolist()
-        #for row in self.new_item_to_highlight_rows:
-            #self.new_item_to_highlight.insert("", "end", values=row, tags=("recent",))
-        #self.rest_of_items = self.rest_of_items.sort_values(by=["entry date", "title"], ascending=False)
-        #self.rest_of_items_rows = self.rest_of_items.to_numpy().tolist()
-        #for item in self.rest_of_items_rows:
-            #self.rest_of_items.insert("", "end", values=item, tags=("others",))
 
     def clear_all(self):
         self.food_type_dropdown.set("")
