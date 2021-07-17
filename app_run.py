@@ -156,7 +156,7 @@ class Fonefridge(object):
 
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4")
+        self.style_tw.configure("Treeview", foreground="black", background="#FCF0E4" ,rowheight=25, fieldbackground="#FCF0E4")
         self.style_tw.map("Treeview")
 
         #treeview item display:
@@ -268,7 +268,8 @@ class Fonefridge(object):
             self.user_inventory.delete(i)
         #self.new_item_to_highlight = self.df_user.query("entry date == @self.entry_date")
         #self.rest_of_items = self.df_user.query("entry date != @self.entry_date")
-        
+
+        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)        
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
