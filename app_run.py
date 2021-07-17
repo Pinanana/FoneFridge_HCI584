@@ -263,6 +263,7 @@ class Fonefridge(object):
 
     def update_treeview(self):    #==========HIGHLIGHT DOESN'T WORK YET!!!!!!!1
         self.user_inventory.tag_configure("recent", background="#BA8E47")
+        self.style_tw.map("recent", background="background")
         
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
