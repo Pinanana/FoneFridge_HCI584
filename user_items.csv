@@ -1,12 +1,12 @@
 title,type,amount,entry date,notify (days),expiration (days)
 yogurt,Dairy & Egg,3,2021-08-12,2021-09-06,2021-09-11
 strawberry,Fruit,4,2021-07-24,2021-07-26,2021-07-27
-lettuce,Vegetable,2,2021-07-23,2021-07-27,2021-07-30
+lettuce,Vegetable,1,2021-07-23,2021-07-27,2021-07-30
+strawberry,Fruit,2,2021-07-17,2021-07-19,2021-07-20
 tomato,Fruit,4,2021-07-16,2021-07-20,2021-07-23
 strawberry,Fruit,4,2021-07-16,2021-07-18,2021-07-19
 egg,Dairy & Egg,6,2021-07-14,2021-08-08,2021-08-13
 tomato,Fruit,1,2021-07-10,2021-07-14,2021-07-17
-shrimp,Seafood,5,2021-07-10,2021-07-11,2021-07-13
 onion,Root Vegetable,1,2021-07-10,2021-07-12,2021-07-17
 milk,Dairy & Egg,3,2021-07-10,2021-07-12,2021-07-17
 cucumber,Fruit,3,2021-07-10,2021-07-14,2021-07-17
