@@ -152,7 +152,6 @@ class Fonefridge(object):
 
         #treeview style:
 
-        #self.today_items = self.df_user.query("entry date == @self.entry_date")
 
         self.style_tw = Style()
         self.style_tw.theme_use("default")
@@ -289,6 +288,7 @@ class Fonefridge(object):
         #EXPIRED THINGS
         self.df_exp_dead = self.df_user.loc[self.df_user["expiration (days)"] < self.today]
         self.names_expired = list(self.df_exp_dead["title"])
+
         self.list_notify_notexpired = [x for x in self.name_notify if x not in self.names_expired]
 
         self.result.config(text="EXPIRES SOON:")

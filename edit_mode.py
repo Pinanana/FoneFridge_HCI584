@@ -38,7 +38,7 @@ class Edit(object):
         #---------------------------------------------EDIT BODY-------------------------------------------------
         #changing BOTTOM frame:
         self.frame_edit = Frame(master, bg="#576566")
-        self.frame_edit.place(relx=0.01, rely=0.12, relheight=0.77, relwidth=0.98)
+        self.frame_edit.place(relx=0.01, rely=0.08, relheight=0.81, relwidth=0.98)
 
 
         #read .csv files here:
@@ -56,8 +56,8 @@ class Edit(object):
         
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", bg="#FCF0E4")
-        self.style_tw.map("Treeview")
+        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background="#FCF0E4")
+        self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
 
         #treeview item display:
         self.user_inventory = Treeview(self.frame_edit)
@@ -81,8 +81,28 @@ class Edit(object):
         self.user_inventory.heading("entry date", text="ENTRY DATE", anchor="w")
         self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
         self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
-        
-        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
+
+
+
+        #for edit page where users won't see notifications, today is set to datetime.today
+        self.today = datetime.datetime.today().date().strftime("%Y-%m-%d")
+        #expired:
+        self.user_inventory.tag_configure("expired", background="#BE796D")
+        self.df_expired = self.df_user.loc[self.df_user["expiration (days)"] <= self.today]
+        self.df_expired_rows = self.df_expired.to_numpy().tolist()
+        for row in self.df_expired_rows:
+            self.user_inventory.insert("", "end", values=row, tags=("expired", ))
+
+        #notified:
+        self.user_inventory.tag_configure("notified", background="#E9BFA7")
+        self.df_noti = self.df_user.loc[self.df_user["notify (days)"] <= self.today]
+        self.df_notify = pd.concat([self.df_noti, self.df_expired]).drop_duplicates(keep=False)
+        self.df_expired_rows = self.df_expired.to_numpy().tolist()
+        for row in self.df_expired_rows:
+            self.user_inventory.insert("", "end", values=row, tags=("notified", ))
+
+        #rest of the items:
+        self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
@@ -93,8 +113,12 @@ class Edit(object):
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
         #edit & delete pop up--------------------
+        self.user_inventory.tag_configure('selectedit', background="#C2D7D0")
         self.user_inventory.bind("<Double-1>", self.edit_tools)
+        self.user_inventory.tag_bind('selectedit', '<Double-1>', self.user_inventory.focus())
         #---------------------------------------------EDIT BODY-------------------------------------------------
+
+        #---------------------------------------------EDIT BOTTOMS-------------------------------------------------
 
         #the bottom
         self.bottom_frame = Frame(master, bg="#576566")
@@ -103,9 +127,15 @@ class Edit(object):
         self.changing_item_label = Label(self.bottom_frame, bg="#576566", text="Please double click on the item you want to edit.", font="roboto 15")
         self.changing_item_label.place(relx=0.5, rely=0.01, anchor="n")
 
-    
-    #========================TOP RIBBON FUNCTIONS===========================
+        #---------------------------------------------EDIT BOTTOMS-------------------------------------------------
 
+    
+    #ttk version 8.6 apparently has a bug that makes background etc. doesn't work.
+    #I found this def from https://core.tcl-lang.org/tk/tktview?name=509cafafae 
+    def fixed_map(self, e):
+        return [elm for elm in self.style_tw.map('Treeview', query_opt=self) if elm[:2] != ('!disabled', '!selected')]
+
+    #==============================DEFS=====================
     def change_mode(self):
         master.destroy()
         os.system("app_run.py")
