@@ -157,7 +157,8 @@ class Fonefridge(object):
         self.style_tw = Style()
         self.style_tw.theme_use("default")
         self.style_tw.configure("Treeview", background="#FCF0E4" ,rowheight=25, fieldbackground="#FCF0E4")
-        self.style_tw.map("Treeview", background="background")
+        self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
+        
 
         #treeview item display:
         self.user_inventory = Treeview(self.frame_bottom)
@@ -195,6 +196,11 @@ class Fonefridge(object):
         self.count = 0
         #-----------------------------------------------ADD MODE DISPLAY HALF-------------------------------------------------------
 
+    #ttk version 8.6 apparently has a bug that makes background etc. doesn't work.
+    #I found this def from https://core.tcl-lang.org/tk/tktview?name=509cafafae 
+    def fixed_map(self, e):
+        return [elm for elm in self.style_tw.map('Treeview', query_opt=self) if elm[:2] != ('!disabled', '!selected')]
+
     #========================TOP RIBBON FUNCTIONS===========================
 
     def change_mode(self):
@@ -226,7 +232,6 @@ class Fonefridge(object):
     
     def show_the_item(self):
         self.item_info = self.df.query("title == @self.food_names_dropdown.get()").values[0]
-        print(self.item_info)
         self.result.configure(text=self.food_names_dropdown.get().upper()+":")
         self.result3.configure(text=self.food_names_dropdown.get().capitalize()+" is a type of "+self.food_type_dropdown.get().lower()+". It will expire in "+str(self.item_info[3])+" days.")
         self.result4.configure(text="You will get a notification message "+str(self.item_info[2])+" days before expiration.")
@@ -252,11 +257,10 @@ class Fonefridge(object):
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
         self.new_row = {"title":self.food_names_dropdown.get(), "type":self.food_type_dropdown.get(), "amount":self.servings_dropdown.get(), "entry date":self.entry_date, "notify (days)": self.notify, "expiration (days)": self.expire}
-        #print(self.df_selected)
-        #print(self.new_row)
+
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
         self.df_user.to_csv('user_items.csv', mode="w+", index=False)
-        #print(self.df_user)
+        
         self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.update_treeview()
         self.clear_all()
@@ -268,16 +272,8 @@ class Fonefridge(object):
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
         self.today = self.entry_date.strftime("%Y-%m-%d")
-        self.user_inventory.insert("", index=0, iid=self.count, text="" ,values=(self.food_names_dropdown.get(), self.food_type_dropdown.get(), self.servings_dropdown.get(), self.today, self.notify, self.expire), tags="recent")
+        self.user_inventory.insert("", index=0, iid=self.count, text="" ,values=(self.food_names_dropdown.get(), self.food_type_dropdown.get(), self.servings_dropdown.get(), self.today, self.notify, self.expire), tags=("recent", ))
         self.count += 1
-        
-        #for i in self.user_inventory.get_children():
-            #self.user_inventory.delete(i)
-        #self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
-        #self.df_user_rows = self.df_user.to_numpy().tolist()
-        #for row in self.df_user_rows:
-            #self.user_inventory.insert("", "end", values=row)
-            
 
 
     def clear_all(self):
