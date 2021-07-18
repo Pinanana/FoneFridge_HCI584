@@ -102,10 +102,12 @@ class Edit(object):
             self.user_inventory.insert("", "end", values=row, tags=("notified", ))
 
         #rest of the items:
+        self.user_inventory.tag_configure("others", background="#FCF0E4")
         self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
-            self.user_inventory.insert("", "end", values=row)
+            self.user_inventory.insert("", "end", values=row, tags=("others", ))
+
 
         #scrollbar
         self.inv_scroll = Scrollbar(self.frame_edit, orient=VERTICAL, command=self.user_inventory.yview)
@@ -113,9 +115,10 @@ class Edit(object):
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
         #edit & delete pop up--------------------
-        self.user_inventory.tag_configure('selectedit', background="#C2D7D0")
         self.user_inventory.bind("<Double-1>", self.edit_tools)
-        self.user_inventory.tag_bind('selectedit', '<Double-1>', self.user_inventory.focus())
+        
+        self.user_inventory.tag_configure("selected", background="#C2D7D0")
+        #self.user_inventory.bind("<<TreeviewSelect>>", self.highlight)
         #---------------------------------------------EDIT BODY-------------------------------------------------
 
         #---------------------------------------------EDIT BOTTOMS-------------------------------------------------
@@ -139,12 +142,20 @@ class Edit(object):
     def change_mode(self):
         master.destroy()
         os.system("app_run.py")
-        
 
+    def highlight(self, e):
+        self.previous_tag = self.user_inventory.item(self.user_inventory.focus())["tags"]
+        print(self.previous_tag)
+        #self.selected_item_tag = "select"
+        self.user_inventory.item(self.user_inventory.focus(), tags="selected")
+        self.selects = list(self.user_inventory.tag_has("selected"))
+        print(self.selects)
+    
     def edit_tools(self, e):
         
         #GETTING SELECTION
         self.selected_item = self.user_inventory.selection()
+
         self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
         self.select_entdate = self.user_inventory.item([i for i in self.selected_item], "values")[3]
 
@@ -233,7 +244,24 @@ class Edit(object):
     def update_treeview(self):
         for i in self.user_inventory.get_children():
             self.user_inventory.delete(i)
-        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=True)
+            
+        #expired:
+        self.user_inventory.tag_configure("expired", background="#BE796D")
+        self.df_expired = self.df_user.loc[self.df_user["expiration (days)"] <= self.today]
+        self.df_expired_rows = self.df_expired.to_numpy().tolist()
+        for row in self.df_expired_rows:
+            self.user_inventory.insert("", "end", values=row, tags=("expired", ))
+
+        #notified:
+        self.user_inventory.tag_configure("notified", background="#E9BFA7")
+        self.df_noti = self.df_user.loc[self.df_user["notify (days)"] <= self.today]
+        self.df_notify = pd.concat([self.df_noti, self.df_expired]).drop_duplicates(keep=False)
+        self.df_expired_rows = self.df_expired.to_numpy().tolist()
+        for row in self.df_expired_rows:
+            self.user_inventory.insert("", "end", values=row, tags=("notified", ))
+
+        #rest of the items:
+        self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
