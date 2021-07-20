@@ -50,8 +50,9 @@ class Fonefridge(object):
         self.is_add = True
 
         # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, width=10, text="SET DATE", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
-        self.calendar_button.grid(column=2, row=0, ipadx=5)
+        self.entry_cal = DateEntry(self.frame_top, background= "#A9B6BE", foreground= "#576566")
+        self.entry_cal.grid(column=2, row=0, ipadx=5)
+        self.entry_cal.bind("<<DateEntrySelected>>", self.calendar_get)
 
         #---------------------------------------------TOP RIBBON-------------------------------------------------
         
@@ -205,35 +206,29 @@ class Fonefridge(object):
     def change_mode(self):
         master.destroy()
         os.system("edit_mode_run.py")
-        
-    # calendar pop-up window def here
-    def calendar_entry(self):  
-        self.pop_up = Toplevel(master)
 
-        self.date_label = Label(self.pop_up, text="Choose date", font="roboto 12")
-        self.date_label.pack(padx=10, pady=10)
-
-        self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
-        self.entry_cal.pack(padx=10, pady=10)
-
-        self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
-        self.ok_button.pack(padx=10, pady=10)
-    
-    def calendar_get(self):
+    def calendar_get(self, e):
         self.entry_date = self.entry_cal.get_date()
         self.message_label.config(text=" ")
         self.title.config(text="SEARCH ITEM")
-        self.pop_up.destroy()
         self.notification_trigger() 
-    
 
     #========================ADD MODE UPPER HALF FUNCTIONS===========================
     
     def show_the_item(self):
-        self.item_info = self.df.query("title == @self.food_names_dropdown.get()").values[0]
-        self.result.configure(text=self.food_names_dropdown.get().upper()+":")
-        self.result3.configure(text=self.food_names_dropdown.get().capitalize()+" is a type of "+self.food_type_dropdown.get().lower()+". It will expire in "+str(self.item_info[3])+" days.")
-        self.result4.configure(text="You will get a notification message "+str(self.item_info[2])+" days before expiration.")
+        if self.food_type_dropdown.get() == "" and self.food_names_dropdown.get() == "":
+            self.result.configure(text="Please select a type and an item to preview.")
+            self.result3.configure(text="")
+            self.result4.configure(text="")
+        elif self.food_names_dropdown.get() == "":
+            self.result.configure(text="Please select an item to preview.")
+            self.result3.configure(text="")
+            self.result4.configure(text="")
+        else:
+            self.item_info = self.df.query("title == @self.food_names_dropdown.get()").values[0]
+            self.result.configure(text=self.food_names_dropdown.get().upper()+":")
+            self.result3.configure(text=self.food_names_dropdown.get().capitalize()+" is a type of "+self.food_type_dropdown.get().lower()+". It will expire in "+str(self.item_info[3])+" days.")
+            self.result4.configure(text="You will get a notification message "+str(self.item_info[2])+" days before expiration.")
 
     def generate_item_dropdown(self, e):
         self.items_df = self.df.query("types == @self.food_type_dropdown.get()")
