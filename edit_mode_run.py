@@ -143,7 +143,7 @@ class Edit(object):
     #==============================DEFS=====================
     def change_mode(self):
         master.destroy()
-        os.system("app_run.py")
+        os.system("add_mode.py")
 
     def highlight(self, e):
         self.previous_tag = self.user_inventory.item(self.user_inventory.focus())["tags"]
