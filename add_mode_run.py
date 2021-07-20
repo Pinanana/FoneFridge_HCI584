@@ -204,7 +204,7 @@ class Fonefridge(object):
 
     def change_mode(self):
         master.destroy()
-        os.system("edit_mode.py")
+        os.system("edit_mode_run.py")
         
     # calendar pop-up window def here
     def calendar_entry(self):  
