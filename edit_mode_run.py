@@ -175,7 +175,7 @@ class Edit(object):
         self.delete_but.place(relx=0.1, rely=0.7, relwidth=0.28, anchor="w")
 
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        self.serv_drop = Combobox(self.bottom_frame, value=self.servings_list)
+        self.serv_drop = Combobox(self.bottom_frame, value=self.servings_list, state="readonly")
         self.serv_drop.place(relx=0.5, rely=0.7, relwidth=0.2, anchor=CENTER)
 
         self.serv_but = Button(self.bottom_frame, text="CHANGE AMOUNT", command=self.change_amount_button)
@@ -191,7 +191,7 @@ class Edit(object):
         self.del_button = Button(self.pop_up_del, text="DELETE", command=self.delete_item)
         self.del_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_del, text="KEEP", command=self.close_1)
+        self.keep_button = Button(self.pop_up_del, text="CANCEL", command=self.close_1)
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
     def change_amount_button(self):
@@ -203,10 +203,10 @@ class Edit(object):
         self.del_label = Label(self.pop_up_amount, text="Are you sure you want to change servings amount from "+self.select_amo+" to "+self.serv_drop.get()+"?", font="roboto 12")
         self.del_label.place(relx=0.5, rely=0.01, anchor="n")
 
-        self.del_button = Button(self.pop_up_amount, text="CHANGE", command=self.change_amount_incsv)
+        self.del_button = Button(self.pop_up_amount, text="OK", command=self.change_amount_incsv)
         self.del_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_amount, text="KEEP", command=self.close_2)
+        self.keep_button = Button(self.pop_up_amount, text="CANCEL", command=self.close_2)
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
         
 
