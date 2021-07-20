@@ -57,7 +57,7 @@ class Edit(object):
         self.style_tw = Style()
         self.style_tw.theme_use("default")
         self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background="#FCF0E4")
-        #self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
+        self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
 
         #treeview item display:
         self.user_inventory = Treeview(self.frame_edit)
@@ -154,10 +154,7 @@ class Edit(object):
         print(self.selects)
     
     def edit_tools(self, e):
-        
         #GETTING SELECTION
-        self.user_inventory.selection_set('I001') 
-        self.user_inventory.focus('I001')
         self.selected_item = self.user_inventory.selection()
 
         self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
@@ -184,22 +181,6 @@ class Edit(object):
         self.serv_but = Button(self.bottom_frame, text="CHANGE AMOUNT", command=self.change_amount_button)
         self.serv_but.place(relx=0.9, rely=0.7, relwidth=0.28, anchor="e")
 
-        """
-        self.pop_up_edit = Toplevel(master)
-        self.pop_up_edit.geometry("400x50")
-
-        self.delete_but = Button (self.pop_up_edit, text="DELETE", command=self.delete_button)
-        self.delete_but.place(relx=0.01, rely=0.5, relwidth=0.33, anchor="w")
-
-        self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        self.serv_drop = Combobox(self.pop_up_edit, value=self.servings_list)
-        self.serv_drop.place(relx=0.5, rely=0.5, relwidth=0.3, anchor=CENTER)
-
-        self.serv_but = Button(self.pop_up_edit, text="CHANGE AMOUNT", command=self.change_amount_button)
-        self.serv_but.place(relx=0.99, rely=0.5, relwidth=0.33, anchor="e")
-        """
-
-
     def delete_button(self):
         self.pop_up_del = Toplevel(master)
         self.pop_up_del.geometry("500x50")
@@ -217,7 +198,9 @@ class Edit(object):
         self.pop_up_amount = Toplevel(master)
         self.pop_up_amount.geometry("500x50")
 
-        self.del_label = Label(self.pop_up_amount, text="Are you sure you want to change servings amount?", font="roboto 12")
+        self.select_amo = self.user_inventory.item([i for i in self.selected_item], "values")[2]
+
+        self.del_label = Label(self.pop_up_amount, text="Are you sure you want to change servings amount from "+self.select_amo+" to "+self.serv_drop.get()+"?", font="roboto 12")
         self.del_label.place(relx=0.5, rely=0.01, anchor="n")
 
         self.del_button = Button(self.pop_up_amount, text="CHANGE", command=self.change_amount_incsv)
