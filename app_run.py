@@ -50,8 +50,13 @@ class Fonefridge(object):
         self.is_add = True
 
         # CALENDAR--------
-        self.calendar_button = Button(self.frame_top, width=10, text="SET DATE", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
-        self.calendar_button.grid(column=2, row=0, ipadx=5)
+        #self.calendar_button = Button(self.frame_top, width=10, text="SET DATE", font="roboto 15", bg="#A9B6BE", command=self.calendar_entry)
+        #self.calendar_button.grid(column=2, row=0, ipadx=5))
+        self.entry_cal = DateEntry(self.frame_top, background= "#A9B6BE", foreground= "#576566")
+        self.entry_cal.grid(column=2, row=0, ipadx=5)
+        self.entry_cal.bind("<<DateEntrySelected>>", self.calendar_get) # gets fired when a date was selected
+        def calendar_get(self):
+                self.entry_date = self.entry_cal.get_date()
 
         #---------------------------------------------TOP RIBBON-------------------------------------------------
         
@@ -207,24 +212,26 @@ class Fonefridge(object):
         os.system("edit_mode.py")
         
     # calendar pop-up window def here
-    def calendar_entry(self):  
-        self.pop_up = Toplevel(master)
+    # CH - not needed
+    # def calendar_entry(self):  
+    #     self.pop_up = Toplevel(master)
 
-        self.date_label = Label(self.pop_up, text="Choose date", font="roboto 12")
-        self.date_label.pack(padx=10, pady=10)
+    #     self.date_label = Label(self.pop_up, text="Choose date", font="roboto 12")
+    #     self.date_label.pack(padx=10, pady=10)
 
-        self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
-        self.entry_cal.pack(padx=10, pady=10)
+    #     self.entry_cal = DateEntry(self.pop_up, background= "#A9B6BE", foreground= "#576566")
+    #     self.entry_cal.pack(padx=10, pady=10)
 
-        self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
-        self.ok_button.pack(padx=10, pady=10)
+    #     self.ok_button = Button(self.pop_up, text="OK", bd=0, command=self.calendar_get)
+    #     self.ok_button.pack(padx=10, pady=10)
     
-    def calendar_get(self):
+    def calendar_get(self, e): # with bind, it needs a 2. arg for the event
         self.entry_date = self.entry_cal.get_date()
-        self.message_label.config(text=" ")
-        self.title.config(text="SEARCH ITEM")
-        self.pop_up.destroy()
-        self.notification_trigger() 
+        print("date set to", self.entry_date)
+        #self.message_label.config(text=" ")
+        #self.title.config(text="SEARCH ITEM")
+        #self.pop_up.destroy()
+        #self.notification_trigger() 
     
 
     #========================ADD MODE UPPER HALF FUNCTIONS===========================
