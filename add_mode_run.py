@@ -80,7 +80,7 @@ class Fonefridge(object):
                 self.food_type_list.append(i)
 
         #self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown)
-        self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list)
+        self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list, state="readonly")
         self.food_type_dropdown.place(relx=0.2, rely=0.3, relwidth=0.27, anchor="n")
 
         #bind:
@@ -92,7 +92,7 @@ class Fonefridge(object):
         self.item_label.place(relx=0.5, rely=0.05, relwidth=0.27, anchor="n")
         
         #self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
-        self.food_names_dropdown = Combobox(self.frame_vars, value=[" "])
+        self.food_names_dropdown = Combobox(self.frame_vars, value=[" "], state="readonly")
         self.food_names_dropdown.place(relx=0.5, rely=0.3, relwidth=0.27, anchor="n")
 
 
@@ -103,7 +103,7 @@ class Fonefridge(object):
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         #self.servings_dropdown = OptionMenu(self.frame_vars, self.servings_entry, *self.servings_list)
-        self.servings_dropdown = Combobox(self.frame_vars, value=self.servings_list)
+        self.servings_dropdown = Combobox(self.frame_vars, value=self.servings_list, state="readonly")
         self.servings_dropdown.place(relx=0.8, rely=0.3, relwidth=0.27, anchor="n")
         
 
