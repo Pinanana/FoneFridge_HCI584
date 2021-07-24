@@ -68,7 +68,7 @@ class Edit(object):
         self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
 
         self.user_inventory["column"] = list(self.df_user.columns)
-        #self.user_inventory["show"] = "headings" #now #0 column shows.
+        self.user_inventory["show"] = "headings" #now #0 column shows.
 
         #MAKE NEW COLUMN CALLED "-"
         #THEN MAKE EMPTY FOR EVERYTHING BUT "X" FOR SELECTED
