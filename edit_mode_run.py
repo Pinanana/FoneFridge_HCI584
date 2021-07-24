@@ -60,7 +60,7 @@ class Edit(object):
         self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
 
         #treeview item display:
-        self.user_inventory = Treeview(self.frame_edit)
+        self.user_inventory = Treeview(self.frame_edit, selectmode=BROWSE)
         self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
 
         self.user_inventory["column"] = list(self.df_user.columns)
@@ -116,11 +116,14 @@ class Edit(object):
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
-        #edit & delete pop up--------------------
+        #edit & delete--------------------
         self.user_inventory.bind("<Double-1>", self.edit_tools)
-        
+        self.user_inventory.bind("<<TreeviewSelect>>", self.highlight)
+
+        #self.checked_img = PhotoImage(file="checked.png") #image=self.checked_img, 
         self.user_inventory.tag_configure("selected", background="#C2D7D0")
-        #self.user_inventory.bind("<<TreeviewSelect>>", self.highlight)
+        
+
         #---------------------------------------------EDIT BODY-------------------------------------------------
 
         #---------------------------------------------EDIT BOTTOMS-------------------------------------------------
@@ -146,16 +149,16 @@ class Edit(object):
         os.system("add_mode_run.py")
 
     def highlight(self, e):
-        self.previous_tag = self.user_inventory.item(self.user_inventory.focus())["tags"]
-        print(self.previous_tag)
-        #self.selected_item_tag = "select"
-        self.user_inventory.item(self.user_inventory.focus(), tags="selected")
-        self.selects = list(self.user_inventory.tag_has("selected"))
-        print(self.selects)
-    
+        self.selected_item = self.user_inventory.selection()
+        self.user_inventory.item(self.selected_item, tags=['selected'])
+
     def edit_tools(self, e):
         #GETTING SELECTION
+        #while self.user_inventory.selection() != "":
+            #self.user_inventory.item(self.user_inventory.focus(), tags="selected")
+
         self.selected_item = self.user_inventory.selection()
+        self.user_inventory.item(self.selected_item, tags=['selected'])
 
         self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
         self.select_entdate = self.user_inventory.item([i for i in self.selected_item], "values")[3]
