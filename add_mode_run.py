@@ -159,7 +159,7 @@ class Fonefridge(object):
         self.style_tw.theme_use("default")
         self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background=("#FCF0E4"))
         #self.style_tw.map("Treeview", foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
-        self.style_tw.map("Treeview", background=[("selected", "#C2D7D0")])
+        self.style_tw.map("Treeview", foreground=[("selected", "#576566")], background=[("selected", "#C2D7D0")])
         
 
         #treeview item display:

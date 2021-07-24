@@ -61,14 +61,14 @@ class Edit(object):
         self.style_tw.theme_use("default")
         self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background=("#FCF0E4"))
         #self.style_tw.map("Treeview", foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
-        self.style_tw.map("Treeview", background=[("selected", "#C2D7D0")])
+        self.style_tw.map("Treeview", foreground=[("selected", "#576566")], background=[("selected", "#C2D7D0")])
 
         #treeview item display:
         self.user_inventory = Treeview(self.frame_edit, selectmode=BROWSE)
         self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
 
         self.user_inventory["column"] = list(self.df_user.columns)
-        self.user_inventory["show"] = "headings" #now #0 column shows.
+        self.user_inventory["show"] = "headings" # #0 column doesn't show when this line works.
 
         #MAKE NEW COLUMN CALLED "-"
         #THEN MAKE EMPTY FOR EVERYTHING BUT "X" FOR SELECTED
@@ -88,27 +88,26 @@ class Edit(object):
         self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
         self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
 
-
-
         #for edit page where users won't see notifications, today is set to datetime.today
         self.today = datetime.datetime.today().date().strftime("%Y-%m-%d")
-        #expired:
+
+        # tags:
         self.user_inventory.tag_configure("expired", background="#BE796D")
+        self.user_inventory.tag_configure("notified", background="#E9BFA7")
+        self.user_inventory.tag_configure("others", background="#FCF0E4")
+
+        #expired:
         self.df_expired = self.df_user.loc[self.df_user["expiration (days)"] <= self.today]
         self.df_expired_rows = self.df_expired.to_numpy().tolist()
         for row in self.df_expired_rows:
             self.user_inventory.insert("", "end", values=row, tags=("expired", ))
-
         #notified:
-        self.user_inventory.tag_configure("notified", background="#E9BFA7")
         self.df_noti = self.df_user.loc[self.df_user["notify (days)"] <= self.today]
         self.df_notify = pd.concat([self.df_noti, self.df_expired]).drop_duplicates(keep=False)
         self.df_expired_rows = self.df_expired.to_numpy().tolist()
         for row in self.df_expired_rows:
             self.user_inventory.insert("", "end", values=row, tags=("notified", ))
-
         #rest of the items:
-        self.user_inventory.tag_configure("others", background="#FCF0E4")
         self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
@@ -241,14 +240,12 @@ class Edit(object):
             self.user_inventory.delete(i)
             
         #expired:
-        self.user_inventory.tag_configure("expired", background="#BE796D")
         self.df_expired = self.df_user.loc[self.df_user["expiration (days)"] <= self.today]
         self.df_expired_rows = self.df_expired.to_numpy().tolist()
         for row in self.df_expired_rows:
             self.user_inventory.insert("", "end", values=row, tags=("expired", ))
 
         #notified:
-        self.user_inventory.tag_configure("notified", background="#E9BFA7")
         self.df_noti = self.df_user.loc[self.df_user["notify (days)"] <= self.today]
         self.df_notify = pd.concat([self.df_noti, self.df_expired]).drop_duplicates(keep=False)
         self.df_expired_rows = self.df_expired.to_numpy().tolist()
@@ -259,7 +256,7 @@ class Edit(object):
         self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
-            self.user_inventory.insert("", "end", values=row)
+            self.user_inventory.insert("", "end", values=row, tags=("others", ))
 
 
 e = Edit(master)
