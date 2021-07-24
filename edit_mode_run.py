@@ -109,7 +109,7 @@ class Edit(object):
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row, tags=("others", ))
-
+        
 
         #scrollbar
         self.inv_scroll = Scrollbar(self.frame_edit, orient=VERTICAL, command=self.user_inventory.yview)
