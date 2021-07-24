@@ -53,11 +53,14 @@ class Edit(object):
         self.title = Label(self.frame_edit, bg="#576566", text= "EDIT INVENTORY", font="roboto 15")
         self.title.place(relx=0.5, rely=0.01, anchor="n")
 
+        self.sub_title = Label(self.frame_edit, bg="#576566", text="Double click on an item to edit.", font="roboto 11")
+        self.sub_title.place(relx=0.5, rely=0.05, anchor="n")
+
         
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background="#FCF0E4", selectedbackground="#C2D7D0")
-        self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
+        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background=[("#FCF0E4"), ("!selected", "#C2D7D0")], selectedbackground="#C2D7D0")
+        self.style_tw.map("Treeview", foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
 
         #treeview item display:
         self.user_inventory = Treeview(self.frame_edit, selectmode=BROWSE)
@@ -138,6 +141,12 @@ class Edit(object):
     
     #ttk version 8.6 apparently has a bug that makes background etc. doesn't work.
     #I found this def from https://core.tcl-lang.org/tk/tktview?name=509cafafae 
+    
+    ttk::style map Treeview \
+    -foreground {disabled SystemGrayText \
+	selected SystemHighlightText} \
+    -background {disabled SystemButtonFace \
+	selected SystemHighlight}
     def fixed_map(self, e):
         return [elm for elm in self.style_tw.map('Treeview', query_opt=self) if elm[:2] != ('!disabled', '!selected')]
 
@@ -155,6 +164,7 @@ class Edit(object):
         #GETTING SELECTION
         #while self.user_inventory.selection() != "":
             #self.user_inventory.item(self.user_inventory.focus(), tags="selected")
+            
 
         self.selected_item = self.user_inventory.selection()
         #self.user_inventory.item(self.selected_item, tags=['selected'])
