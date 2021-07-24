@@ -56,7 +56,7 @@ class Edit(object):
         
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background="#FCF0E4")
+        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background="#FCF0E4", selectedbackground="#C2D7D0")
         self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
 
         #treeview item display:
@@ -68,10 +68,10 @@ class Edit(object):
 
         #MAKE NEW COLUMN CALLED "-"
         #THEN MAKE EMPTY FOR EVERYTHING BUT "X" FOR SELECTED
-        self.user_inventory.column("#0", width=10)
+        self.user_inventory.column("#0", width=40)
         self.user_inventory.column("title", width=95)
         self.user_inventory.column("type", width=95)
-        self.user_inventory.column("amount", width=95)
+        self.user_inventory.column("amount", width=55)
         self.user_inventory.column("entry date", width=140)
         self.user_inventory.column("notify (days)", width=140)
         self.user_inventory.column("expiration (days)", width=140)
@@ -118,10 +118,8 @@ class Edit(object):
 
         #edit & delete--------------------
         self.user_inventory.bind("<Double-1>", self.edit_tools)
-        self.user_inventory.bind("<<TreeviewSelect>>", self.highlight)
-
         #self.checked_img = PhotoImage(file="checked.png") #image=self.checked_img, 
-        self.user_inventory.tag_configure("selected", background="#C2D7D0")
+        #self.user_inventory.tag_configure("selected", background="#C2D7D0")
         
 
         #---------------------------------------------EDIT BODY-------------------------------------------------
@@ -150,7 +148,8 @@ class Edit(object):
 
     def highlight(self, e):
         self.selected_item = self.user_inventory.selection()
-        self.user_inventory.item(self.selected_item, tags=['selected'])
+        if self.user_inventory.item(self.selected_item, "tags") != 'selected':
+            self.user_inventory.item(self.selected_item, tags=['selected'])
 
     def edit_tools(self, e):
         #GETTING SELECTION
@@ -158,7 +157,8 @@ class Edit(object):
             #self.user_inventory.item(self.user_inventory.focus(), tags="selected")
 
         self.selected_item = self.user_inventory.selection()
-        self.user_inventory.item(self.selected_item, tags=['selected'])
+        #self.user_inventory.item(self.selected_item, tags=['selected'])
+        
 
         self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
         self.select_entdate = self.user_inventory.item([i for i in self.selected_item], "values")[3]
