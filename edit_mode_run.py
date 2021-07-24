@@ -64,11 +64,11 @@ class Edit(object):
         self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
 
         self.user_inventory["column"] = list(self.df_user.columns)
-        self.user_inventory["show"] = "headings"
+        #self.user_inventory["show"] = "headings" #now #0 column shows.
 
         #MAKE NEW COLUMN CALLED "-"
         #THEN MAKE EMPTY FOR EVERYTHING BUT "X" FOR SELECTED
-        self.user_inventory.column("#0", width=5)
+        self.user_inventory.column("#0", width=10)
         self.user_inventory.column("title", width=95)
         self.user_inventory.column("type", width=95)
         self.user_inventory.column("amount", width=95)
@@ -76,7 +76,7 @@ class Edit(object):
         self.user_inventory.column("notify (days)", width=140)
         self.user_inventory.column("expiration (days)", width=140)
 
-        self.user_inventory.heading("#0", text="")
+        self.user_inventory.heading("#0", text="-")
         self.user_inventory.heading("title", text="TITLE", anchor="w")
         self.user_inventory.heading("type", text="TYPE", anchor="w")
         self.user_inventory.heading("amount", text="SERVINGS", anchor="w")
