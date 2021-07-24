@@ -50,7 +50,7 @@ class Fonefridge(object):
         self.is_add = True
 
         # CALENDAR--------
-        self.entry_cal = DateEntry(self.frame_top, background= "#A9B6BE", foreground= "#576566")
+        self.entry_cal = DateEntry(self.frame_top, background= "#A9B6BE", foreground= "#576566", state="readonly")
         self.entry_cal.grid(column=2, row=0, ipadx=5)
         self.entry_cal.bind("<<DateEntrySelected>>", self.calendar_get)
 
@@ -156,8 +156,10 @@ class Fonefridge(object):
 
         self.style_tw = Style()
         self.style_tw.theme_use("default")
-        self.style_tw.configure("Treeview", background="#FCF0E4" ,rowheight=25, fieldbackground="#FCF0E4")
-        self.style_tw.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
+        self.style_tw.theme_use("default")
+        self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background=("#FCF0E4"))
+        #self.style_tw.map("Treeview", foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
+        self.style_tw.map("Treeview", background=[("selected", "#C2D7D0")])
         
 
         #treeview item display:
@@ -198,8 +200,8 @@ class Fonefridge(object):
 
     #ttk version 8.6 apparently has a bug that makes background etc. doesn't work.
     #I found this def from https://core.tcl-lang.org/tk/tktview?name=509cafafae 
-    def fixed_map(self, e):
-        return [elm for elm in self.style_tw.map('Treeview', query_opt=self) if elm[:2] != ('!disabled', '!selected')]
+    #def fixed_map(self, e):
+        #return [elm for elm in self.style_tw.map('Treeview', query_opt=self) if elm[:2] != ('!disabled', '!selected')]
 
     #========================TOP RIBBON FUNCTIONS===========================
 
