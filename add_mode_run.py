@@ -271,7 +271,6 @@ class Fonefridge(object):
         self.user_inventory.insert("", index=0, iid=self.count, text="" ,values=(self.food_names_dropdown.get(), self.food_type_dropdown.get(), self.servings_dropdown.get(), self.today, self.notify, self.expire), tags=("recent", ))
         self.count += 1
 
-
     def clear_all(self):
         self.food_type_dropdown.set("")
         self.food_names_dropdown.set("")

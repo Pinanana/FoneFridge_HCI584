@@ -215,12 +215,20 @@ class Edit(object):
         self.df_user.drop(self.index_select_number, inplace=True)
         self.df_user.to_csv("user_items.csv", index=False)
         self.update_treeview()
+        self.changing_item_label.config(text="Please double click on the item you want to edit.")
+        self.delete_but.destroy()
+        self.serv_drop.destroy()
+        self.serv_but.destroy()
         self.close_1()
 
     def change_amount_incsv(self):
         self.df_user.loc[self.index_select_number, "amount"] = self.serv_drop.get()
         self.df_user.to_csv("user_items.csv", index=False)
         self.update_treeview()
+        self.changing_item_label.config(text="Please double click on the item you want to edit.")
+        self.delete_but.destroy()
+        self.serv_drop.destroy()
+        self.serv_but.destroy()
         self.close_2()
 
     def close_1(self):
