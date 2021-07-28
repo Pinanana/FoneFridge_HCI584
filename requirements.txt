@@ -1,0 +1,9 @@
+# required prerequisites for the FoneFridge app
+
+pandas # any installed version will do
+os # any installed version will do
+tkinter # any installed version will do
+Tk >= 8.6.10  # version have to be at least 8.6.10 (there was clearly a bug with background and foreground before this version.)
+datetime # any installed version will do
+tkcalendar # any installed version will do
+sys # any installed version will do
