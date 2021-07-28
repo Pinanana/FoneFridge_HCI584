@@ -1,22 +1,28 @@
-# FoneFridge_HCI584
-Food items tracking project for HCI 584 summer 2021, and I'm Pınar Adanır.
+# FoneFridge
+Food items tracking project for HCI 584 summer 2021
+## GENERAL DESCRIPTION
 
+Food waste has been a huge issue for climate change, and there are some things we can do about it individually. Many people (as far as my questionnaire in the fall 2020 semester showed) struggle to keep track of their food stock when they are busy and they have little time to cook for themselves. As a result, many people throw away food items that they bought with the hope to cook them throughout the week but end up rotting in the deep corners of their fridges. For this problem, this product notifies people before the expiration date of the food items so that they can plan their meals accordingly. 
 
-GENERAL EXPLANATION
+This desktop app helps people keep track of the food items in their fridge. It gives them notification message when the food item is about to expire and which ones are already expired. The user can search items from the app’s library of popular items. The items are classified based on their type (dairy, vegetable, meat, herbs, etc.).
 
-This project tracks the food items that the user puts in their list and give them notifications when needed. 
+The popular items data is the popular_items_library.csv file that has generic food items such as tomatoes, eggs, and beef. This data also include a lifespan for each item in days and a generic notification time (like two days before expiration for some items).
 
-For Project Specs, please check: https://docs.google.com/document/d/17ctXXTcbQtWJoILeDjKv4rJSAfOh2nRoELjcViiujg0/edit?usp=sharing 
+The user enters an amount in servings when saving the item to their database. The interface takes the entry date from the calendar widget so that the user can enter items retrospectively. These inputs are added to the user_items.csv file as the user saves them. 
 
-UNTIL JUNE 14 VERSION SUMMARY
+## USER TASKS:
 
-SOLVED #By far I tried to work on pandas but pandas module didn't work. (after several hours another module I tried to install did't work either.)
-After that failure I started creating the GUI in TkInter. (It was fun!)
-I created 2 windows, one for manual entry and the other one for popular item library search. (ALL IN main.ipynb)
-I put dropdown menu in the manual entry window for the food item types and measurement unit.
-SOLVED #I tried to add calendar and followed along videos on how to install tkcalendar but failed. I will search for it further this week. I'll ask it in piazza as well.
-I also created the DB for the popular items library as a .csv file (in csv_files folder). There are some images for reference.
-I put out the types in the block_organization.drawio file. 
-I opened the .csv file but couldn't figure out how to grab a specific row. I tried query and loc but didn't work
-The saving problem is still a problem. I made a naming algorithm but getting the data is still a mystery for me.
+1. The users will get the food items that they need and put them in their fridge.
+2. They will enter the items in their FoneFridge desktop application, by running add_mode_run.py file.
+3. Users will go to the add mode to add items and edit mode to delete or change the servings amount of their items. 
+4. In the add mode, they will first select the date from the calendar widget so that before entering anything they are presented with the notification that shows expired and about to expire items.
+5. They will search for the item type (for all the search & select actions popular_items_library.csv is used).
+6. After selecting a type the item name dropdown will show items from that type and users will select an item name.
+7. They will then enter the serving count of their item from the servings dropdown menu (this could be an entry box but having all of the selection slots the same makes the interface more coherent).
+8. Once they enter the amount, they will save the item to their database (user_items.csv) by clicking on the “SAVE” button. If they are not happy with the item they can change the dropdown selections or click the “DISCARD” button to empty all of the selections.
+9. They will get status messages right under save and discard buttons so if there is a problem with saving their item, they can fix the problem. (for example, if they didn’t select servings amount they get "Please select how many servings you have before saving.")
+10. They can see their items at the bottom of the window in add mode.
+11. If they want to delete or change the servings amount, the user goes to the edit mode and double clicks on the item.
+12. Once double clicked, a pop up window appears and the user either clicks delete to drop that item from their database or they select servings amount to change their record. 
+13. They will get pop ups to prevent user error.
 
