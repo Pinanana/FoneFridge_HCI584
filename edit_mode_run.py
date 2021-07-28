@@ -156,14 +156,8 @@ class Edit(object):
 
     def edit_tools(self, e):
         #GETTING SELECTION
-        #while self.user_inventory.selection() != "":
-            #self.user_inventory.item(self.user_inventory.focus(), tags="selected")
-            
 
         self.selected_item = self.user_inventory.selection()
-        #self.user_inventory.item(self.selected_item, tags=['selected'])
-        
-
         self.select_name = self.user_inventory.item([i for i in self.selected_item], "values")[0]
         self.select_entdate = self.user_inventory.item([i for i in self.selected_item], "values")[3]
 
