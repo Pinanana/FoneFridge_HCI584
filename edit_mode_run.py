@@ -138,12 +138,6 @@ class Edit(object):
 
         #---------------------------------------------EDIT BOTTOMS-------------------------------------------------
 
-    
-    #ttk version 8.6 apparently has a bug that makes background etc. doesn't work.
-    #I found this def from https://core.tcl-lang.org/tk/tktview?name=509cafafae 
-    #def fixed_map(self, e):
-        #return [elm for elm in self.style_tw.map('Treeview', query_opt=self) if elm[:2] != ('!disabled', '!selected')]
-
     #==============================DEFS=====================
     def change_mode(self):
         master.destroy()
