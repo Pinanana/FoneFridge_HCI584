@@ -12,14 +12,15 @@ This desktop app helps people keep track of the food items in their fridge. It g
 2. Then enters the items in FoneFridge desktop application, by running add_mode_run.py file. (edit_mode_run.py file is the edit mode screen.)
 4. In the add mode, user first selects the date from the calendar widget so that they are presented with the notification that shows expired and about to expire items before entering anything.
 5. User searches for the item type.
-6. After selecting a type, the item name dropdown will show the items from that type and user can select an item name.
-7. They will then enter the serving count of their item from the servings dropdown menu (this could be an entry box but having all of the selection slots the same makes the interface more coherent).
-8. Once they enter the amount, they will save the item to their database (user_items.csv) by clicking on the “SAVE” button. If they are not happy with the item they can change the dropdown selections or click the “DISCARD” button to empty all of the selections.
-9. They will get status messages right under save and discard buttons so if there is a problem with saving their item, they can fix the problem. (for example, if they didn’t select servings amount they get "Please select how many servings you have before saving.")
-10. They can see their items at the bottom of the window in add mode.
-11. If they want to delete or change the servings amount, the user goes to the edit mode and double clicks on the item.
-12. Once double clicked, a pop up window appears and the user either clicks delete to drop that item from their database or they select servings amount to change their record. 
-13. They will get pop ups to prevent user error.
+6. After selecting a type, the item name dropdown shows the items from that type and user can select an item name.
+7. user selects the serving count of their item from the servings dropdown menu.
+8. Once user enters an amount, the entry is saved to the user_items.csv file when clicked on the “SAVE” button. 
+9. If the user is not happy with the item, they can change the dropdown selections or click the “DISCARD” button to empty all of the selections.
+10. There are status messages right under save and discard buttons so if there is a problem with saving item, the user is informed.
+11. The user can see their items at the bottom of the window in add mode.
+12. If wants to delete or change the servings amount, the user can go to the edit mode and double click on the item.
+13. Once double clicked, the bottom part of the window gets populated by delete button and amount changing dropdown.
+14. The user gets pop ups when they want to delete or edit to prevent user error.
 
 ## REQUIREMENTS
 
