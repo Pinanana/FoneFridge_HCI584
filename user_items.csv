@@ -1,9 +1,9 @@
 title,type,amount,entry date,notify (days),expiration (days)
-milk,Dairy & Egg,2,2021-07-20,2021-07-22,2021-07-27
+salmon,Seafood,4,2021-07-21,2021-07-22,2021-07-23
 egg,Dairy & Egg,6,2021-07-14,2021-08-08,2021-08-13
 tomato,Fruit,3,2021-07-10,2021-07-14,2021-07-17
-cucumber,Fruit,3,2021-07-10,2021-07-14,2021-07-17
+cucumber,Fruit,1,2021-07-10,2021-07-14,2021-07-17
 sauerkraut,Pickle,5,2021-07-05,2021-09-28,2021-10-03
 egg,Dairy & Egg,2,2021-07-01,2021-07-26,2021-07-31
 beef,Meat,3,2021-06-16,2021-06-18,2021-06-21
-salmon,Seafood,4,2021-07-21,2021-07-22,2021-07-23
+lettuce,Vegetable,2,2021-07-29,2021-08-02,2021-08-05
