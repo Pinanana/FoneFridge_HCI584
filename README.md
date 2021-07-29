@@ -26,3 +26,17 @@ This desktop app helps people keep track of the food items in their fridge. It g
 
 Please get the required modules to run this app. 
 pip install -r requirements.txt
+
+## FILE EXPLANATIONS
+
+RUNNING
+1. After installing the required modules, please decide what you want to do; add a new item or edit your items. 
+2. To add a new item, you need to go to add mode. Please run add_mode_run.py file. 
+3. To edit your items, you need to go to edit mode. Please either run edit_mode_run.py file or click to the "EDIT" button in add_mode_run.py file.
+
+DATA STORING
+1. In add mode when new item is created and saved, the item is stored in user_items.csv file.
+2. In edit mode, the program reads the user_items.csv file to display and enables the user to delete or change the amount of the item.
+
+LIBRARY
+1. In popular_items_library.csv file, there are some of the popular food items with their, their types, their expiration spans, and their notification spans are stored.
