@@ -44,5 +44,5 @@ LIBRARY
 ## THE INTERFACE
 
 ADD MODE:
-
+![image info](./pictures/image.png)
 EDIT MODE:
