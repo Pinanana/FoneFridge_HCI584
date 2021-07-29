@@ -40,3 +40,7 @@ DATA STORING
 
 LIBRARY
 1. In popular_items_library.csv file, there are some of the popular food items with their, their types, their expiration spans, and their notification spans are stored.
+
+## THE INTERFACE
+
+ADD MODE:
