@@ -28,19 +28,23 @@ canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
 class Fonefridge(object):
-    """
-    Class FoneFridge is the ADD mode of FoneFridge desktop app. 
-    In this class window, we see 3 main sections.
+    """Class FoneFridge is the ADD mode of FoneFridge desktop app where the user selects date, type, name, and servings.
+    The users can see their critical items when a date is selected.
+    The users can preview the item they want.
+
+    In add mode window, we see 3 main sections.
     Top ribbon:
         The title ribbon has mode changing button (change_mode(self)) and date selection calendar (calendar_get(self, e))
     Middle section:
-        In the middle section of GUI there are 3 dropdown menus to get necessary information from the user to properly save their item.
+        In the middle section of GUI there are 3 dropdown menus (self.food_type_dropdown, self.food_names_dropdown, and self.servings_dropdown) to get necessary information from the user to properly save their item.
         The notification message shows underneath those dropdown menus. 
         Item preview also shows in the same place. 
         The save and discard buttons are also in this section. 
     Bottom section:
         In the bottom section the user_items.csv file is previewed. 
         Recently added item is highlighted.
+    
+    PLEASE make sure your Tk version is higher than 8.6.10.
     """
     def __init__(self, master):
 
@@ -95,9 +99,9 @@ class Fonefridge(object):
 
         #making sure types show only 1 time
         self.food_types = list(self.df["types"])
-        self.food_type_list = []
+        self.food_type_list = [] #starting w empty list
         for i in self.food_types:
-            if i not in self.food_type_list:
+            if i not in self.food_type_list: #adding only the type names that are not in the list already.
                 self.food_type_list.append(i)
 
         #type drop down:
@@ -148,7 +152,7 @@ class Fonefridge(object):
         self.result4.place(relx=0.5, rely=0.8, anchor="n")
 
         #SAVE button:
-        self.save_button = Button(self.frame_middle, width=10, text="SAVE", command=self.fact_check)
+        self.save_button = Button(self.frame_middle, width=10, text="SAVE", command=self.fact_check) #not self.save_item to prevent errors.
         self.save_button.place(relx=0.4, rely=0.8, anchor="n")
 
         #DISCARD button:
