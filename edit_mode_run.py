@@ -15,6 +15,11 @@ canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
 class Edit(object):
+    """Class Edit is the EDIT mode of FoneFridge desktop app where the user can see their items and delete or change amount. 
+    The expired items have dark pink background, about tp expire items have medium pink background, okay to use items have cream background.
+    
+    PLEASE make sure your Tk version is higher than 8.6.10.
+    """
     def __init__(self, master):
         app_frame = Frame(master)
         app_frame.pack() #geometry CHECK GUI LECTURE
