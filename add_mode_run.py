@@ -8,7 +8,8 @@ import sys
 import os
 
 
-#  style things:
+#  TYPE & COLORS:
+
 #main title = 22
 #other titles = 15
 #text = 11 or 9
@@ -28,28 +29,31 @@ canvas.pack()
 
 class Fonefridge(object):
     def __init__(self, master):
+
+        #---------------------------------------------GENERAL-------------------------------------------------
+        #reading the .csv files here:
         self.df = pd.read_csv("popular_items_library.csv")
         self.df_user = pd.read_csv("user_items.csv")
-
+        #making the app frame:
         app_frame = Frame(master)
-        app_frame.pack() #geometry CHECK GUI LECTURE
+        app_frame.pack()
+        #---------------------------------------------GENERAL-------------------------------------------------
 
         #---------------------------------------------TOP RIBBON-------------------------------------------------
         #top title frame
         self.frame_top = Frame(master, bg="#A9B6BE")
         self.frame_top.place(relx=0.01, rely=0.01, relheight=0.056, relwidth=0.98)
 
-        # MAIN title-FONEFRIDGE------------
+        # MAIN TITLE:
         self.title = Label(self.frame_top, bg="#A9B6BE", text= "FONEFRIDGE", font="roboto 22")
         self.title.grid(column=1, row=0, ipadx=151)
 
-        # MODES--------
-        #button variable:
+        # MODE SWITCH:
         self.add_button = Button(self.frame_top, width=10, text="EDIT MODE", font="roboto 15", bg="#A9B6BE",command=self.change_mode)
         self.add_button.grid(column=0, row=0, ipadx=5)
         self.is_add = True
 
-        # CALENDAR--------
+        # CALENDAR:
         self.entry_cal = DateEntry(self.frame_top, background= "#A9B6BE", foreground= "#576566", state="readonly")
         self.entry_cal.grid(column=2, row=0, ipadx=5)
         self.entry_cal.bind("<<DateEntrySelected>>", self.calendar_get)
@@ -61,6 +65,7 @@ class Fonefridge(object):
         self.frame_middle = Frame(master, bg="#E9BFA7")
         self.frame_middle.place(relx=0.01, rely=0.08, relheight=0.49, relwidth=0.98)
 
+        #TITLE
         #food name search title--------Search the name of your item:
         self.title = Label(self.frame_middle, bg="#E9BFA7", text= "-----PLEASE SELECT THE DATE FIRST-----", font="roboto 15")
         self.title.place(relx=0.5, anchor="n")
@@ -70,40 +75,43 @@ class Fonefridge(object):
 
 
         #TYPE SELECT:
+
         self.type_label = Label(self.frame_vars, text="Select type:" ,bg="#FCF0E4", font="roboto 11")
         self.type_label.place(relx=0.2, rely=0.05, relwidth=0.27, anchor="n")
 
-        #making sure types show 1 time
+        #making sure types show only 1 time
         self.food_types = list(self.df["types"])
         self.food_type_list = []
         for i in self.food_types:
             if i not in self.food_type_list:
                 self.food_type_list.append(i)
 
-        #self.food_type_dropdown = OptionMenu(self.frame_vars, self.type_entry, *self.food_type_list, command=self.generate_item_dropdown)
+        #type drop down:
         self.food_type_dropdown = Combobox(self.frame_vars, value=self.food_type_list, state="readonly")
         self.food_type_dropdown.place(relx=0.2, rely=0.3, relwidth=0.27, anchor="n")
 
-        #bind:
+        #binding the selection to creating item name dropdown list:
         self.food_type_dropdown.bind("<<ComboboxSelected>>", self.generate_item_dropdown)
 
 
         #ITEM SELECT:
+
         self.item_label = Label(self.frame_vars, text="Select item:" ,bg="#FCF0E4", font="roboto 11")
         self.item_label.place(relx=0.5, rely=0.05, relwidth=0.27, anchor="n")
         
-        #self.food_names_dropdown = OptionMenu(self.frame_vars, self.entry_name, "none") 
+        #name drop down is empty at the beginning. It is created when type is selected.
         self.food_names_dropdown = Combobox(self.frame_vars, value=[" "], state="readonly")
         self.food_names_dropdown.place(relx=0.5, rely=0.3, relwidth=0.27, anchor="n")
 
 
         #SERVINGS SELECT:
+
         self.serv_label = Label(self.frame_vars, text="Servings amount:" ,bg="#FCF0E4", font="roboto 11")
         self.serv_label.place(relx=0.8, rely=0.05, relwidth=0.27, anchor="n")
 
         self.servings_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        #self.servings_dropdown = OptionMenu(self.frame_vars, self.servings_entry, *self.servings_list)
+        #servings drop down:
         self.servings_dropdown = Combobox(self.frame_vars, value=self.servings_list, state="readonly")
         self.servings_dropdown.place(relx=0.8, rely=0.3, relwidth=0.27, anchor="n")
         
@@ -116,6 +124,8 @@ class Fonefridge(object):
         self.frame_results = Frame(self.frame_middle, bg="#E9BFA7")
         self.frame_results.place(relx=0.5, rely=0.4, relheight=0.35, relwidth=0.9, anchor="n")
 
+        #empty labels:
+        #   to use as notification message or item preview:
         self.result = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 15")
         self.result.place(relx=0.5, rely=0.1, anchor="n")
         self.result3 = Label(self.frame_results, justify="left", bg="#E9BFA7", font="roboto 9")
@@ -132,6 +142,7 @@ class Fonefridge(object):
         self.discard_button.place(relx=0.6, rely=0.8, anchor="n")
 
         #message box:
+        #   to communicate w the user if there is a problem:
         self.message_box = Frame(self.frame_middle, bg="#BE796D")
         self.message_box.place(relx=0.5, rely=0.9, relheight=0.08, relwidth=0.5, anchor="n")
         
@@ -151,21 +162,20 @@ class Fonefridge(object):
         self.title_inventory = Label(self.frame_bottom, bg="#BE796D", text= "YOUR ITEMS", font="roboto 15")
         self.title_inventory.place(relx=0.5, anchor="n")
 
-        #treeview style:
+        #TREEVIEW:
+        #PLEASE MAKE SURE YOUR Tk VERSION IS HIGHER THAN 8.6.10!!
 
-
+        # treeview style:
         self.style_tw = Style()
         self.style_tw.theme_use("default")
         self.style_tw.theme_use("default")
         self.style_tw.configure("Treeview", foreground="black", rowheight=25, fieldbackground="#FCF0E4", background=("#FCF0E4"))
-        #self.style_tw.map("Treeview", foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
         self.style_tw.map("Treeview", foreground=[("selected", "#576566")], background=[("selected", "#C2D7D0")])
         
-
         #treeview item display:
         self.user_inventory = Treeview(self.frame_bottom)
         self.user_inventory.place(rely=0.1, relx=0.5, relwidth=0.98, relheight=0.88, anchor="n")
-
+        #getting the columns from user_items.csv file (self.df_user is the dataframe containing it)
         self.user_inventory["column"] = list(self.df_user.columns)
         self.user_inventory["show"] = "headings"
 
@@ -185,6 +195,7 @@ class Fonefridge(object):
         self.user_inventory.heading("notify (days)", text="NOTIFICATION DAY", anchor="w")
         self.user_inventory.heading("expiration (days)", text="EXPIRATION DAY", anchor="w")
 
+        #inserting the values:
         self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
@@ -195,16 +206,25 @@ class Fonefridge(object):
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
 
-        self.count = 0
+        self.count = 0 #this is used when adding a new row by saving an entry.
+
         #-----------------------------------------------ADD MODE DISPLAY HALF-------------------------------------------------------
 
     #========================TOP RIBBON FUNCTIONS===========================
 
     def change_mode(self):
+        """
+        change_mode function closes one mode window and opens the other one.
+        In add mode, it closes add mode and runs edit mode.
+        """
         master.destroy()
         os.system("edit_mode_run.py")
 
     def calendar_get(self, e):
+        """
+        Since this program can work retrospectively, there is a date selection function. 
+        The selected date is
+        """
         self.entry_date = self.entry_cal.get_date()
         self.message_label.config(text=" ")
         self.title.config(text="SEARCH ITEM")
@@ -256,7 +276,7 @@ class Fonefridge(object):
         self.update_treeview()
         self.clear_all()
 
-    def update_treeview(self):    #==========HIGHLIGHT DOESN'T WORK YET!!!!!!!1
+    def update_treeview(self):
         self.user_inventory.tag_configure("recent", background="#BA8E47")
         self.style_tw.map("recent", background="background")
         
