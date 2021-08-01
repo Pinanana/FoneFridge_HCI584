@@ -3,7 +3,7 @@
 HCI 584 summer 2021 - Pınar Adanır
 
 -------
-## GENERAL DESCRIPTION
+## INTRODUCTION
 
 Food waste has been a huge issue for climate change, and there are some things we can do about it individually. Many people (as far as my questionnaire in the fall 2020 semester showed) struggle to keep track of their food stock when they are busy and they have little time to cook for themselves. As a result, many people throw away food items that they bought with the hope to cook them throughout the week but end up rotting in the deep corners of their fridges. For this problem, this product notifies people before the expiration date of the food items so that they can plan their meals accordingly. 
 
@@ -66,7 +66,7 @@ Even though the modes are accessible inside both files, the user can choose wher
 
 ----------
 
-## THE INTERFACE
+## TUTORIAL
 
 **ADD MODE:**
 
