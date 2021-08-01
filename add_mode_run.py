@@ -294,13 +294,14 @@ class Fonefridge(object):
 
     def fact_check(self):
         """Saving a new item is a 2 step process in this application.
-        First the inputs are going through this if loop 
+        First the inputs are going through this if loop so that there is no errors while saving to the user_items.csv file.
+        If loop checks if there is a type selection, a name selection, a servings selection, and a calendar selection. Then an error message is presented if necessary.
         Args:
-            e: selection from DateEntry widget.
+            self: click to "SAVE" button.
         Returns:
-            notification_trigger(self)
+            save_item(self)
         Raises:
-            none
+            gives messages to the user about which information is missing.
         """
         if self.food_type_dropdown.get() == (""):
             self.message_label.config(text="Please select type and item to save.")
@@ -308,11 +309,26 @@ class Fonefridge(object):
             self.message_label.config(text="Please select an item to save.")
         elif self.servings_dropdown.get() == (""):
             self.message_label.config(text="Please select how many servings you have before saving.")
+        elif self.entry_cal.get_date() == (""):
+            self.message_label.config(text="Please select a date from calendar.")
         else:
             self.message_label.config(text="Saved!")
             self.save_item()
 
     def save_item(self):
+        """This is the second step of saving an entry. In this function the user input is gathered through .get() function.
+        Expiration and notification spans are used to calculate the expiratin and notification dates with datetime.timedelta() function. 
+        After everything is gathered, a dictionary is created with user input and calculated dates. 
+        Then this dictionary is appended to user_items.csv file.
+        Finally the treeview is updated and input slots are cleared. 
+        Args:
+            self: fact_check(self)
+        Returns:
+            a new row in user_items.csv file.
+            highlighted preview of the new item in treeview.
+        Raises:
+            update_treeview(self)
+        """
         self.df_selected = self.df.query("title == @self.food_names_dropdown.get()")
         self.expire = self.entry_date + datetime.timedelta(days=int(self.df_selected["expiration (d)"]))
         self.notify = self.expire - datetime.timedelta(days=int(self.df_selected["notify (d)"]))
@@ -321,11 +337,21 @@ class Fonefridge(object):
         self.df_user = self.df_user.append(self.new_row, ignore_index=True)
         self.df_user.to_csv('user_items.csv', mode="w+", index=False)
         
-        self.df_user = self.df_user.sort_values(by=["entry date", "title"], ascending=False)
         self.update_treeview()
         self.clear_all()
 
     def update_treeview(self):
+        """Once a new item is saved, the preview of user inventory should show this change. 
+        In this function the older treeview is kept but the new item is added at the top with a highlight.
+        The data is created from the entries and datetime.timedelta() function. 
+        This time the self.entry_date needed to be converted into string as well. 
+        Args:
+            self: save_item(self)
+        Returns:
+            a new row in treeview with a highlight
+        Raises:
+            none
+        """
         self.user_inventory.tag_configure("recent", background="#BA8E47")
         self.style_tw.map("recent", background="background")
         
@@ -336,19 +362,41 @@ class Fonefridge(object):
         self.count += 1
 
     def clear_all(self):
+        """This function configures all the Comboboxes to ""
+        Args:
+            self: click to "DISCARD" button.
+        Returns:
+            empty Comboboxes
+        Raises:
+            none
+        """
         self.food_type_dropdown.set("")
         self.food_names_dropdown.set("")
         self.servings_dropdown.set("")
 
     def notification_trigger(self):
+        """Once a date is selected this function is triggered. 
+        It shows the user which items are expired and which items are about to expire. 
+        The .loc[] function works with strings so, the self.entry_date is converted to string.
+        Getting the items that are about to expire, item that have notify date before or equals to entry_date are located.
+        Then the expired items are located by comparing expiraton dates to entry_date.
+        After getting both lists, a simple "not in" statement, the about to expire items are located. 
+        Finally the items are presented to the user in the middle section. 
+        Args:
+            self: calendar_get(self, e)
+        Returns:
+            a notification message telling which items are expired and which items are about to expire.
+        Raises:
+            none
+        """
         self.today = self.entry_date.strftime("%Y-%m-%d")
-        #NOTIFY ITEMS
+        #finding notify items
         self.df_notify = self.df_user.loc[self.df_user["notify (days)"] <= self.today] 
         self.name_notify = list(self.df_notify["title"])
         #EXPIRED THINGS
         self.df_exp_dead = self.df_user.loc[self.df_user["expiration (days)"] < self.today]
         self.names_expired = list(self.df_exp_dead["title"])
-
+        #NOTIFY ITEMS
         self.list_notify_notexpired = [x for x in self.name_notify if x not in self.names_expired]
 
         self.result.config(text="EXPIRES SOON:")
