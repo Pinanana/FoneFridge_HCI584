@@ -70,11 +70,11 @@ Even though the modes are accessible inside both files, the user can choose wher
 
 **ADD MODE:**
 
-![image info](./tutorial_images/add_mode_interface.png)
+![image info](./doc/add_mode_interface.png)
 
 **EDIT MODE:**
 
-![image info](./tutorial_images/edit_mode_interface.png)
+![image info](./doc/edit_mode_interface.png)
 
 -----------
 
