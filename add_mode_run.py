@@ -28,6 +28,20 @@ canvas = Canvas(master, bg="#FCF0E4", height=750, width=750)
 canvas.pack()
 
 class Fonefridge(object):
+    """
+    Class FoneFridge is the ADD mode of FoneFridge desktop app. 
+    In this class window, we see 3 main sections.
+    Top ribbon:
+        The title ribbon has mode changing button (change_mode(self)) and date selection calendar (calendar_get(self, e))
+    Middle section:
+        In the middle section of GUI there are 3 dropdown menus to get necessary information from the user to properly save their item.
+        The notification message shows underneath those dropdown menus. 
+        Item preview also shows in the same place. 
+        The save and discard buttons are also in this section. 
+    Bottom section:
+        In the bottom section the user_items.csv file is previewed. 
+        Recently added item is highlighted.
+    """
     def __init__(self, master):
 
         #---------------------------------------------GENERAL-------------------------------------------------
@@ -178,7 +192,7 @@ class Fonefridge(object):
         #getting the columns from user_items.csv file (self.df_user is the dataframe containing it)
         self.user_inventory["column"] = list(self.df_user.columns)
         self.user_inventory["show"] = "headings"
-
+        #creating the columns:
         self.user_inventory.column("#0", width=0)
         self.user_inventory.column("title", width=97)
         self.user_inventory.column("type", width=97)
@@ -186,7 +200,7 @@ class Fonefridge(object):
         self.user_inventory.column("entry date", width=140)
         self.user_inventory.column("notify (days)", width=140)
         self.user_inventory.column("expiration (days)", width=140)
-
+        #creating the headings:
         self.user_inventory.heading("#0", text="")
         self.user_inventory.heading("title", text="TITLE", anchor="w")
         self.user_inventory.heading("type", text="TYPE", anchor="w")
@@ -201,7 +215,7 @@ class Fonefridge(object):
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row)
 
-        #scrollbar
+        #scrollbar:
         self.inv_scroll = Scrollbar(self.frame_bottom, orient=VERTICAL, command=self.user_inventory.yview)
         self.user_inventory.config(yscrollcommand=self.inv_scroll.set)
         self.inv_scroll.place(relx=0.99, rely=0.54, relheight=0.87, anchor="e")
@@ -213,17 +227,27 @@ class Fonefridge(object):
     #========================TOP RIBBON FUNCTIONS===========================
 
     def change_mode(self):
-        """
-        change_mode function closes one mode window and opens the other one.
+        """change_mode function closes one mode window and opens the other one.
         In add mode, it closes add mode and runs edit mode.
+        Args:
+            none
+        Returns:
+            the edit mode window.
+        Raises:
+            none
         """
         master.destroy()
         os.system("edit_mode_run.py")
 
     def calendar_get(self, e):
-        """
-        Since this program can work retrospectively, there is a date selection function. 
-        The selected date is
+        """Since this program can work retrospectively, there is a date selection function. 
+        The selected date is used as the entry date while saving items. 
+        Args:
+            e: selection from DateEntry widget.
+        Returns:
+            notification_trigger(self)
+        Raises:
+            none
         """
         self.entry_date = self.entry_cal.get_date()
         self.message_label.config(text=" ")
@@ -233,6 +257,14 @@ class Fonefridge(object):
     #========================ADD MODE UPPER HALF FUNCTIONS===========================
     
     def show_the_item(self):
+        """This function shows the item details of a selection. 
+        Args:
+            self: selection from Combobox widget.
+        Returns:
+            Detailed information about the selected item from popular_items_library.csv file.
+        Raises:
+            If there are missing information, the user gets message pointing out what is missing.
+        """
         if self.food_type_dropdown.get() == "" and self.food_names_dropdown.get() == "":
             self.result.configure(text="Please select a type and an item to preview.")
             self.result3.configure(text="")
@@ -248,11 +280,28 @@ class Fonefridge(object):
             self.result4.configure(text="You will get a notification message "+str(self.item_info[2])+" days before expiration.")
 
     def generate_item_dropdown(self, e):
+        """This function creates the item name dropdown menu with the selected type.
+        Args:
+            e: selection from Combobox widget for type selection.
+        Returns:
+            a configured Combobox values list with items under selected type.
+        Raises:
+            none
+        """
         self.items_df = self.df.query("types == @self.food_type_dropdown.get()")
         self.food_names_list = list(self.items_df["title"])
         self.food_names_dropdown.config(value=self.food_names_list) 
 
     def fact_check(self):
+        """Saving a new item is a 2 step process in this application.
+        First the inputs are going through this if loop 
+        Args:
+            e: selection from DateEntry widget.
+        Returns:
+            notification_trigger(self)
+        Raises:
+            none
+        """
         if self.food_type_dropdown.get() == (""):
             self.message_label.config(text="Please select type and item to save.")
         elif self.food_names_dropdown.get() == (""):
