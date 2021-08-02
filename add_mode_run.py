@@ -329,13 +329,13 @@ class Fonefridge(object):
         Raises:
             update_treeview(self)
         """
-        self.df_same_name = self.df_user.query("title == @self.food_names_dropdown.get()")
+        self.df_same_name = self.df_user.loc[self.df_user["title"] == self.food_names_dropdown.get()]
         self.today = self.entry_date.strftime("%Y-%m-%d")
-        self.df_the_selected_item = self.df_user.loc[self.df_same_name["entry date"] == self.today]
-        if self.df_the_selected_item != None:
+        self.df_the_selected_item = self.df_same_name.loc[self.df_same_name["entry date"] == self.today]
+        if len(self.df_the_selected_item) != 0:
             self.index_select = self.df_the_selected_item.index
             self.index_select_number = self.index_select.tolist()
-            self.df_user.loc[self.index_select_number, "amount"] += self.servings_dropdown.get()
+            self.df_user.loc[self.index_select_number, "amount"] = self.servings_dropdown.get() + self.df_user.loc[self.index_select_number, "amount"]
             self.df_user.to_csv("user_items.csv", index=False)
             self.update_treeview()
             self.clear_all()
