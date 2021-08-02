@@ -256,8 +256,8 @@ class Edit(object):
         self.change_button = Button(self.pop_up_amount, text="OK", command=self.change_amount_incsv)
         self.change_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_amount, text="CANCEL", command=self.close_2)
-        self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
+        self.nochange_button = Button(self.pop_up_amount, text="CANCEL", command=self.close_2)
+        self.nochange_button.place(relx=0.6, rely=0.5, anchor="n")
         
 
     def delete_item(self):
@@ -307,13 +307,12 @@ class Edit(object):
         self.pop_up_amount.destroy()
 
     def update_treeview(self):
-        """After changing the .csv file, the
+        """After changing the .csv file, the treeview should represent those changes. So this function is updating the treeview by completely deleting everything first then re-populating it by the same color coded item conditions. 
         Args:
-            clicking self.change_button
+            clicking either DELETE or OK in pop ups.
         Returns:
-            updated .csv file
-            editing tools are removed
-            self.update_treeview()
+            deletes the old version of treeview.
+            new treeview. 
         Raises:
             none
         """
@@ -340,9 +339,25 @@ class Edit(object):
             self.user_inventory.insert("", "end", values=row, tags=("others", ))
 
     def close_1(self):
+        """If the user doesn't want to delete the item, they can exit by clicking cancel button. It will only close the pop up.
+        Args:
+            clicking self.keep_button (CANCEL)
+        Returns:
+            closes the self.pop_up_del window
+        Raises:
+            none
+        """
         self.pop_up_del.destroy()
 
     def close_2(self):
+        """If the user doesn't want to change the amount, they can exit by clicking cancel button. It will only close the pop up.
+        Args:
+            clicking self.nochange_button (CANCEL)
+        Returns:
+            closes the self.pop_up_amount window
+        Raises:
+            none
+        """
         self.pop_up_amount.destroy()
 
 
