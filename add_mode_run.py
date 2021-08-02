@@ -317,6 +317,21 @@ class Fonefridge(object):
             self.message_label.config(text="Please select a date from calendar.")
         else:
             self.message_label.config(text="Saved!")
+            self.add_to_item()
+
+    def add_to_item(self):
+        if self.df_user.query("title == @self.food_names_dropdown.get()") != None:
+            self.df_same_name = self.df_user.query("title == @self.food_names_dropdown.get()")
+            self.today = self.entry_date.strftime("%Y-%m-%d")
+            if self.df_user.loc[self.df_same_name["entry date"] == self.today] != None:
+                self.df_the_selected_item = self.df_user.loc[self.df_same_name["entry date"] == self.today]
+                self.index_select = self.df_the_selected_item.index
+                self.index_select_number = self.index_select.tolist()
+                self.df_user.loc[self.index_select_number, "amount"] += self.servings_dropdown.get()
+                self.df_user.to_csv("user_items.csv", index=False)
+            else:
+                self.save_item()
+        else:
             self.save_item()
 
     def save_item(self):
