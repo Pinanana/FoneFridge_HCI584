@@ -320,28 +320,36 @@ class Fonefridge(object):
             self.add_to_item()
 
     def add_to_item(self):
-        if self.df_user.query("title == @self.food_names_dropdown.get()") != None:
-            self.df_same_name = self.df_user.query("title == @self.food_names_dropdown.get()")
-            self.today = self.entry_date.strftime("%Y-%m-%d")
-            if self.df_user.loc[self.df_same_name["entry date"] == self.today] != None:
-                self.df_the_selected_item = self.df_user.loc[self.df_same_name["entry date"] == self.today]
-                self.index_select = self.df_the_selected_item.index
-                self.index_select_number = self.index_select.tolist()
-                self.df_user.loc[self.index_select_number, "amount"] += self.servings_dropdown.get()
-                self.df_user.to_csv("user_items.csv", index=False)
-            else:
-                self.save_item()
+        """Since the user can try to add the same item with the same entry date, this function checks if there is such an item existing in the .csv file. If there is an item that has the same name and also the same entry date, simply the amount should be added to the existing one. This function takes the name and searches with it in df_user then the result goes through a search with entry date. If there is anything is found, the new item is not added as a completely new item but the amount is added to the existing one.
+        Args:
+            self: fact_check(self)
+        Returns:
+            adition to the existing item in user_items.csv file.
+            highlighted preview of the new item in treeview AS A NEW ITEM FOR NOW.
+        Raises:
+            update_treeview(self)
+        """
+        self.df_same_name = self.df_user.query("title == @self.food_names_dropdown.get()")
+        self.today = self.entry_date.strftime("%Y-%m-%d")
+        self.df_the_selected_item = self.df_user.loc[self.df_same_name["entry date"] == self.today]
+        if self.df_the_selected_item != None:
+            self.index_select = self.df_the_selected_item.index
+            self.index_select_number = self.index_select.tolist()
+            self.df_user.loc[self.index_select_number, "amount"] += self.servings_dropdown.get()
+            self.df_user.to_csv("user_items.csv", index=False)
+            self.update_treeview()
+            self.clear_all()
         else:
             self.save_item()
 
     def save_item(self):
-        """This is the second step of saving an entry. In this function the user input is gathered through .get() function.
+        """This is one of the second steps of saving an entry. In this function the user input is gathered through .get() function.
         Expiration and notification spans are used to calculate the expiratin and notification dates with datetime.timedelta() function. 
         After everything is gathered, a dictionary is created with user input and calculated dates. 
         Then this dictionary is appended to user_items.csv file.
         Finally the treeview is updated and input slots are cleared. 
         Args:
-            self: fact_check(self)
+            self: add_to_item(self)
         Returns:
             a new row in user_items.csv file.
             highlighted preview of the new item in treeview.
