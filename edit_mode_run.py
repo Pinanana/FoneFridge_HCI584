@@ -232,7 +232,7 @@ class Edit(object):
         self.del_button = Button(self.pop_up_del, text="DELETE", command=self.delete_item)
         self.del_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_del, text="CANCEL", command=self.pop_up_del.destroy())
+        self.keep_button = Button(self.pop_up_del, text="CANCEL", command=self.close_1)
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
     def change_amount_button(self):
@@ -256,7 +256,7 @@ class Edit(object):
         self.change_button = Button(self.pop_up_amount, text="OK", command=self.change_amount_incsv)
         self.change_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_amount, text="CANCEL", command=self.pop_up_amount.destroy())
+        self.keep_button = Button(self.pop_up_amount, text="CANCEL", command=self.close_2)
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
         
 
@@ -307,7 +307,7 @@ class Edit(object):
         self.pop_up_amount.destroy()
 
     def update_treeview(self):
-        """After changing the .csv file, the 
+        """After changing the .csv file, the
         Args:
             clicking self.change_button
         Returns:
@@ -338,6 +338,12 @@ class Edit(object):
         self.df_user_rows = self.df_user.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row, tags=("others", ))
+
+    def close_1(self):
+        self.pop_up_del.destroy()
+
+    def close_2(self):
+        self.pop_up_amount.destroy()
 
 
 e = Edit(master)
