@@ -232,7 +232,7 @@ class Edit(object):
         self.del_button = Button(self.pop_up_del, text="DELETE", command=self.delete_item)
         self.del_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_del, text="CANCEL", command=self.close_1)
+        self.keep_button = Button(self.pop_up_del, text="CANCEL", command=self.pop_up_del.destroy())
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
 
     def change_amount_button(self):
@@ -253,10 +253,10 @@ class Edit(object):
         self.del_label = Label(self.pop_up_amount, text="Are you sure you want to change servings amount from "+self.select_amo+" to "+self.serv_drop.get()+"?", font="roboto 12")
         self.del_label.place(relx=0.5, rely=0.01, anchor="n")
 
-        self.del_button = Button(self.pop_up_amount, text="OK", command=self.change_amount_incsv)
-        self.del_button.place(relx=0.4, rely=0.5, anchor="n")
+        self.change_button = Button(self.pop_up_amount, text="OK", command=self.change_amount_incsv)
+        self.change_button.place(relx=0.4, rely=0.5, anchor="n")
 
-        self.keep_button = Button(self.pop_up_amount, text="CANCEL", command=self.close_2)
+        self.keep_button = Button(self.pop_up_amount, text="CANCEL", command=self.pop_up_amount.destroy())
         self.keep_button.place(relx=0.6, rely=0.5, anchor="n")
         
 
@@ -281,9 +281,22 @@ class Edit(object):
         self.delete_but.destroy()
         self.serv_drop.destroy()
         self.serv_but.destroy()
-        self.close_1()
+        self.pop_up_del.destroy()
 
     def change_amount_incsv(self):
+        """If the user clicks OK in the self.pop_up_amount window, the item's amount is changed in the user_items.csv file. 
+        From the edit_tool function, the selection index number was stored in self.index_select_num.
+        That number is used to locate the item in pandas copy of database. The item's amount is then changed by changing the pandas copy of the database then using .to_csv() function to overwrite those changes ins the user_items.csv file.
+        After changing the item, the treeview is updated, the title goes back to no selection condition, buttons and dropdown menu are removed, and finally the pop up window gets closed. 
+        Args:
+            clicking self.change_button
+        Returns:
+            updated .csv file
+            editing tools are removed
+            self.update_treeview()
+        Raises:
+            none
+        """
         self.df_user.loc[self.index_select_number, "amount"] = self.serv_drop.get()
         self.df_user.to_csv("user_items.csv", index=False)
         self.update_treeview()
@@ -291,15 +304,19 @@ class Edit(object):
         self.delete_but.destroy()
         self.serv_drop.destroy()
         self.serv_but.destroy()
-        self.close_2()
-
-    def close_1(self):
-        self.pop_up_del.destroy()
-
-    def close_2(self):
         self.pop_up_amount.destroy()
 
     def update_treeview(self):
+        """After changing the .csv file, the 
+        Args:
+            clicking self.change_button
+        Returns:
+            updated .csv file
+            editing tools are removed
+            self.update_treeview()
+        Raises:
+            none
+        """
         for i in self.user_inventory.get_children():
             self.user_inventory.delete(i)
             
