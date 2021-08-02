@@ -332,7 +332,7 @@ class Fonefridge(object):
         self.df_same_name = self.df_user.loc[self.df_user["title"] == self.food_names_dropdown.get()]
         self.today = self.entry_date.strftime("%Y-%m-%d")
         self.df_the_selected_item = self.df_same_name.loc[self.df_same_name["entry date"] == self.today]
-        if len(self.df_the_selected_item) != 0:
+        if self.df_the_selected_item.empty == False:
             self.index_select = self.df_the_selected_item.index
             self.index_select_number = self.index_select.tolist()
             self.df_user.loc[self.index_select_number, "amount"] = self.servings_dropdown.get() + self.df_user.loc[self.index_select_number, "amount"]
