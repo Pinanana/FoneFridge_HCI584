@@ -116,7 +116,7 @@ class Edit(object):
             self.user_inventory.insert("", "end", values=row, tags=("notified", ))
         #rest of the items:
         self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
-        self.df_user_rows = self.df_user.to_numpy().tolist()
+        self.df_user_rows = self.df_rest_of_items.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row, tags=("others", ))
         
@@ -334,7 +334,7 @@ class Edit(object):
 
         #rest of the items:
         self.df_rest_of_items = self.df_user.loc[self.df_user["notify (days)"] > self.today]
-        self.df_user_rows = self.df_user.to_numpy().tolist()
+        self.df_user_rows = self.df_rest_of_items.to_numpy().tolist()
         for row in self.df_user_rows:
             self.user_inventory.insert("", "end", values=row, tags=("others", ))
 
